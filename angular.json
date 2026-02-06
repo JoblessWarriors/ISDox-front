@@ -8,6 +8,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "ISDox-front": {
+      "i18n": {
+        "sourceLocale": "ro"
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -27,6 +30,9 @@
             ],
             "styles": [
               "src/styles.css"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
             ]
           },
           "configurations": {
