@@ -1,0 +1,50 @@
+<p-splitter class="m-12 h-[80vh]">
+    <ng-template #panel>
+        <div class="flex justify-center items-center flex-col w-auto mx-16">
+            <div class="my-16 flex flex-col items-center">
+                <h1 class="text-4xl m-2">
+                    <strong>{{connectLabel}}</strong>
+                </h1>
+                <p class="text-center">{{subtitleLabel}}</p>
+            </div>
+            <p-inputgroup class="mb-6">
+                <p-float-label variant="on">
+                    <input pInputText [(ngModel)]="username" />
+                    <label for="username">{{usernameLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+            <p-input-group class="mb-6">
+                <p-float-label variant="on">
+                    <p-password [(ngModel)]="password" [feedback]="false" autocomplete="off"/>
+                    <label for="password">{{passwordLabel}}</label>
+                </p-float-label>
+            </p-input-group>
+            <p-button class="mt-2">
+                {{buttonLabel}}
+            </p-button>
+            <div class="w-full p-4">
+                <p-divider align="center" type="solid">
+                    <strong>{{otherPartyConnectLabel}}</strong>
+                </p-divider>
+            </div>
+            <div class="flex flex-row justify-evenly w-sm">
+                <p-button label="Google" />
+                <p-button label="Microsoft" />
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #panel>
+        <p-image 
+            class="w-full md:w-3/8 h-auto block mx-auto mt-4" 
+            src="https://images.pexels.com/photos/12902873/pexels-photo-12902873.jpeg" 
+            alt="Image"
+        >
+        </p-image>
+        <div class="m-8">
+            <p-divider align="center" type="solid">
+                <strong>{{rightPanelQuestion}}</strong>
+            </p-divider>
+        </div>
+        <p class="text-center m-6"> {{rightPanelAnswer}} </p>
+    </ng-template>
+</p-splitter>
