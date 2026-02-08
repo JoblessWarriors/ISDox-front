@@ -1,7 +1,10 @@
 {
     "navbar": {
         "home": "Home",
-        "profile": "Profile"
+        "profile": "Profile",
+        "documents": "Upload documents",
+        "archive": "Archive",
+        "login": "Log In"
     },
     "login": {
         "username": "Username",
@@ -12,5 +15,12 @@
         "login-subtitle": "Welcome back! Please enter your credentials or proceed with a third party authentication.",
         "right-panel-question": "Why ISDox?",
         "right-panel-answer": "Our mission is to make document-scanning, editing and archiving easy and approachable for people of all ages and backgrounds. Using innovative AI technology, we deliever quality and performance, all within one fully-integrated platform."
+    },
+    "routes": {
+        "home": "home",
+        "documents": "documents",
+        "archive": "archive",
+        "profile": "profile",
+        "login": "login"
     }
 }

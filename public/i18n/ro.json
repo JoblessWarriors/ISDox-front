@@ -1,7 +1,10 @@
 {
     "navbar": {
         "home": "Acasă",
-        "profile": "Profil"
+        "profile": "Profil",
+        "documents": "Încarcă documente",
+        "archive": "Arhivă",
+        "login": "Conectare"
     },
     "login": {
         "username": "Nume de utilizator",
@@ -12,5 +15,12 @@
         "login-subtitle": "Bine ai revenit! Te rugăm să introduci datele de autentificare sau să continui cu autentificarea prin terți.",
         "right-panel-question": "De ce ISDox?",
         "right-panel-answer": "Misiunea noastră este să facem procesul de scanare, editare și arhivare al documentelor simplu și accesibil pentru persoane de toate vârstele și din toate mediile. Cu ajutorul tehnologiei AI inovatoarem oferim calitate și performanță, totul într-o singură platformă complet integrată."
+    },
+    "routes": {
+        "home": "acasa",
+        "documents": "documente",
+        "archive": "arhiva",
+        "profile": "profil",
+        "login": "login"
     }
 }

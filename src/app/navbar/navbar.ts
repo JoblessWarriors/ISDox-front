@@ -10,6 +10,7 @@ import {
 import { AvatarModule } from 'primeng/avatar';
 import { SpinnerService } from '../service/spinner/spinner-service';
 import { InputTextModule } from 'primeng/inputtext';
+import { RouteTranslationService } from '../service/route-translation/route-translation-service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,7 @@ import { InputTextModule } from 'primeng/inputtext';
 export class Navbar implements OnInit{
   private translate = inject(TranslateService);
   private spinnerService = inject(SpinnerService);
+  private routeTranslationService = inject(RouteTranslationService);
 
   protected navBarOptions: MenuItem[] = [];
 
@@ -41,14 +43,25 @@ export class Navbar implements OnInit{
   }
 
   private updateMenu() {
+    var urls = this.routeTranslationService.getUrlsForLanguage();
     this.navBarOptions = [
       {
         label: this.translate.instant('navbar.home'),
-        visible: true
+        visible: true,
+        url: urls.get('home')
       },
       {
-        label: this.translate.instant('navbar.profile')
-      }
+        label: this.translate.instant('navbar.documents'),
+        url: urls.get('documents')
+      },
+      {
+        label: this.translate.instant('navbar.archive'),
+        url: urls.get('archive')
+      },
+      {
+        label: this.translate.instant('navbar.login'),
+        url: urls.get('login')
+      },
     ];
     this.spinnerService.hide();
   }

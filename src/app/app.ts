@@ -22,6 +22,7 @@ export class App {
   constructor() {
     this.translate.addLangs(['ro', 'en-US']);
     this.translate.setFallbackLang('en-US');
-    this.translate.use('en-US');
+    this.translate.use('ro');
+    localStorage.setItem('lang', 'ro');
   }
 }
