@@ -4,7 +4,9 @@
         "profile": "Profile",
         "documents": "Upload documents",
         "archive": "Archive",
-        "login": "Log In"
+        "login": "Log In",
+        "dark-mode": "Dark mode",
+        "light-mode": "Light mode"
     },
     "login": {
         "username": "Username",
