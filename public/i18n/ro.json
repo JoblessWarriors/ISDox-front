@@ -4,7 +4,9 @@
         "profile": "Profil",
         "documents": "Încarcă documente",
         "archive": "Arhivă",
-        "login": "Conectare"
+        "login": "Conectare",
+        "dark-mode": "Mod întunecat",
+        "light-mode": "Mod luminos"
     },
     "login": {
         "username": "Nume de utilizator",
