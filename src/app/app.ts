@@ -4,6 +4,7 @@ import { Navbar } from './navbar/navbar';
 import { SpinnerComponent } from "./service/spinner/spinner-component";
 import { TranslateService } from '@ngx-translate/core';
 import { ThemePreferenceService } from './service/theme-preference/theme-preference-service';
+import { Constants } from './constants';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +23,25 @@ export class App {
   protected readonly title = signal('ISDox-front');
 
   constructor() {
-    this.translate.addLangs(['ro', 'en-US']);
-    this.translate.setFallbackLang('en-US');
-    this.translate.use('ro');
-    localStorage.setItem('lang', 'ro');
+    this.initializeLanguages();
+    this.setPreferedLanguage();
 
     this.themePreference.initializeTheme();
+  }
+
+  private initializeLanguages() {
+    this.translate.addLangs(Constants.availableLanguages);
+    this.translate.setFallbackLang('en-US');
+  }
+
+  private setPreferedLanguage() {
+    var preferedLanguage = localStorage.getItem('lang');
+    if (preferedLanguage == null) {
+      var fallbackLang = this.translate.getFallbackLang() ?? Constants.fallbackLanguage;
+      localStorage.setItem('lang', fallbackLang);
+      this.translate.use(fallbackLang);
+      return;
+    }
+    this.translate.use(preferedLanguage);
   }
 }

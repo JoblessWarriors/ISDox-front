@@ -13,6 +13,10 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { ThemePreferenceService } from '../service/theme-preference/theme-preference-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LanguageEnum } from '../enums/language-enum';
+import { Constants } from '../constants';
+import { FlagIconService } from '../service/flag-icon/flag-icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -32,6 +36,8 @@ export class Navbar implements OnInit{
   private spinnerService = inject(SpinnerService);
   private routeTranslationService = inject(RouteTranslationService);
   private themePreferenceService = inject(ThemePreferenceService);
+  private flagIconService = inject(FlagIconService);
+  private router = inject(Router);
 
   private lightLabel: string = "";
   private darkLabel: string = "";
@@ -41,7 +47,6 @@ export class Navbar implements OnInit{
   protected modeLabel: string = "";
 
   constructor() {
-    this.spinnerService.show();
   }
 
   ngOnInit(): void {
@@ -60,6 +65,8 @@ export class Navbar implements OnInit{
 
   private updateMenu() {
     var urls = this.routeTranslationService.getUrlsForLanguage();
+    var currentLanguage = localStorage.getItem('lang') ?? Constants.fallbackLanguage;
+    var currentFlag = this.flagIconService.getFlagByLanguage(currentLanguage as LanguageEnum) ?? 'fi fi-us';
     this.navBarOptions = [
       {
         label: this.translate.instant('navbar.home'),
@@ -78,10 +85,38 @@ export class Navbar implements OnInit{
         label: this.translate.instant('navbar.login'),
         url: urls.get('login')
       },
+      {
+        icon: currentFlag,
+        items: [
+            {
+                label: this.translate.instant('languages.ro'),
+                icon: 'fi fi-ro',
+                command: () => {
+                  this.updateLanguage(LanguageEnum.RO);
+                }
+            },
+            {
+                label: this.translate.instant('languages.en-us'),
+                icon: 'fi fi-us',
+                command: () => {
+                  this.updateLanguage(LanguageEnum.EN_US);
+                }
+            }
+        ]
+      }
     ];
     this.darkLabel = this.translate.instant('navbar.dark-mode');
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
     this.spinnerService.hide();
+
+    // When the language option is moved to settings, a redirect to that page should be called
+  }
+
+  private updateLanguage(lang: LanguageEnum) {
+    localStorage.setItem('lang', lang);
+    this.translate.use(lang);
+    this.spinnerService.show();
+    this.updateMenu();
   }
 }

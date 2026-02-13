@@ -7,15 +7,16 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideTranslateService } from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from "@ngx-translate/http-loader";
 import { RouteTranslationService } from './service/route-translation/route-translation-service';
+import { Constants } from './constants';
 
 export function initializeApp() {
   const service = inject(RouteTranslationService);
   const router = inject(Router);
-
+  
   return async () => {
     await service.initialize();
 
-    var lang = localStorage.getItem('lang') ?? 'ro';
+    var lang = localStorage.getItem('lang') ?? Constants.fallbackLanguage;
     const dynamicRoutes = service.getRoutesForLanguage(lang);
 
     router.resetConfig([
@@ -44,7 +45,7 @@ export const appConfig: ApplicationConfig = {
         prefix: './i18n/',
         suffix: '.json'
       }),
-      fallbackLang: 'en-US'
+      fallbackLang: Constants.fallbackLanguage
     }),
     {
       provide: APP_INITIALIZER,

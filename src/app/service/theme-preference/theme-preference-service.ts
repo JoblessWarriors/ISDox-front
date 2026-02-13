@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 export class ThemePreferenceService {
   initializeTheme() {
     const savedTheme = localStorage.getItem('user-theme');
-    console.log('Hei')
-    console.log(savedTheme);
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
