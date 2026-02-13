@@ -7,6 +7,7 @@ import { Profile } from "./profile/profile";
 
 export class Constants {
     static availableLanguages: string[] = ['en-US', 'ro'];
+    static fallbackLanguage: string = 'en-US';
     static availableEndpoints: string[] = [
         'home',
         'documents',
