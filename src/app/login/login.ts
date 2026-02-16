@@ -13,6 +13,8 @@ import { CardModule } from 'primeng/card';
 import { SplitterModule } from 'primeng/splitter';
 import { ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
+import { CookieService } from 'ngx-cookie-service';
+import { PageEnum } from '../enums/page-enum';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +38,7 @@ import { ImageModule } from 'primeng/image';
 export class Login implements OnInit{
   private translate = inject(TranslateService);
   private spinnerService = inject(SpinnerService);
+  private cookieService = inject(CookieService);
 
   protected username: string = "";
   protected password: string = "";
@@ -50,6 +53,9 @@ export class Login implements OnInit{
   protected rightPanelAnswer: string = "";
 
   ngOnInit(): void {
+    this.cookieService.set('lastVisitedPage', PageEnum.LOGIN, 
+      { sameSite: 'Strict' });
+      
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.spinnerService.show();
       this.updateLabels();

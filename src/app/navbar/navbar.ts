@@ -11,12 +11,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RouteTranslationService } from '../service/route-translation/route-translation-service';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { ThemePreferenceService } from '../service/theme-preference/theme-preference-service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LanguageEnum } from '../enums/language-enum';
 import { Constants } from '../constants';
 import { FlagIconService } from '../service/flag-icon/flag-icon';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navbar',
@@ -37,7 +38,8 @@ export class Navbar implements OnInit{
   private routeTranslationService = inject(RouteTranslationService);
   private themePreferenceService = inject(ThemePreferenceService);
   private flagIconService = inject(FlagIconService);
-  private router = inject(Router);
+  private location = inject(Location);
+  private cookieService = inject(CookieService);
 
   private lightLabel: string = "";
   private darkLabel: string = "";
@@ -64,8 +66,9 @@ export class Navbar implements OnInit{
   }
 
   private updateMenu() {
-    var urls = this.routeTranslationService.getUrlsForLanguage();
     var currentLanguage = localStorage.getItem('lang') ?? Constants.fallbackLanguage;
+    this.routeTranslationService.getRoutesForLanguage(currentLanguage);
+    var urls = this.routeTranslationService.getUrlsForLanguage();
     var currentFlag = this.flagIconService.getFlagByLanguage(currentLanguage as LanguageEnum) ?? 'fi fi-us';
     this.navBarOptions = [
       {
@@ -108,9 +111,10 @@ export class Navbar implements OnInit{
     this.darkLabel = this.translate.instant('navbar.dark-mode');
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
+   
+    var lastVisitedPage = this.cookieService.get('lastVisitedPage');
+    this.location.replaceState(urls.get(lastVisitedPage));
     this.spinnerService.hide();
-
-    // When the language option is moved to settings, a redirect to that page should be called
   }
 
   private updateLanguage(lang: LanguageEnum) {
