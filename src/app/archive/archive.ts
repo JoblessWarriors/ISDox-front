@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { PageEnum } from '../enums/page-enum';
 
 @Component({
   selector: 'app-archive',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './archive.html',
   styleUrl: './archive.css',
 })
-export class Archive {
+export class Archive implements OnInit{
+  private cookieService = inject(CookieService);
 
+  ngOnInit(): void {
+    this.cookieService.set('lastVisitedPage', PageEnum.ARCHIVE, 
+      { sameSite: 'Strict' });
+  }
 }
