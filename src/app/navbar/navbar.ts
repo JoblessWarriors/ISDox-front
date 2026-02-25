@@ -112,7 +112,7 @@ export class Navbar implements OnInit{
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
    
-    var lastVisitedPage = this.cookieService.get('lastVisitedPage');
+    var lastVisitedPage = this.cookieService.get('lastVisitedPage') ?? 'home';
     this.location.replaceState(urls.get(lastVisitedPage));
     this.spinnerService.hide();
   }

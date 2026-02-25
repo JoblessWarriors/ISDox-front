@@ -22,4 +22,5 @@ export class Constants {
         ['profile', Profile],
         ['login', Login]
     ]);
+    static baseUrl: string = 'https://crypto-back-ptdf.onrender.com/api/v1/';
 }
