@@ -6,6 +6,7 @@ import { Login } from "./login/login";
 import { Profile } from "./profile/profile";
 
 export class Constants {
+    static defaultPage = 'home';
     static availableLanguages: string[] = ['en-US', 'ro'];
     static fallbackLanguage: string = 'en-US';
     static availableEndpoints: string[] = [
@@ -22,5 +23,5 @@ export class Constants {
         ['profile', Profile],
         ['login', Login]
     ]);
-    static baseUrl: string = 'https://crypto-back-ptdf.onrender.com/api/v1/';
+    static baseUrl: string = 'http://158.180.63.125:8080/api/v1/';
 }
