@@ -12,6 +12,6 @@ export interface User {
     roles: UserRole[];
     departments: Department[];
     isActive: boolean;
-    anonymizetAt: Date;
+    anonymizedAt: Date;
     createdAt: Date;
 }

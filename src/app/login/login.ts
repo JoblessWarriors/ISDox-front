@@ -93,6 +93,7 @@ export class Login implements OnInit{
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: this.faultyLogInTitleLabel , detail: this.faultyLogInMessageLabel });
+        // TBA: Log instead of throwing
         throw new LogInError(err.error.error);
       }
     });
