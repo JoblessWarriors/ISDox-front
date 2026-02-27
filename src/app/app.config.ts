@@ -3,7 +3,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { provideRouter, Router } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { provideTranslateService } from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from "@ngx-translate/http-loader";
 import { RouteTranslationService } from './service/route-translation/route-translation-service';

@@ -17,7 +17,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { PageEnum } from '../enums/page-enum';
 import { AuthService } from '../service/auth/auth-service';
 import { TokenRequest } from '../model/request/token-request.model';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { LogInError } from '../errors/login/log-in-error';
 
@@ -35,8 +34,7 @@ import { LogInError } from '../errors/login/log-in-error';
     CardModule,
     SplitterModule,
     ButtonModule,
-    ImageModule,
-    ToastModule
+    ImageModule
 ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -82,10 +80,14 @@ export class Login implements OnInit{
       email: this.username,
       password: this.password
     } as TokenRequest;
-    this.authService.logInAsync(logInRequest).subscribe({
+    this.authService.login(logInRequest).subscribe({
       next: (response) => {
         if (response.token && response.expiresIn) {
-          this.cookieService.set('ISDox_access_token', response.token, { expires: response.expiresIn, sameSite: 'Strict'});
+          const expirationDate = new Date(Date.now() + response.expiresIn);
+
+          this.cookieService.set('ISDox_access_token', response.token, 
+            { expires: expirationDate, 
+              sameSite: 'Strict'});
           this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
         }
       },

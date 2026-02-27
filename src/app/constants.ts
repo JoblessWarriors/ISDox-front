@@ -4,7 +4,6 @@ import { Documents } from "./documents/documents";
 import { Home } from "./home/home";
 import { Login } from "./login/login";
 import { Profile } from "./profile/profile";
-import { HttpContextToken } from "@angular/common/http";
 
 export class Constants {
     static defaultPage = 'home';

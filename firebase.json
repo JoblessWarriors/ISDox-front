@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist\\ISDox-front\\browser",
+    "public": "dist/ISDox-front/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

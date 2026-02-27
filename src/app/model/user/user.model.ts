@@ -5,13 +5,12 @@ import { UserRole } from "./user-role";
 export interface User {
     id: string;
     email: string;
-    passwordHash: string;
     firstName: string;
     lastName: string;
     identityType: IdentityType;
     identityNumber: string;
-    roles: Set<UserRole>;
-    departments: Set<Department>;
+    roles: UserRole[];
+    departments: Department[];
     isActive: boolean;
     anonymizetAt: Date;
     createdAt: Date;
