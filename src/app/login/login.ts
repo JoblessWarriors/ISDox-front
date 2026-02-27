@@ -15,6 +15,10 @@ import { ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
 import { CookieService } from 'ngx-cookie-service';
 import { PageEnum } from '../enums/page-enum';
+import { AuthService } from '../service/auth/auth-service';
+import { TokenRequest } from '../model/request/token-request.model';
+import { MessageService } from 'primeng/api';
+import { LogInError } from '../errors/login/log-in-error';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +43,8 @@ export class Login implements OnInit{
   private translate = inject(TranslateService);
   private spinnerService = inject(SpinnerService);
   private cookieService = inject(CookieService);
+  private authService = inject(AuthService);
+  private messageService = inject(MessageService);
 
   protected username: string = "";
   protected password: string = "";
@@ -51,6 +57,10 @@ export class Login implements OnInit{
   protected subtitleLabel: string = "";
   protected rightPanelQuestion: string = "";
   protected rightPanelAnswer: string = "";
+
+  private truthyLogInTitleLabel: string = "";
+  private faultyLogInTitleLabel: string = '';
+  private faultyLogInMessageLabel: string = '';
 
   ngOnInit(): void {
     this.cookieService.set('lastVisitedPage', PageEnum.LOGIN, 
@@ -65,6 +75,30 @@ export class Login implements OnInit{
     this.updateLabels();
   }
 
+  protected logIn() {
+    const logInRequest = {
+      email: this.username,
+      password: this.password
+    } as TokenRequest;
+    this.authService.login(logInRequest).subscribe({
+      next: (response) => {
+        if (response.token && response.expiresIn) {
+          const expirationDate = new Date(Date.now() + response.expiresIn);
+
+          this.cookieService.set('ISDox_access_token', response.token, 
+            { expires: expirationDate, 
+              sameSite: 'Strict'});
+          this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
+        }
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: this.faultyLogInTitleLabel , detail: this.faultyLogInMessageLabel });
+        // TBA: Log instead of throwing
+        throw new LogInError(err.error.error);
+      }
+    });
+  }
+
   private updateLabels() {
     this.usernameLabel = this.translate.instant('login.username');
     this.passwordLabel = this.translate.instant('login.password');
@@ -74,6 +108,9 @@ export class Login implements OnInit{
     this.subtitleLabel = this.translate.instant('login.login-subtitle');
     this.rightPanelQuestion = this.translate.instant('login.right-panel-question');
     this.rightPanelAnswer = this.translate.instant('login.right-panel-answer');
+    this.truthyLogInTitleLabel = this.translate.instant('login.truthy-login-title');
+    this.faultyLogInMessageLabel = this.translate.instant('login.faulty-login-message');
+    this.faultyLogInTitleLabel = this.translate.instant('login.faulty-login-title');
     this.spinnerService.hide();
   }
 }

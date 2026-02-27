@@ -56,8 +56,6 @@ export class Navbar implements OnInit{
       this.spinnerService.show();
       this.updateMenu();
     });
-    this.spinnerService.show();
-    this.updateMenu();
   }
 
   protected toggleThemePreference() {
@@ -112,7 +110,10 @@ export class Navbar implements OnInit{
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
    
-    var lastVisitedPage = this.cookieService.get('lastVisitedPage');
+    var canGetLastVisitedPageCookie = this.cookieService.check('lastVisitedPage');
+    var lastVisitedPage = canGetLastVisitedPageCookie ? 
+      this.cookieService.get('lastVisitedPage')
+      : Constants.defaultPage;
     this.location.replaceState(urls.get(lastVisitedPage));
     this.spinnerService.hide();
   }

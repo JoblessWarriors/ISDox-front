@@ -6,6 +6,7 @@ import { Login } from "./login/login";
 import { Profile } from "./profile/profile";
 
 export class Constants {
+    static defaultPage = 'home';
     static availableLanguages: string[] = ['en-US', 'ro'];
     static fallbackLanguage: string = 'en-US';
     static availableEndpoints: string[] = [
@@ -22,4 +23,5 @@ export class Constants {
         ['profile', Profile],
         ['login', Login]
     ]);
+    static baseUrl: string = '';
 }

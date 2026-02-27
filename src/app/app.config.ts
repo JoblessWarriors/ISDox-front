@@ -8,6 +8,7 @@ import { provideTranslateService } from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from "@ngx-translate/http-loader";
 import { RouteTranslationService } from './service/route-translation/route-translation-service';
 import { Constants } from './constants';
+import { MessageService } from 'primeng/api';
 
 export function initializeApp() {
   const service = inject(RouteTranslationService);
@@ -28,6 +29,7 @@ export function initializeApp() {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    MessageService,
     provideBrowserGlobalErrorListeners(),
     provideRouter([]),
     provideAnimationsAsync(),
