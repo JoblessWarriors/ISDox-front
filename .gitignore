@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/.firebase
 
 # Node
 /node_modules
@@ -42,5 +43,3 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
-
-.firebase/
