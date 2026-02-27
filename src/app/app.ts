@@ -5,13 +5,15 @@ import { SpinnerComponent } from "./service/spinner/spinner-component";
 import { TranslateService } from '@ngx-translate/core';
 import { ThemePreferenceService } from './service/theme-preference/theme-preference-service';
 import { Constants } from './constants';
+import { ToastModule, Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
     Navbar,
-    SpinnerComponent
+    SpinnerComponent,
+    Toast
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

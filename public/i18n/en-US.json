@@ -16,7 +16,10 @@
         "login-button": "Sign In",
         "login-subtitle": "Welcome back! Please enter your credentials or proceed with a third party authentication.",
         "right-panel-question": "Why ISDox?",
-        "right-panel-answer": "Our mission is to make document-scanning, editing and archiving easy and approachable for people of all ages and backgrounds. Using innovative AI technology, we deliever quality and performance, all within one fully-integrated platform."
+        "right-panel-answer": "Our mission is to make document-scanning, editing and archiving easy and approachable for people of all ages and backgrounds. Using innovative AI technology, we deliever quality and performance, all within one fully-integrated platform.",
+        "truthy-login-title": "Successful log-in",
+        "faulty-login-title": "Error",
+        "faulty-login-message": "An error has occured during the log-in process. Please contact an administrator."
     },
     "routes": {
         "home": "home",
