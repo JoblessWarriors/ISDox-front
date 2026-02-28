@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "isdox-dev",
+    "prod": "isdox-prod"
+  },
+  "targets": {},
+  "etags": {}
+}
