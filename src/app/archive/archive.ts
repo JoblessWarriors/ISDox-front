@@ -12,7 +12,7 @@ export class Archive implements OnInit{
   private cookieService = inject(CookieService);
 
   ngOnInit(): void {
-    this.cookieService.set('lastVisitedPage', PageEnum.ARCHIVE, 
+    this.cookieService.set('ISDox_lastVisitedPage', PageEnum.ARCHIVE, 
       { sameSite: 'Strict' });
   }
 }
