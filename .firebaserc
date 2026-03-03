@@ -3,6 +3,21 @@
     "default": "isdox-dev",
     "prod": "isdox-prod"
   },
-  "targets": {},
+  "targets": {
+    "isdox-dev": {
+      "hosting": {
+        "dev": [
+          "isdox-dev"
+        ]
+      }
+    },
+    "isdox-prod": {
+      "hosting": {
+        "prod": [
+          "isdox-prod"
+        ]
+      }
+    }
+  },
   "etags": {}
 }
