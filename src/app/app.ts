@@ -37,10 +37,10 @@ export class App {
   }
 
   private setPreferedLanguage() {
-    var preferedLanguage = localStorage.getItem('lang');
+    var preferedLanguage = localStorage.getItem('ISDox_lang');
     if (preferedLanguage == null) {
       var fallbackLang = this.translate.getFallbackLang() ?? Constants.fallbackLanguage;
-      localStorage.setItem('lang', fallbackLang);
+      localStorage.setItem('ISDox_lang', fallbackLang);
       this.translate.use(fallbackLang);
       return;
     }

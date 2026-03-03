@@ -12,7 +12,7 @@ export class Home implements OnInit{
   private cookieService = inject(CookieService);
 
   ngOnInit(): void {
-    this.cookieService.set('lastVisitedPage', PageEnum.HOME, 
+    this.cookieService.set('ISDox_lastVisitedPage', PageEnum.HOME, 
       { sameSite: 'Strict' });
   }
 }

@@ -63,7 +63,7 @@ export class Login implements OnInit{
   private faultyLogInMessageLabel: string = '';
 
   ngOnInit(): void {
-    this.cookieService.set('lastVisitedPage', PageEnum.LOGIN, 
+    this.cookieService.set('ISDox_lastVisitedPage', PageEnum.LOGIN, 
       { sameSite: 'Strict' });
       
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
