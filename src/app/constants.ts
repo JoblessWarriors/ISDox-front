@@ -23,5 +23,5 @@ export class Constants {
         ['profile', Profile],
         ['login', Login]
     ]);
-    static baseUrl: string = '';
+    static baseUrl: string = '/backendApi';
 }
