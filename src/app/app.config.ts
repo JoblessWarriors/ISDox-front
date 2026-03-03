@@ -23,7 +23,7 @@ export function initializeAppLocale() {
   return async () => {
     await service.initialize();
 
-    var lang = localStorage.getItem('lang') ?? Constants.fallbackLanguage;
+    var lang = localStorage.getItem('ISDox_lang') ?? Constants.fallbackLanguage;
     const dynamicRoutes = service.getRoutesForLanguage(lang);
 
     router.resetConfig([

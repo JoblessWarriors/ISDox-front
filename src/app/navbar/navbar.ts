@@ -45,7 +45,7 @@ export class Navbar implements OnInit{
   private darkLabel: string = "";
 
   protected navBarOptions: MenuItem[] = [];
-  protected isDarkMode = localStorage.getItem('user-theme') == 'light' ? false : true;
+  protected isDarkMode = localStorage.getItem('ISDox_user_theme') == 'light' ? false : true;
   protected modeLabel: string = "";
 
   constructor() {
@@ -64,7 +64,7 @@ export class Navbar implements OnInit{
   }
 
   private updateMenu() {
-    var currentLanguage = localStorage.getItem('lang') ?? Constants.fallbackLanguage;
+    var currentLanguage = localStorage.getItem('ISDox_lang') ?? Constants.fallbackLanguage;
     this.routeTranslationService.getRoutesForLanguage(currentLanguage);
     var urls = this.routeTranslationService.getUrlsForLanguage();
     var currentFlag = this.flagIconService.getFlagByLanguage(currentLanguage as LanguageEnum) ?? 'fi fi-us';
@@ -110,16 +110,16 @@ export class Navbar implements OnInit{
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
    
-    var canGetLastVisitedPageCookie = this.cookieService.check('lastVisitedPage');
+    var canGetLastVisitedPageCookie = this.cookieService.check('ISDox_lastVisitedPage');
     var lastVisitedPage = canGetLastVisitedPageCookie ? 
-      this.cookieService.get('lastVisitedPage')
+      this.cookieService.get('ISDox_lastVisitedPage')
       : Constants.defaultPage;
     this.location.replaceState(urls.get(lastVisitedPage));
     this.spinnerService.hide();
   }
 
   private updateLanguage(lang: LanguageEnum) {
-    localStorage.setItem('lang', lang);
+    localStorage.setItem('ISDox_lang', lang);
     this.translate.use(lang);
     this.spinnerService.show();
     this.updateMenu();
