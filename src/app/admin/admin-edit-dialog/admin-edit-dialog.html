@@ -1,0 +1,107 @@
+<p-dialog 
+    [(visible)]="isVisible" 
+    [modal]="true" 
+    [style]="{ width: '50rem' }" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    (onHide)="closeModal.emit(false)"
+    (onShow)="closeModal.emit(true)"
+    header="Edit User Profile">
+    
+    <ng-template #header>
+        <div class="flex flex-row gap-3">
+            <div class="inline-flex items-center justify-center gap-3">
+                <p-avatar 
+                    [image]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + user?.email" 
+                    shape="circle" 
+                    size="large" />
+                <div class="flex flex-col">
+                    <span class="font-bold whitespace-nowrap">{{ user?.firstName }} {{ user?.lastName }}</span>
+                    <small class="text-surface-500">{{ user?.id }}</small>
+                </div>
+            </div>
+            <div class="flex align-center mt-4">
+                @if (user?.isActive) {
+                    <p-tag severity="success">{{activeUserLabel}}</p-tag>
+                }
+                @else {
+                    <p-tag severity="danger">{{inactiveUserLabel}}</p-tag>
+                }
+            </div>
+        </div>
+        
+    </ng-template>
+
+    <span class="text-surface-500 dark:text-surface-400 block mb-6">{{descriptionLabel}}</span>
+
+    <div class="flex flex-col gap-4">
+        <div class="flex gap-4">
+            <p-inputgroup class="mb-2">
+                <p-float-label variant="on">
+                    <input pInputText id="firstName" [(ngModel)]="user!.firstName" />
+                    <label for="firstName">{{nameLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+            <p-inputgroup class="mb-2">
+                <p-float-label variant="on">
+                    <input pInputText id="lastName" [(ngModel)]="user!.lastName" />
+                    <label for="lastName">{{surnameLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <p-inputgroup class="mb-2">
+                <p-float-label variant="on">
+                    <input pInputText id="email" [(ngModel)]="user!.email" />
+                    <label for="email">{{emailLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+        </div>
+
+        <div class="flex gap-4 w-full">
+            <div class="w-1/2">
+                <p-select 
+                [options]="identityTypes" 
+                [(ngModel)]="selectedIdentityType" 
+                optionLabel="name"
+                appendTo="body"
+                [placeholder]="identificationTypeLabel" 
+                class="w-full" />
+            </div>
+            
+            <p-inputgroup class="!w-1/2">
+                <p-float-label variant="on" class="w-full">
+                    <input pInputText id="identityNumber" [(ngModel)]="user!.identityNumber" class="w-full" />
+                    <label for="lastName">{{identificationNumberLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+        </div>
+        <div class="flex gap-4 w-full">
+            <div class="w-1/2">
+                <p-multiselect
+                    class="!w-full"
+                    [options]="userRoles" 
+                    [(ngModel)]="selectedUserRoles" 
+                    optionLabel="name" 
+                    appendTo="body"
+                    [placeholder]="rolesLabel" 
+                    [maxSelectedLabels]="2"/>
+            </div>
+            <div class="w-1/2">
+                <p-multiselect
+                    class="!w-full z-100"
+                    [options]="departments" 
+                    [(ngModel)]="selectedDepartments" 
+                    optionLabel="name"
+                    appendTo="body"
+                    [placeholder]="departmentsLabel" 
+                    [maxSelectedLabels]="2"/>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #footer>
+        <p-button [label]="discardButtonLabel" [outlined]="true" [text]="true" severity="secondary" (click)="closeModal.emit(false)" />
+        <p-button [label]="updateButtonLabel" [outlined]="true" severity="primary" (click)="updateUser()" />
+    </ng-template>
+</p-dialog>

@@ -31,5 +31,75 @@
     "languages": {
         "ro": "Romanian",
         "en-us": "English (USA)"
+    },
+    "roles": {
+        "0": "Operator",
+        "1": "Registrar",
+        "2": "Specialist",
+        "3": "Archivist",
+        "4": "Admin",
+        "5": "Super Admin"
+    },
+    "identity-types": {
+        "0": "Identity Card",
+        "1": "Passport",
+        "2": "Visa"
+    },
+    "admin": {
+        "homepage": {
+            "users-tab": "Users",
+            "departments-tab": "Departments",
+            "add-user-button": "Add new user",
+            "add-department-button": "Add new department",
+            "edit-button": "Edit User",
+            "delete-button": "Delete User",
+            "active-user": "Active",
+            "inactive-user": "Inactive",
+            "truthy-create-user-title": "User created",
+            "truthy-create-user-details": "The user was successfully created. You may now see the new user you have added in the main User list.",
+            "truthy-edit-user-title": "User edited",
+            "truthy-edit-user-details": "The user was successfully edited. You may now see the user you have edited in the main User list.",
+            "faulty-get-users-title": "Error in getting User list",
+            "faulty-get-users-details": "An unexpected error occurred during the retrieval of the user list. Please contact an administrator.",
+            "truthy-delete-user-title": "User deleted",
+            "truthy-delete-user-details": "The user was successfully deleted. You won't see their data anymore in the main User list.",
+            "faulty-delete-user-title": "Error in deleting user",
+            "faulty-delete-user-details": "An unexpected error occurred during the removal of the user. Please contact an administrator.",
+            "delete-user-confirm-dialog-message": "Are you sure you want to delete this user? This action is irreversible.",
+            "delete-user-confirm-dialog-header": "Confirmation Dialog",
+            "delete-user-confirm-dialog-reject": "Discard",
+            "delete-user-confirm-dialog-accept": "Delete User"
+        },
+        "edit-popup": {
+            "name": "First Name",
+            "surname": "Last Name",
+            "email": "E-mail Address",
+            "id-type": "Identity Type",
+            "id-number": "Identity Number",
+            "roles": "Roles",
+            "departments": "Departments",
+            "discard-button": "Discard",
+            "update-button": "Update",
+            "description": "This dialog displays details for the selected user. To modify the information, edit the fields directly. Please note that changes are not saved automatically; click 'Update' to apply your edits. You can cancel at any time by clicking 'Discard' or the 'X' in the corner.",
+            "active-user": "Active user",
+            "inactive-user": "Inactive user",
+            "faulty-edit-title": "Error in editing user", 
+            "faulty-edit-details": "An unexpected error occurred during the modification of the new user. Please contact an administrator."
+        },
+        "create-popup": {
+            "title": "Create a new user",
+            "name": "First Name",
+            "surname": "Last Name",
+            "email": "E-mail Address",
+            "id-type": "Identity Type",
+            "id-number": "Identity Number",
+            "roles": "Roles",
+            "departments": "Departments",
+            "discard-button": "Discard",
+            "create-button": "Create",
+            "description": "This dialog allows you to create a new record. Please fill in the required fields to define the profile. Note that the entry will only be created once you click 'Create'; closing the window or clicking 'Discard' will erase all input data.",
+            "faulty-create-title": "Error in creating user", 
+            "faulty-create-details": "An unexpected error occurred during the creation of the new user. Please contact an administrator."
+        }
     }
 }

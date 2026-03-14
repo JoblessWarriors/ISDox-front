@@ -31,5 +31,75 @@
     "languages": {
         "ro": "Română",
         "en-us": "Engleză (SUA)"
+    },
+    "roles": {
+        "0": "Operator",
+        "1": "Registrator",
+        "2": "Specialist",
+        "3": "Arhivar",
+        "4": "Administrator",
+        "5": "Super Admin"
+    },
+    "identity-types": {
+        "0": "Carte de identitate",
+        "1": "Pașaport",
+        "2": "Visa"
+    },
+    "admin": {
+        "homepage": {
+            "users-tab": "Utilizatori",
+            "departments-tab": "Departamente",
+            "add-user-button": "Adaugă utilizator nou",
+            "add-department-button": "Adaugă departament nou",
+            "edit-button": "Modifică Utilizator",
+            "delete-button": "Șterge Utilizator",
+            "active-user": "Activ",
+            "inactive-user": "Inactiv",
+            "truthy-create-user-title": "Utilizator creat",
+            "truthy-create-user-details": "Utilizatorul a fost creat cu succes. Acum puteți vedea noul utilizator adăugat în lista principală de utilizatori.",
+            "truthy-edit-user-title": "Utilizator modificat",
+            "truthy-edit-user-details": "Utilizatorul a fost modificat cu succes. Acum puteți vedea utilizatorul modificat în lista principală de utilizatori.",
+            "faulty-get-users-title": "Eroare la preluarea listei de utilizatori",
+            "faulty-get-users-details": "A apărut o eroare neașteptată în timpul descărcării listei de utilizatori. Vă rugăm să contactați un administrator.",
+            "truthy-delete-user-title": "Utilizator șters",
+            "truthy-delete-user-details": "Utilizatorul a fost șters cu succes. Nu veți mai putea vedea utilizatorul în lista principală de utilizatori.",
+            "faulty-delete-user-title": "Eroare la ștergerea utilizatorului",
+            "faulty-delete-user-details": "A apărut o eroare neașteptată în timpul eliminării utilizatorului. Vă rugăm să contactați un administrator.",
+            "delete-user-confirm-dialog-message": "Sunteți sigur că doriți să ștergeți acest utilizator? Această acțiune este ireversibilă.",
+            "delete-user-confirm-dialog-header": "Confirmare",
+            "delete-user-confirm-dialog-reject": "Anulează",
+            "delete-user-confirm-dialog-accept": "Șterge utilizatorul"
+        },
+        "edit-popup": {
+            "name": "Prenume",
+            "surname": "Nume",
+            "email": "Adresă de e-mail",
+            "id-type": "Tipul de identificare",
+            "id-number": "Numărul de identificare",
+            "roles": "Roluri",
+            "departments": "Departamente",
+            "discard-button": "Renunță",
+            "update-button": "Modifică",
+            "description": "Această fereastră afișează detaliile utilizatorului selectat. Pentru a modifica datele, editați direct câmpurile dorite. Vă rugăm să rețineți că modificările nu sunt salvate automat; apăsați butonul „Modifică” pentru a aplica noile informații. Puteți anula operațiunea în orice moment apăsând pe „Renunță” sau pe simbolul „X” din colț.",
+            "active-user": "Utilizator activ",
+            "inactive-user": "Utilizator inactiv",
+            "faulty-edit-title": "Eroare la modificarea utilizatorului",
+            "faulty-edit-details": "A apărut o eroare neașteptată în timpul modificării noului utilizator. Vă rugăm să contactați un administrator."
+        },
+        "create-popup": {
+            "title": "Creează un utilizator nou",
+            "name": "Prenume",
+            "surname": "Nume",
+            "email": "Adresă de e-mail",
+            "id-type": "Tipul de identificare",
+            "id-number": "Numărul de identificare",
+            "roles": "Roluri",
+            "departments": "Departamente",
+            "discard-button": "Renunță",
+            "create-button": "Creează",
+            "description": "Această fereastră vă permite crearea unei noi înregistrări. Vă rugăm să completați câmpurile necesare pentru a defini profilul. Rețineți că înregistrarea va fi creată doar după apăsarea butonului „Creează”; închiderea ferestrei sau apăsarea butonului „Renunță” va șterge datele introduse.",
+            "faulty-create-title": "Eroare la crearea utilizatorului",
+            "faulty-create-details": "A apărut o eroare neașteptată în timpul creării noului utilizator. Vă rugăm să contactați un administrator."
+        }
     }
 }
