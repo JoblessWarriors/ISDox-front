@@ -176,7 +176,7 @@ export class AdminHomepage implements OnInit {
     this.truthyDeleteUserTitleLabel = this.translate.instant('admin.homepage.truthy-delete-user-title');
     this.truthyDeleteUserDetailsLabel = this.translate.instant('admin.homepage.truthy-delete-user-details');
     this.faultyDeleteUserTitleLabel = this.translate.instant('admin.homepage.faulty-delete-user-title');
-    this.faultyDeleteUserDetailsLabel  = this.translate.instant('admin.homepage.faulty-delete-users-details');
+    this.faultyDeleteUserDetailsLabel  = this.translate.instant('admin.homepage.faulty-delete-user-details');
     this.deleteUserConfirmDialogMessageLabel = this.translate.instant('admin.homepage.delete-user-confirm-dialog-message');
     this.deleteUserConfirmDialogHeaderLabel = this.translate.instant('admin.homepage.delete-user-confirm-dialog-header');
     this.deleteUserConfirmDialogRejectLabel = this.translate.instant('admin.homepage.delete-user-confirm-dialog-reject');
