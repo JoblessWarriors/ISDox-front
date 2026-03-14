@@ -90,7 +90,6 @@ export class Login implements OnInit{
               path: '/',
               sameSite: 'Strict'});
           this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
-          console.log(this.authService.getUserData());
           this.authService.isAdmin();
         }
       },
