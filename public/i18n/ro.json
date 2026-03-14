@@ -101,5 +101,14 @@
             "faulty-create-title": "Eroare la crearea utilizatorului",
             "faulty-create-details": "A apărut o eroare neașteptată în timpul creării noului utilizator. Vă rugăm să contactați un administrator."
         }
+    }, 
+    "documents": {
+        "title": "Încarcă documente",
+        "subtitle": "Această pagină este destinată procesului de încărcare a diferite documente. Pentru început, apăsați butonul „Încarcă Document” și alegeți fișierul dorit. În continuare, o nouă fereastră va apărea ce vă va permite editarea și aprobarea datelor extrase din document cu ajutorul Inteligenței Artificiale.",
+        "choose-button": "Alege document",
+        "upload-button": "Încarcă Document",
+        "cancel-button": "Renunță",
+        "attention": "Atenție!",
+        "disclaimer": "Vă rugăm să vă asigurați că documentele sunt în format PDF sau imagine și nu depășesc 10MB. Prin încărcare, confirmați că sunteți proprietarul de drept al acestor fișiere."
     }
 }

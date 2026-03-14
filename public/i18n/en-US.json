@@ -101,5 +101,14 @@
             "faulty-create-title": "Error in creating user", 
             "faulty-create-details": "An unexpected error occurred during the creation of the new user. Please contact an administrator."
         }
+    },
+    "documents": {
+        "title": "Upload Documents",
+        "subtitle": "This page is intended for the document upload process. To begin, click the 'Upload Document' button and select your desired file. Next, a new window will appear, allowing you to edit and approve the data extracted from the document using Artificial Intelligence.",
+        "choose-button": "Choose document",
+        "upload-button": "Upload Document",
+        "cancel-button": "Discard",
+        "attention": "Attention!",
+        "disclaimer": "Please ensure that the documents are in PDF or image format and do not exceed 10MB. By uploading, you confirm that you are the legal owner of these files."
     }
 }
