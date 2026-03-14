@@ -1,8 +1,13 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Constants } from '../../constants';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  if (!req.url.startsWith(Constants.baseUrl)) {
+    return next(req);
+  }
+
   const cookieService = inject(CookieService);
   const isCookiePresent = cookieService.check('ISDox_access_token');
   if (!isCookiePresent) {
