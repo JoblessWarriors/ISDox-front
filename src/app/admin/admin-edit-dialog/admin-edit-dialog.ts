@@ -112,7 +112,7 @@ export class AdminEditDialog implements OnChanges {
       },
       error: (err) => {
         console.error('Failed to create user:', err);
-        this.messageService.add({ severity: 'error', summary: this.faultyEditUserTitleLabel , detail: this.faultyEditUserTitleLabel });
+        this.messageService.add({ severity: 'error', summary: this.faultyEditUserTitleLabel , detail: this.faultyEditUserDetailsLabel });
       },
       complete: () => {
         this.closeModal.emit(false);
