@@ -1,4 +1,5 @@
 export const environment = {
+    apiUrl: '/backEnd',
     production: false,
     firebaseConfig: {
         apiKey: "AIzaSyCp9G9mBWk46_IB2rOYsmsyPRUDW0jy-gQ",
