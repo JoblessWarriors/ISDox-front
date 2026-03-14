@@ -46,3 +46,4 @@ Thumbs.db
 .firebase/hosting.ZGlzdFxJU0RveC1mcm9udFxicm93c2Vy.cache
 .firebase/
 
+src/environments/environment.ts

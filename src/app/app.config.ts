@@ -3,17 +3,19 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { provideRouter, Router } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideTranslateService } from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from "@ngx-translate/http-loader";
 import { RouteTranslationService } from './service/route-translation/route-translation-service';
 import { Constants } from './constants';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { authInterceptor } from './service/interceptor/auth-interceptor';
+import { initializeMappings } from './mapper-config';
 
 
 export function initializeAppLocale() {
@@ -30,12 +32,15 @@ export function initializeAppLocale() {
       ...dynamicRoutes
       
     ]);
+
+    initializeMappings();
   };
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
     MessageService,
+    ConfirmationService,
     provideBrowserGlobalErrorListeners(),
     provideRouter([]),
     provideAnimationsAsync(),
@@ -51,7 +56,7 @@ export const appConfig: ApplicationConfig = {
         }
       }
     }),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: './i18n/',

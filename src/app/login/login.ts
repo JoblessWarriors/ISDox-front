@@ -64,7 +64,7 @@ export class Login implements OnInit{
 
   ngOnInit(): void {
     this.cookieService.set('ISDox_lastVisitedPage', PageEnum.LOGIN, 
-      { sameSite: 'Strict' });
+      { path: '/', sameSite: 'Strict' });
       
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.spinnerService.show();
@@ -87,8 +87,10 @@ export class Login implements OnInit{
 
           this.cookieService.set('ISDox_access_token', response.token, 
             { expires: expirationDate, 
+              path: '/',
               sameSite: 'Strict'});
           this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
+          this.authService.isAdmin();
         }
       },
       error: (err) => {

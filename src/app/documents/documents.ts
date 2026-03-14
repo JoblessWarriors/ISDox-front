@@ -13,7 +13,7 @@ export class Documents implements OnInit{
 
   ngOnInit(): void {
     this.cookieService.set('ISDox_lastVisitedPage', PageEnum.DOCUMENTS, 
-      { sameSite: 'Strict' });
+      { path: '/', sameSite: 'Strict' });
   }
 
 }

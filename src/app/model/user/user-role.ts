@@ -3,5 +3,6 @@ export enum UserRole {
     REGISTRAR,
     SPECIALIST,
     ARCHIVIST,
-    ADMIN
+    INSTITUTION_ADMIN,
+    SUPER_ADMIN
 }

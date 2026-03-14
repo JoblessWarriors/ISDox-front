@@ -1,4 +1,2 @@
-<app-navbar></app-navbar>
-<app-spinner-component></app-spinner-component>
-<router-outlet />
-<p-toast></p-toast>
+<app-normal-layout *ngIf="!isAdmin"></app-normal-layout>
+<app-admin-layout *ngIf="isAdmin"></app-admin-layout>
