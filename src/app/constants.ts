@@ -24,5 +24,5 @@ export class Constants {
         ['profile', Profile],
         ['login', Login]
     ]);
-    static baseUrl: string = 'https://isdox-dev-api.nicesea-47b40200.francecentral.azurecontainerapps.io/api/v1'
+    static baseUrl: string = environment.apiUrl;
 }
