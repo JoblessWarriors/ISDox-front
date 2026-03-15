@@ -53,12 +53,18 @@
             "add-department-button": "Add new department",
             "edit-button": "Edit User",
             "delete-button": "Delete User",
+            "edit-department-button": "Edit Department",
+            "delete-department-button": "Delete Department",
             "active-user": "Active",
             "inactive-user": "Inactive",
             "truthy-create-user-title": "User created",
             "truthy-create-user-details": "The user was successfully created. You may now see the new user you have added in the main User list.",
+            "truthy-create-department-title": "Department created",
+            "truthy-create-department-details": "The department was successfully created. You may now see the new user you have added in the main Department list.",
             "truthy-edit-user-title": "User edited",
             "truthy-edit-user-details": "The user was successfully edited. You may now see the user you have edited in the main User list.",
+            "truthy-edit-department-title": "Department edited",
+            "truthy-edit-department-details": "The department was successfully edited. You may now see the department you have edited in the main Department list.",
             "faulty-get-users-title": "Error in getting User list",
             "faulty-get-users-details": "An unexpected error occurred during the retrieval of the user list. Please contact an administrator.",
             "truthy-delete-user-title": "User deleted",
@@ -68,7 +74,15 @@
             "delete-user-confirm-dialog-message": "Are you sure you want to delete this user? This action is irreversible.",
             "delete-user-confirm-dialog-header": "Confirmation Dialog",
             "delete-user-confirm-dialog-reject": "Discard",
-            "delete-user-confirm-dialog-accept": "Delete User"
+            "delete-user-confirm-dialog-accept": "Delete User",
+            "truthy-delete-department-title": "Department deleted",
+            "truthy-delete-department-details": "The department was successfully deleted. You won't see its data anymore in the main Department list.",
+            "faulty-delete-department-title": "Error in deleting department",
+            "faulty-delete-department-details": "An unexpected error occurred during the removal of the department. Please contact an administrator.",
+            "delete-department-confirm-dialog-message": "Are you sure you want to delete this department? This action is irreversible.",
+            "delete-department-confirm-dialog-header": "Confirmation Dialog",
+            "delete-department-confirm-dialog-reject": "Discard",
+            "delete-department-confirm-dialog-accept": "Delete Department"
         },
         "edit-popup": {
             "name": "First Name",
@@ -100,6 +114,27 @@
             "description": "This dialog allows you to create a new record. Please fill in the required fields to define the profile. Note that the entry will only be created once you click 'Create'; closing the window or clicking 'Discard' will erase all input data.",
             "faulty-create-title": "Error in creating user", 
             "faulty-create-details": "An unexpected error occurred during the creation of the new user. Please contact an administrator."
+        },
+        "create-department-popup": {
+            "title": "Create a new department",
+            "subtitle": "This dialog allows you to create a new record. Please fill in the required fields to define the department. Note that the entry will only be created once you click 'Create'; closing the window or clicking 'Discard' will erase all input data.",
+            "name": "Department Name",
+            "code": "Department Code",
+            "description": "Department Description",
+            "discard-button": "Discard",
+            "create-button": "Create",
+            "faulty-create-title": "Error in creating department", 
+            "faulty-create-details": "An unexpected error occurred during the creation of the new department. Please contact an administrator."
+        },
+        "edit-department-popup": {
+            "subtitle": "This dialog displays details for the selected department. To modify the information, edit the fields directly. Please note that changes are not saved automatically; click 'Update' to apply your edits. You can cancel at any time by clicking 'Discard' or the 'X' in the corner.",
+            "name": "Department Name",
+            "code": "Department Code",
+            "description": "Department Description",
+            "discard-button": "Discard",
+            "update-button": "Update",
+            "faulty-edit-title": "Error in updating department", 
+            "faulty-edit-details": "An unexpected error occurred during the modification of the new department. Please contact an administrator."
         }
     }
 }

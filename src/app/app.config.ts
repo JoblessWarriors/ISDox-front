@@ -11,11 +11,10 @@ import { Constants } from './constants';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { authInterceptor } from './service/interceptor/auth-interceptor';
 import { initializeMappings } from './mapper-config';
+import { SpinnerService } from './service/spinner/spinner-service';
 
 
 export function initializeAppLocale() {
@@ -41,6 +40,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     MessageService,
     ConfirmationService,
+    SpinnerService,
     provideBrowserGlobalErrorListeners(),
     provideRouter([]),
     provideAnimationsAsync(),

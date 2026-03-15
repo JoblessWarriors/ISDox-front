@@ -139,7 +139,7 @@ export class AdminEditDialog implements OnChanges {
   }
 
   private updateData() {
-    //this.updateDepartments();
+    this.updateDepartments();
     this.updateIdentityTypes();
     this.updateRoles();
   }
@@ -161,7 +161,7 @@ export class AdminEditDialog implements OnChanges {
   }
 
   private updateDepartments() {
-    this.departmentService.getDepartments().subscribe((departments) => {
+    this.departmentService.getAllDepartments().subscribe((departments) => {
       this.departments = departments;
     });
   }
