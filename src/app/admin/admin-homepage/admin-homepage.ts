@@ -129,7 +129,7 @@ export class AdminHomepage implements OnInit {
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: this.faultyGetUsersTitleLabel , detail: this.faultyGetUsersDetailsLabel });
-        console.error('Failed to load users:', err);
+        console.error('Failed to load departments:', err);
       }
     });
 
