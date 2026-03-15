@@ -129,7 +129,7 @@ export class AdminHomepage implements OnInit {
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: this.faultyGetUsersTitleLabel , detail: this.faultyGetUsersDetailsLabel });
-        console.error('Failed to load users:', err);
+        console.error('Failed to load departments:', err);
       }
     });
 
@@ -137,6 +137,7 @@ export class AdminHomepage implements OnInit {
     this.translate.use('en-US');
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.spinnerService.show();
       this.updateLabels();
     });
 
@@ -297,6 +298,6 @@ export class AdminHomepage implements OnInit {
     this.deleteDepartmentConfirmDialogHeaderLabel = this.translate.instant('admin.homepage.delete-department-confirm-dialog-header');
     this.deleteDepartmentConfirmDialogRejectLabel = this.translate.instant('admin.homepage.delete-department-confirm-dialog-reject');
     this.deleteDepartmentConfirmDialogAcceptLabel = this.translate.instant('admin.homepage.delete-department-confirm-dialog-accept');
-    //this.spinnerService.hide();
+    this.spinnerService.hide();
   }
 }
