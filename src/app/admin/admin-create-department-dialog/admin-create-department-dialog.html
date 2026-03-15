@@ -1,0 +1,53 @@
+<p-dialog 
+    [(visible)]="isVisible" 
+    [modal]="true" 
+    [style]="{ width: '50rem' }" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    (onHide)="closeModal.emit(false)"
+    (onShow)="closeModal.emit(true)"
+    header="Add New User">
+    
+    <ng-template #header>
+        <div class="flex flex-row gap-3">
+            <div class="inline-flex items-center justify-center gap-3">
+                <div class="flex flex-col">
+                    <span class="font-bold whitespace-nowrap">{{titleLabel}}</span>
+                </div>
+            </div>
+        </div>
+        
+    </ng-template>
+
+    <span class="text-surface-500 dark:text-surface-400 block mb-6">{{subtitleLabel}}</span>
+
+    <div class="flex flex-col gap-4">
+        <div class="flex gap-4">
+            <p-inputgroup class="mb-2">
+                <p-float-label variant="on">
+                    <input pInputText id="firstName" [(ngModel)]="department.name" />
+                    <label for="firstName">{{nameLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+            <p-inputgroup class="mb-2">
+                <p-float-label variant="on">
+                    <input pInputText id="lastName" [(ngModel)]="department.code" />
+                    <label for="lastName">{{codeLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <p-inputgroup class="mb-2">
+                <p-float-label variant="on">
+                    <textarea class="w-full" rows="5" cols="30" pTextarea [(ngModel)]="department.description"></textarea>
+                    <label for="email">{{descriptionLabel}}</label>
+                </p-float-label>
+            </p-inputgroup>
+        </div>
+    </div>
+
+    <ng-template #footer>
+        <p-button [label]="discardButtonLabel" [outlined]="true" [text]="true" severity="secondary" (click)="closeModal.emit(false)" />
+        <p-button [label]="createButtonLabel" [outlined]="true" severity="primary" (click)="createDepartment()" />
+    </ng-template>
+</p-dialog>

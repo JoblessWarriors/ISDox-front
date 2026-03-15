@@ -21,7 +21,7 @@
                 [outlined]="true" 
                 severity="primary" 
                 size="small"
-                (click)="null" />
+                (onClick)="createDepartment()" />
             }
             
         </div>
@@ -77,19 +77,83 @@
                 </p-dataview>
             </p-tabpanel>
 
-            <p-tabpanel [value]="1"></p-tabpanel>
+            <p-tabpanel [value]="1">
+                <p-dataview #dv [value]="departments">
+                    <ng-template #list let-items>
+                        <div class="grid grid-cols-12 gap-4 grid-nogutter">
+                            <div class="col-span-12" *ngFor="let dept of items; let first = first">
+                                <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" 
+                                    [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                                    
+                                    <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
+                                        <div class="flex flex-col justify-between items-start gap-2">
+                                            <div>
+                                                <span class="font-medium text-secondary text-sm uppercase">
+                                                    ID: {{ dept.id || 'NEW' }} | CODE: {{ dept.code }}
+                                                </span>
+                                                
+                                                <div class="text-xl font-bold text-surface-900 dark:text-surface-0 mt-1">
+                                                    {{ dept.name }}
+                                                </div>
+                                                
+                                                <div class="text-sm text-surface-600 dark:text-surface-400 mt-2 max-w-md">
+                                                    {{ dept.description }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-col md:items-end gap-5">
+                                            <div class="flex flex-row gap-2">
+                                                <p-button 
+                                                    icon="pi pi-pencil" 
+                                                    [outlined]="true" 
+                                                    severity="secondary" 
+                                                    [label]="editDepartmentButtonLabel" 
+                                                    (onClick)="editDepartment(dept)" />
+                                                
+                                                <p-button 
+                                                    icon="pi pi-trash" 
+                                                    severity="danger" 
+                                                    [label]="deleteDepartmentButtonLabel" 
+                                                    (onClick)="deleteDepartment(dept)" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-dataview>
+            </p-tabpanel>
         </p-tabpanels>
     </p-tabs>
 </div>
-<app-admin-edit-dialog
-    [isVisible]="openEditUserDialog"
-    [user]="selectedUser"
-    (closeModal)="openEditUserDialog=$event"
-    (editedUserEmitter)="editedUserEvent($event)"
-></app-admin-edit-dialog>
+@if (selectedUser != null){
+    <app-admin-edit-dialog
+        [isVisible]="openEditUserDialog"
+        [user]="selectedUser"
+        (closeModal)="openEditUserDialog=$event"
+        (editedUserEmitter)="editedUserEvent($event)"
+    ></app-admin-edit-dialog>
+}
 <app-admin-create-dialog
     [isVisible]="openCreateUserDialog"
     (closeModal)="openCreateUserDialog=$event"
     (createdUserEmitter)="createdUserEvent($event)"
 ></app-admin-create-dialog>
+
+@if (selectedDepartment != null) {
+    <app-admin-edit-department-dialog
+        [isVisible]="openEditDepartmentDialog"
+        [department]="selectedDepartment"
+        (closeModal)="openEditDepartmentDialog=$event"
+        (editedDepartmentEmitter)="editedDepartmentEvent($event)"
+    ></app-admin-edit-department-dialog>
+}
+<app-admin-create-department-dialog
+    [isVisible]="openCreateDepartmentDialog"
+    (closeModal)="openCreateDepartmentDialog=$event"
+    (createdDepartmentEmitter)="createdDepartmentEvent($event)"
+></app-admin-create-department-dialog>
 <p-confirmdialog />

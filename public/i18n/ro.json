@@ -53,12 +53,18 @@
             "add-department-button": "Adaugă departament nou",
             "edit-button": "Modifică Utilizator",
             "delete-button": "Șterge Utilizator",
+            "edit-department-button": "Modifică Departament",
+            "delete-department-button": "Șterge Departament",
             "active-user": "Activ",
             "inactive-user": "Inactiv",
             "truthy-create-user-title": "Utilizator creat",
             "truthy-create-user-details": "Utilizatorul a fost creat cu succes. Acum puteți vedea noul utilizator adăugat în lista principală de utilizatori.",
+            "truthy-create-department-title": "Departament creat",
+            "truthy-create-department-details": "Departamentul a fost creat cu succes. Acum puteți vedea noul departament adăugat în lista principală de departamente.",
             "truthy-edit-user-title": "Utilizator modificat",
             "truthy-edit-user-details": "Utilizatorul a fost modificat cu succes. Acum puteți vedea utilizatorul modificat în lista principală de utilizatori.",
+            "truthy-edit-department-title": "Departament modificat",
+            "truthy-edit-department-details": "Departamentul a fost modificat cu succes. Acum puteți vedea departamentul modificat în lista principală de departamente.",
             "faulty-get-users-title": "Eroare la preluarea listei de utilizatori",
             "faulty-get-users-details": "A apărut o eroare neașteptată în timpul descărcării listei de utilizatori. Vă rugăm să contactați un administrator.",
             "truthy-delete-user-title": "Utilizator șters",
@@ -68,7 +74,15 @@
             "delete-user-confirm-dialog-message": "Sunteți sigur că doriți să ștergeți acest utilizator? Această acțiune este ireversibilă.",
             "delete-user-confirm-dialog-header": "Confirmare",
             "delete-user-confirm-dialog-reject": "Anulează",
-            "delete-user-confirm-dialog-accept": "Șterge utilizatorul"
+            "delete-user-confirm-dialog-accept": "Șterge utilizatorul",
+            "truthy-delete-department-title": "Departament șters",
+            "truthy-delete-department-details": "Departamentul a fost șters cu succes. Nu veți mai putea vedea departamentul în lista principală de departamente.",
+            "faulty-delete-department-title": "Eroare la ștergerea departamentului",
+            "faulty-delete-department-details": "A apărut o eroare neașteptată în timpul eliminării departamentului. Vă rugăm să contactați un administrator.",
+            "delete-department-confirm-dialog-message": "Sunteți sigur că doriți să ștergeți acest departament? Această acțiune este ireversibilă.",
+            "delete-department-confirm-dialog-header": "Confirmare",
+            "delete-department-confirm-dialog-reject": "Anulează",
+            "delete-department-confirm-dialog-accept": "Șterge departamentul"
         },
         "edit-popup": {
             "name": "Prenume",
@@ -84,7 +98,7 @@
             "active-user": "Utilizator activ",
             "inactive-user": "Utilizator inactiv",
             "faulty-edit-title": "Eroare la modificarea utilizatorului",
-            "faulty-edit-details": "A apărut o eroare neașteptată în timpul modificării noului utilizator. Vă rugăm să contactați un administrator."
+            "faulty-edit-details": "A apărut o eroare neașteptată în timpul modificării utilizatorului. Vă rugăm să contactați un administrator."
         },
         "create-popup": {
             "title": "Creează un utilizator nou",
@@ -100,6 +114,27 @@
             "description": "Această fereastră vă permite crearea unei noi înregistrări. Vă rugăm să completați câmpurile necesare pentru a defini profilul. Rețineți că înregistrarea va fi creată doar după apăsarea butonului „Creează”; închiderea ferestrei sau apăsarea butonului „Renunță” va șterge datele introduse.",
             "faulty-create-title": "Eroare la crearea utilizatorului",
             "faulty-create-details": "A apărut o eroare neașteptată în timpul creării noului utilizator. Vă rugăm să contactați un administrator."
+        },
+        "create-department-popup": {
+            "title": "Creează un departament nou",
+            "subtitle": "Această fereastră vă permite crearea unei noi înregistrări. Vă rugăm să completați câmpurile necesare pentru a defini profilul. Rețineți că înregistrarea va fi creată doar după apăsarea butonului „Creează”; închiderea ferestrei sau apăsarea butonului „Renunță” va șterge datele introduse.",
+            "name": "Nume Departament",
+            "code": "Cod Departament",
+            "description": "Descriere Departament",
+            "discard-button": "Renunță",
+            "create-button": "Creează",
+            "faulty-create-title": "Eroare la crearea departamentului",
+            "faulty-create-details": "A apărut o eroare neașteptată în timpul creării noului departament. Vă rugăm să contactați un administrator."
+        },
+        "edit-department-popup": {
+            "subtitle": "Această fereastră afișează detaliile departamentului selectat. Pentru a modifica datele, editați direct câmpurile dorite. Vă rugăm să rețineți că modificările nu sunt salvate automat; apăsați butonul „Modifică” pentru a aplica noile informații. Puteți anula operațiunea în orice moment apăsând pe „Renunță” sau pe simbolul „X” din colț.",
+            "name": "Nume Departament",
+            "code": "Cod Departament",
+            "description": "Descriere Departament",
+            "discard-button": "Renunță",
+            "update-button": "Modifică",
+            "faulty-edit-title": "Eroare la modificarea departamentului", 
+            "faulty-edit-details": "A apărut o eroare neașteptată în timpul modificării departamentului. Vă rugăm să contactați un administrator."
         }
     }
 }

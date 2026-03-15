@@ -51,7 +51,7 @@ export class AuthService {
       this.adminBehaviorSubject.next(false);
       return;
     }
-    const isUserAdmin = userData.roles.includes(UserRole[UserRole.SUPER_ADMIN]);
+    const isUserAdmin = userData.roles.includes(UserRole[UserRole.INSTITUTION_ADMIN]);
     if (isUserAdmin) {
       this.adminBehaviorSubject.next(true);
       this.location.replaceState('');
