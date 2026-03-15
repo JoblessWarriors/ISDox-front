@@ -221,7 +221,7 @@ export class AdminHomepage implements OnInit {
     );
   }
 
-  protected deleteDepartment(deletedDepartment: any) {
+  protected deleteDepartment(deletedDepartment: Department) {
   this.confirmationService.confirm({
       message: this.deleteDepartmentConfirmDialogMessageLabel,
       header: this.deleteDepartmentConfirmDialogHeaderLabel,

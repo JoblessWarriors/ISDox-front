@@ -139,7 +139,7 @@ export class AdminEditDialog implements OnChanges {
   }
 
   private updateData() {
-    //this.updateDepartments();
+    this.updateDepartments();
     this.updateIdentityTypes();
     this.updateRoles();
   }
