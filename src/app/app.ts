@@ -65,4 +65,14 @@ export class App implements OnInit {
     }
     this.translate.use(preferedLanguage);
   }
+
+  private isAdminMethod() {
+    var hei = this.cookieService.check('ISDox_access_token');
+    var hei2 = this.getCookie('ISDox_access_token')
+  }
+
+  private getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
 }

@@ -1,3 +1,6 @@
+import { DossierMapping } from "./model/dossier/dossier-mapping.model";
+import { DossierStatus } from "./model/dossier/dossier-status";
+import { Dossier } from "./model/dossier/dossier.model";
 import { Institution } from "./model/institution/institution.model";
 import { Mapper } from "./model/mapper/mapper";
 import { IdentityType } from "./model/user/identity-type";
@@ -20,5 +23,17 @@ export const initializeMappings = () => {
         departments: m.departments || [],
         institution: m.institutionId ? { id: m.institutionId } as Institution : undefined,
         identityType: (IdentityType as any)[m.identityType],
+    }));
+
+    Mapper.register<Dossier, DossierMapping>('DossierToMapping', (d) => ({
+        ...d,
+        assignedSpecialist: d.assignedSpecialist != undefined ? Mapper.map('UserToMapping', d.assignedSpecialist) : undefined,
+        status: DossierStatus[d.status]
+    }));
+
+    Mapper.register<DossierMapping, Dossier>('MappingToDossier', (m) => ({
+        ...m,
+        assignedSpecialist: m.assignedSpecialist != undefined ? Mapper.map('MappingToUsser', m.assignedSpecialist) : undefined   ,
+        status: (DossierStatus as any)[m.status]
     }));
 };

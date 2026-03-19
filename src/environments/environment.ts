@@ -3,7 +3,7 @@ export const environment = {
     production: false,
     firebaseConfig: {
         apiKey: "AIzaSyCp9G9mBWk46_IB2rOYsmsyPRUDW0jy-gQ",
-        authDomain: "isdox-dev.firebaseapp.com",
+        authDomain: " ",
         projectId: "isdox-dev",
         storageBucket: "isdox-dev.firebasestorage.app",
         messagingSenderId: "336461435923",
