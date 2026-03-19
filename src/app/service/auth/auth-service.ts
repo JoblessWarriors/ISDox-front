@@ -4,7 +4,6 @@ import { inject, Injectable } from '@angular/core';
 import { ActionEnum } from '../../enums/action-enum';
 import { AuthActionEnum } from './auth-action-enum';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { BehaviorSubject, Observable, of } from 'rxjs';
 import { TokenRequest } from '../../model/request/token-request.model';
 import { TokenResponse } from '../../model/response/token-response.model';
 import { Constants } from '../../constants';
