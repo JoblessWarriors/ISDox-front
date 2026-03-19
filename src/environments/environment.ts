@@ -1,9 +1,9 @@
 export const environment = {
-    apiUrl: '/backEnd',
+    apiUrl: 'https://isdox-dev-api.nicesea-47b40200.francecentral.azurecontainerapps.io/api/v1',
     production: false,
     firebaseConfig: {
         apiKey: "AIzaSyCp9G9mBWk46_IB2rOYsmsyPRUDW0jy-gQ",
-        authDomain: "isdox-dev.firebaseapp.com",
+        authDomain: " ",
         projectId: "isdox-dev",
         storageBucket: "isdox-dev.firebasestorage.app",
         messagingSenderId: "336461435923",

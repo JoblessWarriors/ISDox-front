@@ -1,0 +1,94 @@
+<p-dialog 
+    [(visible)]="isVisible" 
+    [modal]="true" 
+    [style]="{ width: '60vw' }" 
+    [breakpoints]="{ '960px': '85vw', '640px': '100vw' }"
+    (onHide)="closeModal.emit(false)"
+    (onShow)="closeModal.emit(true)">
+  
+    <ng-template pTemplate="header">
+        <div class="w-full flex flex-col items-center justify-center text-center p-4 gap-2">
+            <h1 class="text-2xl font-bold text-surface-900 m-0">
+                {{titleLabel}}
+            </h1>
+            
+            <p class="text-base text-surface-500 m-0 max-w-2xl leading-relaxed">
+                {{descriptionLabel}}
+            </p>
+
+            <div class="w-24 h-1 bg-primary rounded-full mt-2 opacity-50"></div>
+        </div>
+    </ng-template>
+
+  <div class="flex flex-column md:flex-row gap-3 mb-4 p-3 surface-100 border-round">
+    <div class="flex-1">
+    <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-search" />
+        <input 
+            type="text" 
+            pInputText 
+            [(ngModel)]="searchInput" 
+            [placeholder]="searchInputPlaceholderLabel"/>
+    </p-iconField>
+    </div>
+
+    <div class="flex-1 flex gap-2 align-items-center">
+        <p-datepicker appendTo="body" [(ngModel)]="dateStart" [showIcon]="true" iconDisplay="input"></p-datepicker>
+        <span class="text-500">-</span>
+        <p-datepicker appendTo="body" [(ngModel)]="dateEnd" [showIcon]="true" iconDisplay="input"></p-datepicker>
+    </div>
+
+    <div>
+        <p-button 
+            label="Filter Dossiers" 
+            icon="pi pi-filter" 
+            (onClick)="null"
+            [raised]="true"
+            class="md:w-auto">
+        </p-button>
+    </div>
+  </div>
+
+    <p-dataView
+        #dv 
+        [value]="dossiers" 
+        [rows]="4" 
+        [paginator]="true" 
+        [rowsPerPageOptions]="[4, 8, 16]"
+        paginatorDropdownAppendTo="body"
+        layout="list">
+        <ng-template #list let-items
+            appendTo="body"
+        >
+            <div>
+            @if (items?.length === 0) {
+                <div class="col-12 p-4 text-center">
+                {{noDossiersResultLabel}}
+                </div>
+            }
+
+                <div *ngFor="let item of items" class="col-12 p-1">
+                    <div 
+                        (click)="selectDossier(item)"
+                        class="flex items-center p-4 gap-4 cursor-pointer rounded-lg border border-transparent 
+                            transition-all duration-200 
+                            hover:bg-surface-50 hover:border-surface-200 hover:shadow-sm
+                            active:scale-[0.98]">
+                        
+                        <div class="flex-none">
+                            <i class="pi pi-folder-open text-2xl text-surface-400 group-hover:text-primary"></i>
+                        </div>
+
+                        <div class="flex-grow">
+                            <span class="text-sm font-medium text-surface-600 group-hover:text-primary">
+                                {{ item.id }}
+                            </span>
+                        </div>
+
+                        <i class="pi pi-chevron-right text-xs text-surface-300"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</p-dialog>
