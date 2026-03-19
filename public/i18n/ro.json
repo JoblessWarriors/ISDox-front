@@ -136,5 +136,43 @@
             "faulty-edit-title": "Eroare la modificarea departamentului", 
             "faulty-edit-details": "A apărut o eroare neașteptată în timpul modificării departamentului. Vă rugăm să contactați un administrator."
         }
+    },
+    "documents": {
+        "title": "Încarcă documente",
+        "subtitle": "Ați ales cu succes dosarul cu id-ul {id}. Acum, apăsați butonul „Încarcă Document” și alegeți fișierul dorit. În continuare, o nouă fereastră va apărea ce vă va permite editarea și aprobarea datelor extrase din document cu ajutorul Inteligenței Artificiale.",
+        "choose-button": "Alege document",
+        "upload-button": "Încarcă Document",
+        "cancel-button": "Renunță",
+        "attention": "Atenție!",
+        "disclaimer": "Vă rugăm să vă asigurați că documentele sunt în format PDF sau imagine și nu depășesc 10MB. Prin încărcare, confirmați că sunteți proprietarul de drept al acestor fișiere.",
+        "title-dossier": "Selecteză Dosar",
+        "subtitle-dossier": "Pentru început, selectați un dosar existent din colecția dumneavoastră sau creați unul nou.",
+        "create-dossier-button": "Creează un nou Dosar",
+        "choose-dossier-button": "Selectează un Dosar deja existent",
+        "create-dossier-subtitle": "Începeți un dosar nou.",
+        "choose-dossier-subtitle": "Continuați să lucrați la un dosar anterior.",
+        "faulty-create-dossier-title": "Eroare la crearea dosarului",
+        "faulty-create-dossier-details": "A apărut o eroare neașteptată în timpul creării noului dosar. Vă rugăm să contactați un administrator.",
+        "choose-dossier-dialog": {
+            "faulty-get-dossier-title": "Eroare la preluarea dosarelor existente",
+            "faulty-get-dossier-details": "A apărut o eroare neașteptată în timpul preluării dosarelor. Vă rugăm să contactați un administrator.",
+            "title": "Selectează un dosar deja existent",
+            "description": "Alegeți un dosar din lista curentă și apăsați click pe el. Pentru a filtra rezultatele, puteți introduce caractere în bara de căutare din stânga și/sau să alegeți un interval de timp în care dosarele să fie create, apoi apăsați pe butonul „Filtrează Dosare”. După selecție, fereastra se va închide și veți putea continua procesul de încărcare a documentului.",
+            "search-input-placeholder": "Caută...",
+            "filter-button": "Filtrează Dosare",
+            "no-dossiers-result": "Niciun dosar ce respectă criteriile curente nu a fost găsit."
+        },
+        "confirm-document": {
+            "title": "Confirmă Datele Documentului",
+            "description": "Această fereastră afișează conținutul documentului selectat în etapa anterioară. Cu ajutorul câmpurilor modificabile, puteți corecta și confirma metadatele fișierului. Pentru a merge mai departe, apăsați butonul „Confirmă”. Dacă apăsați butonul „Renunță” sau „X” din colțul drept al ferestrei, aceasta se va închide, iar progresul și modificările se vor pierde.",
+            "no-docx": "Fișierele de tip .docx nu pot fi afișate momentan.",
+            "no-preview": "Nu există conținut de afișat.",
+            "metadata": "Metadate",
+            "name": "Numele Documentului",
+            "category": "Categorie",
+            "notes": "Note Interne",
+            "discard-button": "Renunță",
+            "confirm-button": "Confirmă"
+        }
     }
 }

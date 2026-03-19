@@ -136,5 +136,43 @@
             "faulty-edit-title": "Error in updating department", 
             "faulty-edit-details": "An unexpected error occurred during the modification of the new department. Please contact an administrator."
         }
+    },
+    "documents": {
+        "title": "Upload Documents",
+        "subtitle": "You have successfully selected the dossier with id {id}. Now, click the 'Upload Document' button and select your desired file. Next, a new window will appear, allowing you to edit and approve the data extracted from the document using Artificial Intelligence.",
+        "choose-button": "Choose document",
+        "upload-button": "Upload Document",
+        "cancel-button": "Discard",
+        "attention": "Attention!",
+        "disclaimer": "Please ensure that the documents are in PDF or image format and do not exceed 10MB. By uploading, you confirm that you are the legal owner of these files.",
+        "title-dossier": "Select Dossier",
+        "subtitle-dossier": "To begin, choose an existing dossier from your collection or create a new one.",
+        "create-dossier-button": "Create a new Dossier",
+        "choose-dossier-button": "Choose an existing Dossier",
+        "create-dossier-subtitle": "Start a fresh dossier from scratch.",
+        "choose-dossier-subtitle": "Continue working on a previously saved dossier.",
+        "faulty-create-dossier-title": "Error in creating dossier",
+        "faulty-create-dossier-details": "An unexpected error occurred during the creation of the new dossier. Please contact an administrator.",
+        "choose-dossier-dialog": {
+            "faulty-get-dossier-title": "Error in retrieving existing dossiers",
+            "faulty-get-dossier-details": "An unexpected error occurred during the retrieval of the existing dossiers. Please contact an administrator.",
+            "title": "Select an existing dossier",
+            "description": "Choose a dossier from the current list and click on it. To filter the results, you can enter characters in the search bar on the left and/or choose a time interval for when the dossiers were created, then press the 'Filter Dossiers' button. After selection, the window will close and you will be able to continue the document upload process.",
+            "search-input-placeholder": "Search...",
+            "filter-button": "Filter Dossiers",
+            "no-dossiers-result": "No dossiers matching the current criteria were found."
+        },
+        "confirm-document": {
+            "title": "Confirm Document Details",
+            "description": "This window displays the content of the document selected in the previous step. Using the editable fields, you can correct and confirm the file's metadata. To proceed, press the 'Confirm' button. If you press 'Discard' or the 'X' in the right corner, the window will close, and your progress and changes will be lost.",
+            "no-docx": ".docx files cannot be displayed at this time.",
+            "no-preview": "No content to display.",
+            "metadata": "Metadata",
+            "name": "Document Name",
+            "category": "Category",
+            "notes": "Internal Notes",
+            "discard-button": "Discard",
+            "confirm-button": "Confirm"
+        }
     }
 }
