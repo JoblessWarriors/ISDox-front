@@ -76,6 +76,7 @@ export class Login implements OnInit{
   }
 
   protected logIn() {
+    this.spinnerService.show();
     const logInRequest = {
       email: this.username,
       password: this.password
@@ -92,9 +93,11 @@ export class Login implements OnInit{
           this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
           this.authService.isAdmin();
         }
+        this.spinnerService.hide();
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: this.faultyLogInTitleLabel , detail: this.faultyLogInMessageLabel });
+        this.spinnerService.hide();
         // TBA: Log instead of throwing
         throw new LogInError(err.error.error);
       }
