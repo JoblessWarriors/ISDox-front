@@ -19,6 +19,7 @@ import { Location } from '@angular/common';
 })
 export class AuthService {
   public adminBehaviorSubject = new BehaviorSubject<boolean>(false);
+  public loggedInBehaviorSubject = new BehaviorSubject<boolean>(false);
 
   private http = inject(HttpClient);
   private cookieService = inject(CookieService);

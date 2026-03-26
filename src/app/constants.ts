@@ -24,5 +24,12 @@ export class Constants {
         ['profile', Profile],
         ['login', Login]
     ]);
+    static readonly endpointLoggedInGuardMapping = new Map<string, boolean>([
+        ['home', false],
+        ['documents', true],
+        ['archive', true],
+        ['profile', true],
+        ['login', false]
+    ]);
     static baseUrl: string = environment.apiUrl;
 }
