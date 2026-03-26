@@ -45,6 +45,11 @@
         "1": "Passport",
         "2": "Visa"
     },
+    "fraud-risk-levels": {
+        "0": "Low",
+        "1": "Medium",
+        "2": "High"
+    },
     "admin": {
         "homepage": {
             "users-tab": "Users",
@@ -153,6 +158,10 @@
         "choose-dossier-subtitle": "Continue working on a previously saved dossier.",
         "faulty-create-dossier-title": "Error in creating dossier",
         "faulty-create-dossier-details": "An unexpected error occurred during the creation of the new dossier. Please contact an administrator.",
+        "faulty-initial-document-upload-title": "Document upload error",
+        "faulty-initial-document-upload-details": "An unexpected error occurred during the document upload. Please contact an administrator.",
+        "truthy-document-upload-title": "Document uploaded successfully",
+        "truthy-document-upload-details": "The document has been successfully uploaded and forwarded to the assigned department.",
         "choose-dossier-dialog": {
             "faulty-get-dossier-title": "Error in retrieving existing dossiers",
             "faulty-get-dossier-details": "An unexpected error occurred during the retrieval of the existing dossiers. Please contact an administrator.",
@@ -167,12 +176,14 @@
             "description": "This window displays the content of the document selected in the previous step. Using the editable fields, you can correct and confirm the file's metadata. To proceed, press the 'Confirm' button. If you press 'Discard' or the 'X' in the right corner, the window will close, and your progress and changes will be lost.",
             "no-docx": ".docx files cannot be displayed at this time.",
             "no-preview": "No content to display.",
+            "main-info": "Main Information",
             "metadata": "Metadata",
             "name": "Document Name",
             "category": "Category",
-            "notes": "Internal Notes",
+            "notes": "Extracted Text",
             "discard-button": "Discard",
-            "confirm-button": "Confirm"
+            "confirm-button": "Confirm",
+            "fraud-report": "Fraud Report"
         }
     }
 }

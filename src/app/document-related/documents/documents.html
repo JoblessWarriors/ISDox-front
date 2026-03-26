@@ -69,8 +69,12 @@
   (closeModal)="openChooseDossierSelection=$event"
   (selectedDossierEmitter)="selectedDossierEvent($event)"
 ></app-choose-dossier-dialog>
-<app-confirm-document
-  [isVisible]="openConfirmDocument"
-  [file]="file"
-  (closeModal)="openConfirmDocument=$event"
-></app-confirm-document>
+@if (document !== undefined) {
+  <app-confirm-document
+    [isVisible]="openConfirmDocument"
+    [file]="file"
+    [document]="document"
+    (closeModal)="openConfirmDocument=$event"
+    (uploadedDocument)="uploadedDocument($event)"
+  ></app-confirm-document>
+}
