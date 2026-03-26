@@ -41,30 +41,56 @@
         </div>
 
         <div class="w-full md:w-4/12 flex flex-col gap-6 overflow-y-auto p-2">
-            <h3 class="text-lg font-bold m-0">{{metadataLabel}}</h3>
+            <h3 class="text-lg font-bold m-0">{{mainInfoLabel}}</h3>
             
             <div class="flex flex-col gap-2">
                 <p-float-label variant="on">
-                    <input pInputText id="docName" [(ngModel)]="selectedDoc.name" class="w-full" />
+                    <input pInputText id="docName" [(ngModel)]="document!.originalFilename" class="w-full" />
                     <label for="docName">{{nameLabel}}</label>
                 </p-float-label>
             </div>
 
             <div class="flex flex-col gap-2">
-                <label for="category" class="font-medium">{{categoryLabel}}</label>
-                <p-select [options]="categories" [(ngModel)]="selectedDoc.category" appendTo="body" class="w-full"></p-select>
+                <p-select 
+                [options]="fraudRiskLevels" 
+                [(ngModel)]="selectedFraudRiskLevel"
+                optionLabel="name"
+                appendTo="body" 
+                class="w-full" />
             </div>
 
             <div class="flex flex-col gap-2">
                 <p-float-label variant="on">
-                    <textarea pTextarea id="notes" rows="5" [(ngModel)]="selectedDoc.notes" class="w-full"></textarea>
+                    <textarea pTextarea id="notes" rows="5" [(ngModel)]="document!.fraudReport" class="w-full"></textarea>
+                    <label for="notes">{{fraudReportLabel}}</label>
+                </p-float-label>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <p-float-label variant="on">
+                    <textarea pTextarea id="notes" rows="5" [(ngModel)]="document!.extractedText" class="w-full"></textarea>
                     <label for="notes">{{notesLabel}}</label>
                 </p-float-label>
             </div>
 
+            <h3 class="text-lg font-bold m-0">{{metadataLabel}}</h3>
+            @for (entry of document!.metadata | keyvalue; track entry.key) {
+                <div class="flex flex-col gap-2 mb-4">
+                    <p-float-label variant="on">
+                        <input 
+                            pInputText 
+                            [id]="entry.key" 
+                            [ngModel]="entry.value" 
+                            (ngModelChange)="updateMetadata(entry.key, $event)"
+                            class="w-full" />
+                        <label [for]="entry.key">{{ entry.key }}</label>
+                    </p-float-label>
+                </div>
+            }
+
             <div class="mt-auto flex gap-2 justify-end pt-4">
                 <p-button [label]="discardButtonLabel" severity="secondary" [outlined]="true" (click)="closeModal.emit(false)"></p-button>
-                <p-button [label]="confirmButtonLabel" icon="pi pi-check" (onClick)="null"></p-button>
+                <p-button [label]="confirmButtonLabel" icon="pi pi-check" (onClick)="saveDocument()"></p-button>
             </div>
         </div>
 

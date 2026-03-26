@@ -1,3 +1,6 @@
+import { DocumentMapping } from "./model/document/document-mapping.model";
+import { DocumentRole } from "./model/document/document-role";
+import type { Document } from "./model/document/document.model";
 import { DossierMapping } from "./model/dossier/dossier-mapping.model";
 import { DossierStatus } from "./model/dossier/dossier-status";
 import { Dossier } from "./model/dossier/dossier.model";
@@ -7,6 +10,7 @@ import { IdentityType } from "./model/user/identity-type";
 import { UserMapping } from "./model/user/user-mapping.model";
 import { UserRole } from "./model/user/user-role";
 import { User } from "./model/user/user.model";
+import { FraudRiskLevel } from "./model/document/fraud-risk-level";
 
 export const initializeMappings = () => {
     Mapper.register<User, UserMapping>('UserToMapping', (u) => ({
@@ -35,5 +39,21 @@ export const initializeMappings = () => {
         ...m,
         assignedSpecialist: m.assignedSpecialist != undefined ? Mapper.map('MappingToUsser', m.assignedSpecialist) : undefined   ,
         status: (DossierStatus as any)[m.status]
+    }));
+
+    Mapper.register<Document, DocumentMapping>('DocumentToMapping', (d) => ({
+        ...d,
+        role: DocumentRole[d.role],
+        fraudRiskLevel: FraudRiskLevel[d.fraudRiskLevel],
+        uploader: d.uploader ? Mapper.map('UserToMapping', d.uploader) : undefined,
+        metadata: Object.fromEntries(d.metadata)
+    }));
+
+    Mapper.register<DocumentMapping, Document>('MappingToDocument', (m) => ({
+        ...m,
+        role: (DocumentRole as any)[m.role],
+        fraudRiskLevel: (FraudRiskLevel as any)[m.fraudRiskLevel],
+        uploader: m.uploader ? Mapper.map('MappingToUser', m.uploader) : undefined,
+        metadata: m.metadata ? new Map(Object.entries(m.metadata)) : new Map(),
     }));
 };

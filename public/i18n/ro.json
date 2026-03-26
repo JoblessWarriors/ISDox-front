@@ -45,6 +45,11 @@
         "1": "Pașaport",
         "2": "Visa"
     },
+    "fraud-risk-levels": {
+        "0": "Mic",
+        "1": "Mediu",
+        "2": "Ridicat"
+    },
     "admin": {
         "homepage": {
             "users-tab": "Utilizatori",
@@ -153,6 +158,10 @@
         "choose-dossier-subtitle": "Continuați să lucrați la un dosar anterior.",
         "faulty-create-dossier-title": "Eroare la crearea dosarului",
         "faulty-create-dossier-details": "A apărut o eroare neașteptată în timpul creării noului dosar. Vă rugăm să contactați un administrator.",
+        "faulty-initial-document-upload-title": "Eroare la încărcarea documentului",
+        "faulty-initial-document-upload-details": "A apărut o eroare neașteptată în timpul încărcării documentului. Vă rugăm să contactați un administrator.",
+        "truthy-document-upload-title": "Documentul a fost încărcat cu succes",
+        "truthy-document-upload-details": "Documentul a fost încărcat și transmis cu succes către departamentul asignat.",
         "choose-dossier-dialog": {
             "faulty-get-dossier-title": "Eroare la preluarea dosarelor existente",
             "faulty-get-dossier-details": "A apărut o eroare neașteptată în timpul preluării dosarelor. Vă rugăm să contactați un administrator.",
@@ -167,12 +176,14 @@
             "description": "Această fereastră afișează conținutul documentului selectat în etapa anterioară. Cu ajutorul câmpurilor modificabile, puteți corecta și confirma metadatele fișierului. Pentru a merge mai departe, apăsați butonul „Confirmă”. Dacă apăsați butonul „Renunță” sau „X” din colțul drept al ferestrei, aceasta se va închide, iar progresul și modificările se vor pierde.",
             "no-docx": "Fișierele de tip .docx nu pot fi afișate momentan.",
             "no-preview": "Nu există conținut de afișat.",
+            "main-info": "Informații principale",
             "metadata": "Metadate",
             "name": "Numele Documentului",
             "category": "Categorie",
-            "notes": "Note Interne",
+            "notes": "Text Extras",
             "discard-button": "Renunță",
-            "confirm-button": "Confirmă"
+            "confirm-button": "Confirmă",
+            "fraud-report": "Raportul de fraudă"
         }
     }
 }

@@ -9,6 +9,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { Document } from '../../model/document/document.model';
+import { FraudRiskLevel } from '../../model/document/fraud-risk-level';
 
 @Component({
   selector: 'app-confirm-document',
@@ -28,21 +30,18 @@ import { TextareaModule } from 'primeng/textarea';
 export class ConfirmDocument implements OnChanges, OnDestroy, OnInit {
   @Input() isVisible: boolean = false;
   @Input() file?: File = undefined;
+  @Input() document?: Document = undefined;
+  @Output() uploadedDocument: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private sanitizer = inject(DomSanitizer);
   private translate = inject(TranslateService);
 
   protected documentUrl: SafeResourceUrl | string = '';
-  protected docType: 'pdf' | 'image' | 'docx' | 'unknown' = 'unknown';
 
-  protected selectedDoc: { name: string; category: string | null; notes: string } = {
-    name: '',
-    category: null,
-    notes: ''
-  };
+  protected selectedFraudRiskLevel: any;
+  protected fraudRiskLevels: any[] = [];
 
-  protected categories: string[] = ['General', 'Contract', 'Invoice', 'Report'];
   protected pdfUrl?: SafeResourceUrl;
   protected imageUrl?: string;
   private rawObjectUrl?: string;
@@ -51,19 +50,25 @@ export class ConfirmDocument implements OnChanges, OnDestroy, OnInit {
   protected descriptionLabel: string = '';
   protected noDocxLabel: string = '';
   protected noPreviewLabel: string = '';
+  protected mainInfoLabel: string = '';
   protected metadataLabel: string = '';
   protected nameLabel: string = '';
   protected categoryLabel: string = '';
   protected notesLabel: string = '';
   protected discardButtonLabel: string = '';
   protected confirmButtonLabel: string = '';
+  protected fraudReportLabel: string = '';
 
   ngOnInit(): void {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.updateLabels();
+      this.updateFraudRiskLevels();
+      this.checkFraudRiskLevel();
     });
 
     this.updateLabels();
+    this.updateFraudRiskLevels();
+    this.checkFraudRiskLevel();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -86,12 +91,6 @@ export class ConfirmDocument implements OnChanges, OnDestroy, OnInit {
     } else if (this.file.type.startsWith('image/')) {
       this.imageUrl = this.rawObjectUrl;
     }
-
-    this.selectedDoc = {
-      name: this.file?.name,
-      category: this.file?.type,
-      notes: ''
-    }
   }
 
   ngOnDestroy(): void {
@@ -100,29 +99,13 @@ export class ConfirmDocument implements OnChanges, OnDestroy, OnInit {
     }
   }
 
-  openDocument(doc: { url: string; name?: string; category?: string; notes?: string }) {
-    this.docType = this.getFileType(doc.url);
-    this.documentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(doc.url);
-
-    this.selectedDoc = {
-      name: doc.name ?? '',
-      category: doc.category ?? null,
-      notes: doc.notes ?? ''
-    };
-  }
-
-  saveDocument(): void {
+  protected saveDocument(): void {
+    this.uploadedDocument.emit(true);
     this.closeModal.emit(false);
   }
-
-  getFileType(url: string) {
-    return this.file?.type === 'application/pdf'
-    ? 'pdf'
-    : this.file?.type?.startsWith('image/')
-      ? 'image'
-      : this.file?.name?.toLowerCase().endsWith('.docx')
-        ? 'docx'
-        : 'unknown';
+  
+  protected updateMetadata(key: string, newValue: string) {
+    this.document?.metadata.set(key, newValue);
   }
 
   private updateLabels() {
@@ -130,11 +113,29 @@ export class ConfirmDocument implements OnChanges, OnDestroy, OnInit {
     this.descriptionLabel = this.translate.instant('documents.confirm-document.description');
     this.noDocxLabel = this.translate.instant('documents.confirm-document.no-docx');
     this.noPreviewLabel = this.translate.instant('documents.confirm-document.no-preview');
+    this.mainInfoLabel = this.translate.instant('documents.confirm-document.main-info');
     this.metadataLabel = this.translate.instant('documents.confirm-document.metadata');
     this.nameLabel = this.translate.instant('documents.confirm-document.name');
     this.categoryLabel = this.translate.instant('documents.confirm-document.category');
     this.notesLabel = this.translate.instant('documents.confirm-document.notes');
     this.discardButtonLabel = this.translate.instant('documents.confirm-document.discard-button');
     this.confirmButtonLabel = this.translate.instant('documents.confirm-document.confirm-button');
+    this.fraudReportLabel = this.translate.instant('documents.confirm-document.fraud-report');
+  }
+
+  private updateFraudRiskLevels() {
+    this.fraudRiskLevels = [];
+    Object.keys(FraudRiskLevel).filter(key => isNaN(Number(FraudRiskLevel[key as keyof typeof FraudRiskLevel]))).forEach(key => {
+      var keyTranslation = this.translate.instant(`fraud-risk-levels.${key}`);
+      this.fraudRiskLevels.push({ name: keyTranslation, code: key });
+    });
+  }
+
+  private checkFraudRiskLevel() {
+    this.fraudRiskLevels.forEach(level => {
+      if (level.code == this.document?.fraudRiskLevel) {
+        this.selectedFraudRiskLevel = level;
+      }
+    });
   }
 }

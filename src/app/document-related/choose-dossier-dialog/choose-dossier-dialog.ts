@@ -73,7 +73,7 @@ export class ChooseDossierDialog implements OnInit{
         }
       },
       error: (err) => {
-        console.error('Failed to create user:', err);
+        console.error('Failed to retrieve dossiers:', err);
         this.messageService.add({ severity: 'error', summary: this.faultyGetDossiersTitleLabel , detail: this.faultyGetDossiersDetailsLabel });
       }
     });

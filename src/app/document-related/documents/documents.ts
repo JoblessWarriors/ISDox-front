@@ -12,6 +12,8 @@ import { Mapper } from '../../model/mapper/mapper';
 import { MessageService } from 'primeng/api';
 import { ChooseDossierDialog } from '../choose-dossier-dialog/choose-dossier-dialog';
 import { ConfirmDocument } from '../confirm-document/confirm-document';
+import { DocumentService } from '../../service/document/document-service';
+import { Document } from '../../model/document/document.model';
 
 @Component({
   selector: 'app-documents',
@@ -31,11 +33,13 @@ export class Documents implements OnInit{
   private spinnerService = inject(SpinnerService);
   private dossierService = inject(DossierService);
   private messageService = inject(MessageService);
+  private documentService = inject(DocumentService); 
 
   protected openChooseDossierSelection: boolean = false;
   protected openConfirmDocument: boolean = false;
   protected selectedDossier?: Dossier = undefined;
   protected file?: File  = undefined;
+  protected document?: Document = undefined;
 
   protected titleLabel: string = '';
   protected subtitleLabel: string = '';
@@ -52,6 +56,10 @@ export class Documents implements OnInit{
   protected chooseDossierSubtitleLabel: string = '';
   protected faultyCreateDossierTitleLabel: string = '';
   protected faultyCreateDossierDetailsLabel: string = '';
+  protected faultyInitialDocumentUploadTitleLabel: string = '';
+  protected faultyInitialDocumentUploadDetailsLabel: string = '';
+  protected truthyDocumentUploadTitleLabel: string = '';
+  protected truthyDocumentUploadDetailsLabel: string = '';
 
   ngOnInit(): void {
     this.cookieService.set('ISDox_lastVisitedPage', PageEnum.DOCUMENTS, 
@@ -67,8 +75,24 @@ export class Documents implements OnInit{
   }
 
   protected onUpload(event: FileUploadHandlerEvent) {
+    this.spinnerService.show();
     this.file = event.files[0];
-    this.openConfirmDocument = true;
+    this.documentService.uploadDocument(this.selectedDossier!.id, this.file).subscribe({
+      next: (documentMapping) => {
+        const document = Mapper.map('MappingToDocument', documentMapping) as Document;
+        this.document = document;
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: this.faultyInitialDocumentUploadTitleLabel , detail: this.faultyInitialDocumentUploadDetailsLabel });
+        this.spinnerService.hide();
+        // TBA: Log instead of throwing
+        throw new Error(err.error.error);
+      },
+      complete: () => {
+        this.spinnerService.hide();
+        this.openConfirmDocument = true;
+      }
+    });
   }
 
   protected createNewDossier() {
@@ -81,7 +105,7 @@ export class Documents implements OnInit{
         }
       },
       error: (err) => {
-        console.error('Failed to create user:', err);
+        console.error('Failed to create dossier:', err);
         this.spinnerService.hide();
         this.messageService.add({ severity: 'error', summary: this.faultyCreateDossierTitleLabel , detail: this.faultyCreateDossierDetailsLabel });
       },
@@ -98,6 +122,12 @@ export class Documents implements OnInit{
   protected selectedDossierEvent(dossier: Dossier) {
     this.selectedDossier = { ... dossier};
     this.subtitleLabel = this.subtitleLabel.replace(/{id}/g, this.selectedDossier.id);
+  }
+
+  protected uploadedDocument(uploadedDoc: boolean) {
+    if (uploadedDoc) {
+      this.messageService.add({ severity: 'success', summary: this.truthyDocumentUploadTitleLabel , detail: this.truthyDocumentUploadDetailsLabel });
+    }
   }
 
   private updateLabels() {
@@ -119,6 +149,10 @@ export class Documents implements OnInit{
     this.chooseDossierSubtitleLabel = this.translate.instant('documents.choose-dossier-subtitle');
     this.faultyCreateDossierTitleLabel = this.translate.instant('documents.faulty-create-dossier-title');
     this.faultyCreateDossierDetailsLabel = this.translate.instant('documents.faulty-create-dossier-details');
+    this.faultyInitialDocumentUploadTitleLabel = this.translate.instant('documents.faulty-initial-document-upload-title');
+    this.faultyInitialDocumentUploadDetailsLabel = this.translate.instant('documents.faulty-initial-document-upload-details');
+    this.truthyDocumentUploadTitleLabel = this.translate.instant('documents.truthy-document-upload-title');
+    this.truthyDocumentUploadDetailsLabel = this.translate.instant('documents.truthy-document-upload-details');
     this.spinnerService.hide();
   }
 }
