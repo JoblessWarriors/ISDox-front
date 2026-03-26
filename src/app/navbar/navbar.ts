@@ -18,6 +18,7 @@ import { Constants } from '../constants';
 import { FlagIconService } from '../service/flag-icon/flag-icon';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../service/auth/auth-service';
 
 @Component({
   selector: 'app-navbar',
@@ -40,6 +41,7 @@ export class Navbar implements OnInit{
   private flagIconService = inject(FlagIconService);
   private location = inject(Location);
   private cookieService = inject(CookieService);
+  private authService = inject(AuthService);
 
   private lightLabel: string = "";
   private darkLabel: string = "";
@@ -56,6 +58,10 @@ export class Navbar implements OnInit{
       this.spinnerService.show();
       this.updateMenu();
     });
+
+    this.authService.adminBehaviorSubject.subscribe((isLoggedIn) => {
+      this.updateMenu(false);
+    })
   }
 
   protected toggleThemePreference() {
@@ -63,7 +69,7 @@ export class Navbar implements OnInit{
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
   }
 
-  private updateMenu() {
+  private updateMenu(shouldTriggerReplaceState = true) {
     var currentLanguage = localStorage.getItem('ISDox_lang') ?? Constants.fallbackLanguage;
     this.routeTranslationService.getRoutesForLanguage(currentLanguage);
     var urls = this.routeTranslationService.getUrlsForLanguage();
@@ -76,14 +82,17 @@ export class Navbar implements OnInit{
       },
       {
         label: this.translate.instant('navbar.documents'),
+        visible: this.authService.isLoggedIn(),
         url: urls.get('documents')
       },
       {
         label: this.translate.instant('navbar.archive'),
+        visible: this.authService.isLoggedIn(),
         url: urls.get('archive')
       },
       {
         label: this.translate.instant('navbar.login'),
+        visible: !this.authService.isLoggedIn(),
         url: urls.get('login')
       },
       {
@@ -114,7 +123,9 @@ export class Navbar implements OnInit{
     var lastVisitedPage = canGetLastVisitedPageCookie ? 
       this.cookieService.get('ISDox_lastVisitedPage')
       : Constants.defaultPage;
-    this.location.replaceState(urls.get(lastVisitedPage));
+    if (shouldTriggerReplaceState) {
+      this.location.replaceState(urls.get(lastVisitedPage));
+    }
     this.spinnerService.hide();
   }
 

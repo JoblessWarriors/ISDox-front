@@ -19,6 +19,9 @@ import { AuthService } from '../service/auth/auth-service';
 import { TokenRequest } from '../model/request/token-request.model';
 import { MessageService } from 'primeng/api';
 import { LogInError } from '../errors/login/log-in-error';
+import { Router } from '@angular/router';
+import { RouteTranslationService } from '../service/route-translation/route-translation-service';
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-login',
@@ -45,6 +48,8 @@ export class Login implements OnInit{
   private cookieService = inject(CookieService);
   private authService = inject(AuthService);
   private messageService = inject(MessageService);
+  private routeTranslationService = inject(RouteTranslationService);
+  private router = inject(Router)
 
   protected username: string = "";
   protected password: string = "";
@@ -92,14 +97,20 @@ export class Login implements OnInit{
               sameSite: 'Strict'});
           this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
           this.authService.isAdmin();
+          this.authService.loggedInBehaviorSubject.next(true);
         }
         this.spinnerService.hide();
       },
       error: (err) => {
+        this.authService.loggedInBehaviorSubject.next(false);
         this.messageService.add({ severity: 'error', summary: this.faultyLogInTitleLabel , detail: this.faultyLogInMessageLabel });
         this.spinnerService.hide();
         // TBA: Log instead of throwing
         throw new LogInError(err.error.error);
+      },
+      complete: () => {
+        var urls = this.routeTranslationService.getUrlsForLanguage();
+        this.router.navigate([urls.get(Constants.defaultPage)]);
       }
     });
   }
