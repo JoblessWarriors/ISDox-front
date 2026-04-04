@@ -229,7 +229,7 @@
             "discard": "Anulează",
             "change-password-button": "Actualizează Parola",
             "faulty-change-password-title": "Actualizare Parolă Eșuată",
-            "faulty-change-password-details": "Nu am putut actualiza parola. vă rugăm să vă asigurați că parola actuală este corectă și să încercați din nou."
+            "faulty-change-password-details": "Nu am putut actualiza parola. Vă rugăm să vă asigurați că parola actuală este corectă și să încercați din nou."
         },
         "picture-dialog": {
             "title": "Actualizare Poză Profil",
