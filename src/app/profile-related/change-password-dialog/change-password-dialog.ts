@@ -96,7 +96,7 @@ export class ChangePasswordDialog implements OnInit {
         this.closeModal.emit(false);
       },
       error: (err) => {
-        console.error('Failed to edit department:', err);
+        console.error('Failed to change password:', err);
         this.messageService.add({ severity: 'error', summary: this.faultyChangePasswordTitleLabel , detail: this.faultyChangePasswordDetailsLabel });
       }
     });
