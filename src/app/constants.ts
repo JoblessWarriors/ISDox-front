@@ -2,9 +2,9 @@ import { Type } from "@angular/core";
 import { Archive } from "./archive/archive";
 import { Home } from "./home/home";
 import { Login } from "./login/login";
-import { Profile } from "./profile/profile";
 import { environment } from "../environments/environment";
 import { Documents } from "./document-related/documents/documents";
+import { Profile } from "./profile-related/profile/profile";
 
 export class Constants {
     static defaultPage = 'home';

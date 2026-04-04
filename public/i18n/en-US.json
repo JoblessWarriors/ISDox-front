@@ -5,6 +5,7 @@
         "documents": "Upload documents",
         "archive": "Archive",
         "login": "Log In",
+        "logout": "Log Out",
         "dark-mode": "Dark mode",
         "light-mode": "Light mode"
     },
@@ -184,6 +185,61 @@
             "discard-button": "Discard",
             "confirm-button": "Confirm",
             "fraud-report": "Fraud Report"
+        }
+    },
+    "profile": {
+        "profile-details": "User Profile",
+        "identification-header": "Identification",
+        "affiliation-header": "Affiliation",
+        "permissions-header": "Permissions & Roles",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "email": "Email Address",
+        "identity-type": "Identity Type",
+        "identity-number": "Identity Number",
+        "institution": "Institution",
+        "departments": "Departments",
+        "change-password": "Change Password",
+        "change-photo-tooltip": "Change Photo",
+        "account-active": "Account Active",
+        "account-id": "Account ID",
+        "member-since": "Member since",
+        "created-by": "Created by",
+        "pending": "Pending",
+        "faulty-get-current-user-title": "Data Retrieval Error",
+        "faulty-get-current-user-details": "We were unable to load your profile information. Please try refreshing the page or contact support.",
+        "truthy-change-password-title": "Password Changed Successfully",
+        "truthy-change-password-details": "Your password has been updated. Please use your new credentials for future logins.",
+        "truthy-change-profile-picture-title": "Profile Picture Updated",
+        "truthy-change-profile-picture-details": "Your new profile picture has been successfully uploaded and is now visible across the application.",
+        "password-errors": {
+            "passwords-dont-match": "Passwords do not match.",
+            "too-short": "At least 8 characters required.",
+            "no-uppercase": "Missing an uppercase letter.",
+            "no-lowercase": "Missing a lowercase letter.",
+            "no-number": "Missing a number.",
+            "no-special": "Missing a special character (!@#$ etc.)."
+        },
+        "change-password-dialog": {
+            "change-password-title": "Change Password",
+            "change-password-description": "Please enter your current password and choose a new one that meets the security requirements.",
+            "old-password": "Current Password",
+            "new-password": "New Password",
+            "confirm-password": "Confirm New Password",
+            "discard": "Discard",
+            "change-password-button": "Update Password",
+            "faulty-change-password-title": "Password Update Failed",
+            "faulty-change-password-details": "We could not update your password. Please ensure your current password is correct and try again."
+        },
+        "picture-dialog": {
+            "title": "Update Profile Picture",
+            "description": "Choose a new image to represent yourself. Supports JPG, PNG or WebP.",
+            "upload-button": "Choose Image",
+            "discard": "Discard",
+            "save": "Save Changes",
+            "max-size": "Maximum file size: 1MB",
+            "faulty-change-profile-picture-title": "Upload Failed",
+            "faulty-change-profile-picture-details": "We couldn't update your profile picture. Please ensure the file is not corrupted and try again."
         }
     }
 }

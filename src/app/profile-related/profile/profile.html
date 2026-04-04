@@ -1,0 +1,125 @@
+<div class="container mx-auto p-8 mt-10">
+    <div class="grid grid-cols-12 gap-8">
+        
+        <div class="col-span-12 md:col-span-4 lg:col-span-3">
+            <p-card styleClass="">
+                <div class="flex flex-col items-center gap-6">
+                    <div class="relative group">
+                        @if (userProfilePic) {
+                            <p-avatar
+                                [image]="userProfilePic"
+                                shape="circle"
+                                size="xlarge"
+                                styleClass="w-32 h-32" />
+                        }
+                        @else {
+                            <p-avatar 
+                                [label]="(user?.firstName?.charAt(0) || '') + (user?.lastName?.charAt(0) || '')" 
+                                shape="circle"
+                                size="xlarge"
+                                styleClass="w-32 h-32" />
+                        }
+                        
+                        <p-button 
+                            icon="pi pi-camera" 
+                            [rounded]="true" 
+                            severity="secondary"
+                            class="absolute top-10 left-11"
+                            (onClick)="onChangeProfilePicture()"
+                            [pTooltip]="changePhotoButtonTooltipLabel" />
+                    </div>
+
+                    <div class="text-center">
+                        <h2 class="text-2xl font-semibold m-0 text-900">{{user?.firstName}} {{user?.lastName}}</h2>
+                        <p class="text-600 mt-1">{{user?.email}}</p>
+                    </div>
+
+                    <p-divider class="w-full" />
+
+                    <div class="w-full flex flex-col gap-3">
+                        <p-button 
+                            [label]="changePasswordButtonLabel" 
+                            icon="pi pi-key" 
+                            [outlined]="true"
+                            severity="secondary"
+                            styleClass="w-full"
+                            (onClick)="onChangePassword()" />
+                        
+                        <p-button 
+                            *ngIf="user?.isActive"
+                            [label]="accountActiveLabel" 
+                            icon="pi pi-verified" 
+                            [text]="true"
+                            severity="success"
+                            styleClass="w-full cursor-default" />
+                    </div>
+                </div>
+            </p-card>
+        </div>
+
+        <div class="col-span-12 md:col-span-8 lg:col-span-9">
+            <p-card styleClass="">
+                <h1 class="text-3xlmb-8">{{profileDetailsLabel}}</h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                    <div class="flex flex-col gap-6">
+                        <h3 class="text-xs uppercase font-bold text-500 tracking-widest m-0">{{identificationLabel}}</h3>
+                        
+                        <p-float-label variant="on">
+                            <input pInputText id="idType" [value]="IdentityType[user!.identityType]" readonly class="w-full" [readOnly]="true"/>
+                            <label for="idType">{{identityTypeLabel}}</label>
+                        </p-float-label>
+
+                        <p-float-label variant="on">
+                            <input pInputText id="idNum" [value]="user?.identityNumber" readonly class="w-full" [readOnly]="true"/>
+                            <label for="idNum">{{identityNumberLabel}}</label>
+                        </p-float-label>
+                    </div>
+
+                    <div class="flex flex-col gap-6">
+                        <h3 class="text-xs uppercase font-bold text-500 tracking-widest m-0">{{affiliationLabel}}</h3>
+
+                        <p-float-label variant="on">
+                            <input pInputText id="inst" [value]="user?.institution?.name || 'N/A'" readonly class="w-full" [readOnly]="true"/>
+                            <label for="inst">{{institutionLabel}}</label>
+                        </p-float-label>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm text-600">{{departmentsLabel}}</label>
+                            <div class="flex flex-wrap gap-2">
+                                <p-chip *ngFor="let dept of user?.departments" [label]="dept.name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p-divider class="my-8" />
+
+                <div class="flex flex-col gap-4">
+                    <h3 class="text-xs uppercase font-bold text-500 tracking-widest m-0">{{permissionsLabel}}</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <p-tag *ngFor="let role of user?.roles" [value]="UserRole[role]" severity="secondary" [rounded]="true" />
+                    </div>
+                </div>
+
+                <div class="mt-12 pt-4 flex justify-between text-xs text-500 italic">
+                    <span>{{accountIdLabel}}: {{user?.id || pendingLabel}}</span>
+                    <span>{{memberSinceLabel}}: {{user?.createdAt | date:'longDate'}}</span>
+                </div>
+            </p-card>
+        </div>
+
+    </div>
+</div>
+<app-change-password-dialog
+    [isVisible]="openChangePasswordDialog"
+    [userId]="user!.id!"
+    (closeModal)="openChangePasswordDialog=$event"
+    (changedPasswordEmitter)="changedPasswordEvent($event)"
+></app-change-password-dialog>
+<app-change-profile-picture-dialog
+    [isVisible]="openChangeProfilePictureDialog"
+    [user]="user!"
+    (closeModal)="openChangeProfilePictureDialog=$event"
+    (changedProfilePicture)="changedProfilePictureEvent($event)"
+></app-change-profile-picture-dialog>

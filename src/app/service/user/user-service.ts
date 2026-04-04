@@ -1,19 +1,18 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '../../model/user/user.model';
-import { UserRole } from '../../model/user/user-role';
-import { IdentityType } from '../../model/user/identity-type';
 import { HttpClient } from '@angular/common/http';
 import { UserActionEnum } from './user-action-enum';
-import { Institution } from '../../model/institution/institution.model';
 import { UserMapping } from '../../model/user/user-mapping.model';
 import { UsersResponse } from '../../model/response/users-response.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { AuthService } from '../auth/auth-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private http = inject(HttpClient);
+  private authService = inject(AuthService);
 
   public getUserRoles(user: User) {
     return user.roles;
@@ -24,8 +23,18 @@ export class UserService {
     return this.http.get<UsersResponse>(url);
   }
 
-  public getUser(id: string) {
+  public getUser(userId: string): Observable<UserMapping> {
+    const url = UserActionEnum.toUrl(UserActionEnum.GET, userId);
+    return this.http.get<UserMapping>(url);
+  }
 
+  public getCurrentUser(): Observable<UserMapping | undefined> {
+    const decodedData = this.authService.getUserData();
+    if (decodedData == null) {
+      return of(undefined);
+    }
+    const userId = decodedData['userId'];
+    return this.getUser(userId);
   }
 
   public createUser(user: UserMapping): Observable<UserMapping> {
@@ -41,5 +50,17 @@ export class UserService {
   public deleteUser(id: string) {
     const url = UserActionEnum.toUrl(UserActionEnum.DELETE, id);
     return this.http.delete(url);
+  }
+
+  public changePassword(id: string, body: any) {
+    const url = UserActionEnum.toUrl(UserActionEnum.CHANGE_PASSWORD, id);
+    return this.http.put(url, body);
+  }
+
+  public changeProfilePicture(id: string, file: File): Observable<{ profileImageUrl: string }> {
+    const url = UserActionEnum.toUrl(UserActionEnum.CHANGE_AVATAR, id);
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post<{ profileImageUrl: string }>(url, formData);
   }
 }

@@ -19,6 +19,10 @@ import { FlagIconService } from '../service/flag-icon/flag-icon';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../service/auth/auth-service';
+import { MenuModule } from 'primeng/menu';
+import { UserService } from '../service/user/user-service';
+import { User } from '../model/user/user.model';
+import { Mapper } from '../model/mapper/mapper';
 
 @Component({
   selector: 'app-navbar',
@@ -28,7 +32,8 @@ import { AuthService } from '../service/auth/auth-service';
     AvatarModule,
     InputTextModule,
     ToggleSwitchModule,
-    FormsModule
+    FormsModule,
+    MenuModule
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
@@ -41,12 +46,16 @@ export class Navbar implements OnInit{
   private flagIconService = inject(FlagIconService);
   private location = inject(Location);
   private cookieService = inject(CookieService);
-  private authService = inject(AuthService);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  protected authService = inject(AuthService);
 
   private lightLabel: string = "";
   private darkLabel: string = "";
 
+  protected user: User | undefined;
   protected navBarOptions: MenuItem[] = [];
+  protected userMenuItems: MenuItem[] = [];
   protected isDarkMode = localStorage.getItem('ISDox_user_theme') == 'light' ? false : true;
   protected modeLabel: string = "";
 
@@ -57,11 +66,24 @@ export class Navbar implements OnInit{
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.spinnerService.show();
       this.updateMenu();
+      this.spinnerService.hide();
     });
 
-    this.authService.adminBehaviorSubject.subscribe((isLoggedIn) => {
+    this.authService.loggedInBehaviorSubject.subscribe((isLoggedIn) => {
       this.updateMenu(false);
-    })
+      this.userService.getCurrentUser().subscribe({
+        next: (userMapping) => {
+          if (userMapping) {
+            this.user = Mapper.map("MappingToUser", userMapping);
+          }
+          this.spinnerService.hide();
+        },
+        error: (err) => {
+          console.error('Failed to load current user:', err);
+          this.spinnerService.hide();
+        }
+      });
+    });
   }
 
   protected toggleThemePreference() {
@@ -115,6 +137,26 @@ export class Navbar implements OnInit{
         ]
       }
     ];
+
+    this.userMenuItems = [
+      {
+        label: this.translate.instant('navbar.profile'),
+        icon: 'pi pi-user',
+        visible: this.authService.isLoggedIn(),
+        command: () => {
+          this.router.navigate([urls.get('profile')]);
+        }
+      },
+      {
+        label: this.translate.instant('navbar.logout'),
+        icon: 'pi pi-sign-out',
+        visible: this.authService.isLoggedIn(),
+        command: () => {
+          this.authService.logout();
+          this.router.navigate([urls.get('home')]);
+        }
+      }
+    ];
     this.darkLabel = this.translate.instant('navbar.dark-mode');
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
@@ -126,7 +168,6 @@ export class Navbar implements OnInit{
     if (shouldTriggerReplaceState) {
       this.location.replaceState(urls.get(lastVisitedPage));
     }
-    this.spinnerService.hide();
   }
 
   private updateLanguage(lang: LanguageEnum) {

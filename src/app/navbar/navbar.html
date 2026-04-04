@@ -35,7 +35,24 @@
                 <label>{{ modeLabel }}</label>
                 <p-toggleswitch (onChange)="toggleThemePreference()" [(ngModel)]="isDarkMode"/>
             </div>
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+            <ng-container *ngIf="authService.isLoggedIn()">
+            <button #menuButton
+                type="button" 
+                (click)="menu.toggle($event)" 
+                class="p-link flex items-center justify-center p-0 border-none bg-transparent cursor-pointer">
+                @if (user?.profileImageUrl) {
+                    <p-avatar 
+                    [image]="user?.profileImageUrl!"
+                    shape="circle" />
+                }
+                @else {
+                    <p-avatar 
+                        [label]="(user?.firstName?.charAt(0) || '') + (user?.lastName?.charAt(0) || '')" 
+                        shape="circle"/>
+                }
+            </button>
+            <p-menu #menu [model]="userMenuItems" [popup]="true"></p-menu>
+        </ng-container>
         </div>
     </ng-template>
 </p-menubar>
