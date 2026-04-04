@@ -5,6 +5,7 @@
         "documents": "Încarcă documente",
         "archive": "Arhivă",
         "login": "Conectare",
+        "logout": "Deconectare",
         "dark-mode": "Mod întunecat",
         "light-mode": "Mod luminos"
     },
@@ -184,6 +185,61 @@
             "discard-button": "Renunță",
             "confirm-button": "Confirmă",
             "fraud-report": "Raportul de fraudă"
+        }
+    },
+    "profile": {
+        "profile-details": "Profil Utilizator",
+        "identification-header": "Identificare",
+        "affiliation-header": "Afiliere",
+        "permissions-header": "Permisiuni și Roluri",
+        "first-name": "Prenume",
+        "last-name": "Nume",
+        "email": "Adresă de email",
+        "identity-type": "Tip identitate",
+        "identity-number": "Număr identitate",
+        "institution": "Instituție",
+        "departments": "Departamente",
+        "change-password": "Schimbă parola",
+        "change-photo-tooltip": "Schimbă fotografia",
+        "account-active": "Cont Activ",
+        "account-id": "ID Cont",
+        "member-since": "Membru din",
+        "created-by": "Creat de",
+        "pending": "În așteptare",
+        "faulty-get-current-user-title": "Eroare Preluare Date",
+        "faulty-get-current-user-details": "Nu am putut încărca informațiile profilului dumneavoastră. Vă rugăm să reîncarci pagina sau să contactați suportul tehnic.",
+        "truthy-change-password-title": "Parolă Schimbată cu Succes",
+        "truthy-change-password-details": "Parola ta a fost actualizată. Vă rugăm să folosești noile date de autentificare pentru autentificările viitoare.",
+        "truthy-change-profile-picture-title": "Poză Profil Actualizată",
+        "truthy-change-profile-picture-details": "Noua ta poză de profil a fost încărcată cu succes și este acum vizibilă în întreaga aplicație.",
+        "password-errors": {
+            "passwords-dont-match": "Parolele nu se potrivesc.",
+            "too-short": "Minim 8 caractere necesare.",
+            "no-uppercase": "Lipsește o literă majusculă.",
+            "no-lowercase": "Lipsește o literă mică.",
+            "no-number": "Lipsește un număr.",
+            "no-special": "Lipsește un caracter special (!@#$ etc.)."
+        },
+        "change-password-dialog": {
+            "change-password-title": "Schimbă Parola",
+            "change-password-description": "Vă rugăm să introduceți parola actuală și să alegeți o parolă nouă care să respecte cerințele de securitate.",
+            "old-password": "Parola Actuală",
+            "new-password": "Parola Nouă",
+            "confirm-password": "Confirmă Parola Nouă",
+            "discard": "Anulează",
+            "change-password-button": "Actualizează Parola",
+            "faulty-change-password-title": "Actualizare Parolă Eșuată",
+            "faulty-change-password-details": "Nu am putut actualiza parola. Vă rugăm să vă asigurați că parola actuală este corectă și să încercați din nou."
+        },
+        "picture-dialog": {
+            "title": "Actualizare Poză Profil",
+            "description": "Alege o imagine nouă pentru profilul tău. Sunt acceptate formatele JPG, PNG sau WebP.",
+            "upload-button": "Alege Imaginea",
+            "discard": "Anulează",
+            "save": "Salvează Modificările",
+            "max-size": "Dimensiune maximă: 1MB",
+            "faulty-change-profile-picture-title": "Încărcare Eșuată",
+            "faulty-change-profile-picture-details": "Nu am putut actualiza poza de profil. Te rugăm să te asiguri că fișierul nu este corupt și să încerci din nou."
         }
     }
 }

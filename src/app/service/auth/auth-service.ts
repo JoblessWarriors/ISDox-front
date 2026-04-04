@@ -34,8 +34,9 @@ export class AuthService {
 
   public logout() {
     if (this.cookieService.check('ISDox_access_token')) {
-      this.cookieService.delete('ISDox_access_token');
+      this.cookieService.delete('ISDox_access_token', '/');
     }
+    this.loggedInBehaviorSubject.next(false);
   }
 
   public isLoggedIn() {
