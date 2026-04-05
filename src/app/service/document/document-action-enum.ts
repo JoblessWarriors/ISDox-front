@@ -11,7 +11,7 @@ export enum DocumentActionEnum {
 
 export namespace DocumentActionEnum {
   export function toUrl(action: DocumentActionEnum, param?: any, isBaseUrlDossier?: boolean): string {
-    var baseUrl = Constants.baseUrl;
+    let baseUrl = Constants.baseUrl;
     if (isBaseUrlDossier) {
       baseUrl = DossierActionEnum.toUrl(DossierActionEnum.GET, param);
       return `${baseUrl}/${action}`;

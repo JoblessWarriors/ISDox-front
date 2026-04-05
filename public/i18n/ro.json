@@ -198,7 +198,7 @@
         },
         "success": {
             "title": "Document Încărcat cu Succes!",
-            "subtitle": "Documentul  a fost procesat și salvat în siguranță în dosarul selectat.",
+            "subtitle": "Documentul a fost procesat și salvat în siguranță în dosarul selectat.",
             "back-button": "Înapoi la Documente",
             "faulty-update-title": "Actualizare Eșuată",
             "faulty-update-details": "Nu am putut finaliza actualizarea documentului sau a dosarului. Vă rugăm să încercați din nou sau să contactați un administrator."

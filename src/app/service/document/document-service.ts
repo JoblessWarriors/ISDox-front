@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { DocumentActionEnum } from './document-action-enum';
 import { Observable } from 'rxjs';
 import { DocumentMapping } from '../../model/document/document-mapping.model';
-import { Document } from '../../model/document/document.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +17,7 @@ export class DocumentService {
     return this.http.post<DocumentMapping>(url, formData);
   }
 
-  public updateDocument(documentId: string, document: DocumentMapping) {
+  public updateDocument(documentId: string, document: DocumentMapping): Observable<DocumentMapping> {
     const url = DocumentActionEnum.toUrl(DocumentActionEnum.UPDATE, documentId);
     return this.http.put<DocumentMapping>(url, document);
   }

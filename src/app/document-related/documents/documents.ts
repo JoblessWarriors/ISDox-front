@@ -142,8 +142,8 @@ export class Documents implements OnInit{
   }
 
   protected uploadedDocument(uploadedDoc: Document) {
-    this.spinnerService.show();
     if (uploadedDoc) {
+      this.spinnerService.show();
       const doc = Mapper.map('DocumentToMapping', uploadedDoc) as DocumentMapping;
       if (this.selectedDossierStatus == DossierStatus.DRAFT) {
         this.documentService.updateDocument(uploadedDoc.id, doc).subscribe({
