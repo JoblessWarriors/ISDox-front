@@ -25,4 +25,12 @@ export class DossierService {
     const url = DossierActionEnum.toUrl(DossierActionEnum.POST);
     return this.http.post<DossierMapping>(url, null);
   }
+
+  public patchDossier(id: string, status: string) {
+    const url = DossierActionEnum.toUrl(DossierActionEnum.PATCH, id);
+    const body = {
+      status: status
+    };
+    return this.http.patch<DossierMapping>(url, body);
+  }
 }

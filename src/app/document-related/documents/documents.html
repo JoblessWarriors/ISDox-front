@@ -1,5 +1,27 @@
 <div class="flex m-12">
-  @if (selectedDossier != undefined) {
+  @if (isSuccess) {
+    <p-card class="w-full mx-16">
+      <div class="my-24 flex flex-col items-center text-center">
+        <div class="mb-8">
+          <i class="pi pi-check-circle text-8xl text-green-500"></i>
+        </div>
+        
+        <h1 class="text-4xl m-2">
+          <strong>{{successTitleLabel}}</strong>
+        </h1>
+        <p class="text-xl text-600 mx-10 mt-3 max-w-2xl">
+          {{successSubtitleLabel}}
+        </p>
+
+        <p-button 
+          [label]="backToDocumentsLabel" 
+          icon="pi pi-arrow-left" 
+          (onClick)="resetView()" 
+          styleClass="mt-12 p-button-lg p-button-outlined" />
+      </div>
+    </p-card>
+  }
+  @else if (selectedDossier != undefined) {
     <p-card class="w-full mx-16">
       <div class="my-16 flex flex-col items-center">
           <h1 class="text-4xl m-2">
@@ -74,7 +96,9 @@
     [isVisible]="openConfirmDocument"
     [file]="file"
     [document]="document"
+    [selectedDossierStatus]="selectedDossierStatus"
     (closeModal)="openConfirmDocument=$event"
     (uploadedDocument)="uploadedDocument($event)"
+    (changeDossierStatus)="changedDossierStatusEvent($event)"
   ></app-confirm-document>
 }

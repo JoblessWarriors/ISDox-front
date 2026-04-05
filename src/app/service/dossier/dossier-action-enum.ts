@@ -4,14 +4,21 @@ export enum DossierActionEnum {
   GET = 'dossiers',
   POST = 'dossiers',
   PUT = 'dossiers',
-  DELETE = 'dossiers'
+  DELETE = 'dossiers',
+  PATCH = 'dossiers/{id}/status'
 }
 
 export namespace DossierActionEnum {
   export function toUrl(action: DossierActionEnum, param?: any): string {
-    if (param !== undefined) {
-      return `${Constants.baseUrl}/${action}/${param}`;
+    let url = action.toString();
+    
+    if (url.includes('{id}') && param !== undefined) {
+      url = url.replace('{id}', param.toString());
     }
-    return `${Constants.baseUrl}/${action}`;
+    else if (param !== undefined) {
+      url = `${url}/${param}`;
+    }
+    
+    return `${Constants.baseUrl}/${url}`;
   }
 }

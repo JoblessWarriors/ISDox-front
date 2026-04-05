@@ -14,6 +14,10 @@ import { ChooseDossierDialog } from '../choose-dossier-dialog/choose-dossier-dia
 import { ConfirmDocument } from '../confirm-document/confirm-document';
 import { DocumentService } from '../../service/document/document-service';
 import { Document } from '../../model/document/document.model';
+import { DocumentMapping } from '../../model/document/document-mapping.model';
+import { DossierStatus } from '../../model/dossier/dossier-status';
+import { ButtonModule } from 'primeng/button';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-documents',
@@ -22,7 +26,8 @@ import { Document } from '../../model/document/document.model';
     CardModule,
     FileUploadModule,
     ChooseDossierDialog,
-    ConfirmDocument
+    ConfirmDocument,
+    ButtonModule
   ],
   templateUrl: './documents.html',
   styleUrl: './documents.css',
@@ -40,6 +45,8 @@ export class Documents implements OnInit{
   protected selectedDossier?: Dossier = undefined;
   protected file?: File  = undefined;
   protected document?: Document = undefined;
+  protected isSuccess: boolean = false;
+  protected selectedDossierStatus: DossierStatus | undefined;
 
   protected titleLabel: string = '';
   protected subtitleLabel: string = '';
@@ -60,6 +67,11 @@ export class Documents implements OnInit{
   protected faultyInitialDocumentUploadDetailsLabel: string = '';
   protected truthyDocumentUploadTitleLabel: string = '';
   protected truthyDocumentUploadDetailsLabel: string = '';
+  protected successTitleLabel: string = '';
+  protected successSubtitleLabel: string = '';
+  protected backToDocumentsLabel: string = '';
+  protected faultyUpdateTitleLabel: string = '';
+  protected faultyUpdateDetailsLabel: string = '';
 
   ngOnInit(): void {
     this.cookieService.set('ISDox_lastVisitedPage', PageEnum.DOCUMENTS, 
@@ -121,13 +133,71 @@ export class Documents implements OnInit{
 
   protected selectedDossierEvent(dossier: Dossier) {
     this.selectedDossier = { ... dossier};
+    this.selectedDossierStatus = this.selectedDossier.status;
     this.subtitleLabel = this.subtitleLabel.replace(/{id}/g, this.selectedDossier.id);
   }
 
-  protected uploadedDocument(uploadedDoc: boolean) {
+  changedDossierStatusEvent(dossierStatus: DossierStatus) {
+    this.selectedDossierStatus = dossierStatus;
+  }
+
+  protected uploadedDocument(uploadedDoc: Document) {
+    this.spinnerService.show();
     if (uploadedDoc) {
-      this.messageService.add({ severity: 'success', summary: this.truthyDocumentUploadTitleLabel , detail: this.truthyDocumentUploadDetailsLabel });
+      const doc = Mapper.map('DocumentToMapping', uploadedDoc) as DocumentMapping;
+      if (this.selectedDossierStatus == DossierStatus.DRAFT) {
+        this.documentService.updateDocument(uploadedDoc.id, doc).subscribe({
+          next: (result) => {
+            this.isSuccess = true;  
+            this.messageService.add({ severity: 'success', summary: this.truthyDocumentUploadTitleLabel , detail: this.truthyDocumentUploadDetailsLabel });
+            this.spinnerService.hide();
+          },
+          error: (err) => {
+            console.error('Update document failed:', err);
+            
+            this.messageService.add({ 
+              severity: 'error', 
+              summary: this.faultyUpdateTitleLabel, 
+              detail: this.faultyUpdateDetailsLabel 
+            });
+            
+            this.spinnerService.hide();
+          }
+        });
+      }
+      else {
+        forkJoin({
+          document: this.documentService.updateDocument(uploadedDoc.id, doc),
+          dossier: this.dossierService.patchDossier(this.selectedDossier!.id, DossierStatus[1])
+        }).subscribe({
+          next: (results) => {
+            console.log('Document updated:', results.document);
+            console.log('Dossier patched:', results.dossier);
+            
+            this.isSuccess = true;  
+            this.messageService.add({ severity: 'success', summary: this.truthyDocumentUploadTitleLabel , detail: this.truthyDocumentUploadDetailsLabel });
+            
+            this.spinnerService.hide();
+          },
+          error: (err) => {
+            console.error('One of the operations failed:', err);
+            
+            this.messageService.add({ 
+              severity: 'error', 
+              summary: this.faultyUpdateTitleLabel, 
+              detail: this.faultyUpdateDetailsLabel 
+            });
+            
+            this.spinnerService.hide();
+          }
+        });
+      }
     }
+  }
+
+  protected resetView() {
+    this.isSuccess = false;
+    this.selectedDossier = undefined;
   }
 
   private updateLabels() {
@@ -153,6 +223,11 @@ export class Documents implements OnInit{
     this.faultyInitialDocumentUploadDetailsLabel = this.translate.instant('documents.faulty-initial-document-upload-details');
     this.truthyDocumentUploadTitleLabel = this.translate.instant('documents.truthy-document-upload-title');
     this.truthyDocumentUploadDetailsLabel = this.translate.instant('documents.truthy-document-upload-details');
+    this.successTitleLabel = this.translate.instant('documents.success.title');
+    this.successSubtitleLabel = this.translate.instant('documents.success.subtitle');
+    this.backToDocumentsLabel = this.translate.instant('documents.success.back-button');
+    this.faultyUpdateTitleLabel = this.translate.instant('documents.success.faulty-update-title');
+    this.faultyUpdateDetailsLabel = this.translate.instant('documents.success.faulty-update-details');
     this.spinnerService.hide();
   }
 }

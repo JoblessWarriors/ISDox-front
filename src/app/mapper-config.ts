@@ -45,15 +45,13 @@ export const initializeMappings = () => {
         ...d,
         role: DocumentRole[d.role],
         fraudRiskLevel: FraudRiskLevel[d.fraudRiskLevel],
-        uploader: d.uploader ? Mapper.map('UserToMapping', d.uploader) : undefined,
-        metadata: Object.fromEntries(d.metadata)
+        uploader: d.uploader ? Mapper.map('UserToMapping', d.uploader) : undefined
     }));
 
     Mapper.register<DocumentMapping, Document>('MappingToDocument', (m) => ({
         ...m,
         role: (DocumentRole as any)[m.role],
         fraudRiskLevel: (FraudRiskLevel as any)[m.fraudRiskLevel],
-        uploader: m.uploader ? Mapper.map('MappingToUser', m.uploader) : undefined,
-        metadata: m.metadata ? new Map(Object.entries(m.metadata)) : new Map(),
+        uploader: m.uploader ? Mapper.map('MappingToUser', m.uploader) : undefined
     }));
 };
