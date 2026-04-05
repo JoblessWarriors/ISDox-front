@@ -1,17 +1,23 @@
+import { Constants } from "../../constants";
 import { DossierActionEnum } from "../dossier/dossier-action-enum";
 
 export enum DocumentActionEnum {
     GET = 'documents',
     CREATE = 'documents',
     UPDATE = 'documents',
-    DELETE = 'documents'
+    DELETE = 'documents',
+    UPLOAD = 'documents'
 }
 
 export namespace DocumentActionEnum {
-  export function toUrl(action: DocumentActionEnum, dossierId: any, param?: any): string {
-    const baseUrl = DossierActionEnum.toUrl(DossierActionEnum.GET, dossierId);
+  export function toUrl(action: DocumentActionEnum, param?: any, isBaseUrlDossier?: boolean): string {
+    let baseUrl = Constants.baseUrl;
+    if (isBaseUrlDossier) {
+      baseUrl = DossierActionEnum.toUrl(DossierActionEnum.GET, param);
+      return `${baseUrl}/${action}`;
+    }
     if (param !== undefined) {
-      return `${baseUrl}//${action}/${param}`;
+      return `${baseUrl}/${action}/${param}`;
     }
     return `${baseUrl}/${action}`;
   }

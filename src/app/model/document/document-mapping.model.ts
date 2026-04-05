@@ -9,9 +9,15 @@ export interface DocumentMapping {
     storagePath: string;
     extractedText: string;
     isIndexedForSearch: boolean;
-    metadata: Record<string, string>;
+    metadata: MetaDataItem[];
     pageCount: number;
     fraudRiskLevel: string;
     fraudReport: string;
     uploader?: UserMapping;
+}
+
+export interface MetaDataItem {
+    key: string;
+    value: string;
+    bbox?: number[][];
 }

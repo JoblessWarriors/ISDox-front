@@ -11,9 +11,14 @@ export class DocumentService {
   private http = inject(HttpClient);
 
   public uploadDocument(dossierId: string, file: File): Observable<DocumentMapping> {
-    const url = DocumentActionEnum.toUrl(DocumentActionEnum.GET, dossierId);
+    const url = DocumentActionEnum.toUrl(DocumentActionEnum.UPLOAD, dossierId, true);
     const formData = new FormData();
     formData.append('file', file, file.name);
     return this.http.post<DocumentMapping>(url, formData);
+  }
+
+  public updateDocument(documentId: string, document: DocumentMapping): Observable<DocumentMapping> {
+    const url = DocumentActionEnum.toUrl(DocumentActionEnum.UPDATE, documentId);
+    return this.http.put<DocumentMapping>(url, document);
   }
 }

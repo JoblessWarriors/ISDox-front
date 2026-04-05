@@ -51,6 +51,15 @@
         "1": "Mediu",
         "2": "Ridicat"
     },
+    "dossier-status": {
+        "0": "Ciornă",
+        "1": "Neînregistrat",
+        "2": "Înregistrat",
+        "3": "În Lucru",
+        "4": "Soluționat",
+        "5": "Închis",
+        "6": "Arhivat"
+    },
     "admin": {
         "homepage": {
             "users-tab": "Utilizatori",
@@ -184,7 +193,15 @@
             "notes": "Text Extras",
             "discard-button": "Renunță",
             "confirm-button": "Confirmă",
-            "fraud-report": "Raportul de fraudă"
+            "fraud-report": "Raportul de fraudă",
+            "dossier-status": "Statutul Dosarului"
+        },
+        "success": {
+            "title": "Document Încărcat cu Succes!",
+            "subtitle": "Documentul a fost procesat și salvat în siguranță în dosarul selectat.",
+            "back-button": "Înapoi la Documente",
+            "faulty-update-title": "Actualizare Eșuată",
+            "faulty-update-details": "Nu am putut finaliza actualizarea documentului sau a dosarului. Vă rugăm să încercați din nou sau să contactați un administrator."
         }
     },
     "profile": {
