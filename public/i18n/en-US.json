@@ -202,6 +202,35 @@
             "back-button": "Back to Documents",
             "faulty-update-title": "Update Failed",
             "faulty-update-details": "We were unable to complete the document or dossier update. Please try again or contact an administrator."
+        },
+        "document-register": {
+            "title": "Incoming - Outgoing Registry",
+            "subtitle": "The list below contains all dossiers currently in UNREGISTERED status, sorted chronologically from newest to oldest. To view the contents of each dossier, click the arrow on the left side. To send a dossier to a department for processing, click on it.",
+            "truthy-create-registry-entry-title": "Dossier sent successfully.",
+            "truthy-create-registry-entry-details": "The dossier has been successfully sent to the selected department.",
+            "faulty-get-dossier-title": "Error retrieving existing dossiers",
+            "faulty-get-dossier-details": "An unexpected error occurred while retrieving the dossiers. Please contact an administrator."
+        },
+        "choose-dossier-department": {
+            "title": "Dossier Review",
+            "description": "This window allows you to view all documents within the selected dossier and their contents, so you can then select the department where the dossier should be sent.",
+            "suggested-department": "Suggested Department",
+            "suggested-department-placeholder": "Select a department",
+            "document-details": "Current Document Details",
+            "document-filename": "Document Name:",
+            "document-fraud-risk": "Fraud Risk:",
+            "document-page-count": "Page Count:",
+            "document-extracted-text": "Extracted Text",
+            "document-metadata": "Metadata",
+            "discard-button": "Discard",
+            "submit-button": "Send Dossier",
+            "faulty-get-departments-title": "Department Loading Error",
+            "faulty-get-departments-details": "Could not retrieve the department list. Please try again.",
+            "faulty-get-document-previews-title": "Preview Loading Error",
+            "faulty-get-document-previews-details": "The document previews could not be loaded.",
+            "faulty-create-registry-entry-title": "Registration Error",
+            "faulty-create-registry-entry-details": "Failed to create the registry entry for this dossier.",
+            "mandatory-department-disclaimer": "Choosing a department is mandatory in order to continue."
         }
     },
     "profile": {

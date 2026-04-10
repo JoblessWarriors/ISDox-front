@@ -167,7 +167,7 @@ export class AdminHomepage implements OnInit {
             }
           },
           error: (err) => {
-            console.log('Failed to delete user:' + err);
+            console.error('Failed to delete user:' + err);
             this.messageService.add({ severity: 'error', summary: this.faultyDeleteUserTitleLabel , detail: this.faultyDeleteUserDetailsLabel });
           },
           complete: () => {

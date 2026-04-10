@@ -5,7 +5,8 @@ export enum DossierActionEnum {
   POST = 'dossiers',
   PUT = 'dossiers',
   DELETE = 'dossiers',
-  PATCH = 'dossiers/{id}/status'
+  PATCH = 'dossiers/{id}/status',
+  GET_PREVIEWS = 'dossiers/{id}/document-previews'
 }
 
 export namespace DossierActionEnum {

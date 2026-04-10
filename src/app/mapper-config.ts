@@ -11,6 +11,7 @@ import { UserMapping } from "./model/user/user-mapping.model";
 import { UserRole } from "./model/user/user-role";
 import { User } from "./model/user/user.model";
 import { FraudRiskLevel } from "./model/document/fraud-risk-level";
+import { TreeNode } from "primeng/api";
 
 export const initializeMappings = () => {
     Mapper.register<User, UserMapping>('UserToMapping', (u) => ({
@@ -32,13 +33,15 @@ export const initializeMappings = () => {
     Mapper.register<Dossier, DossierMapping>('DossierToMapping', (d) => ({
         ...d,
         assignedSpecialist: d.assignedSpecialist != undefined ? Mapper.map('UserToMapping', d.assignedSpecialist) : undefined,
-        status: DossierStatus[d.status]
+        status: DossierStatus[d.status],
+        documents: d.documents?.map(doc => Mapper.map("MappingToDocument", doc)) as DocumentMapping[]
     }));
 
     Mapper.register<DossierMapping, Dossier>('MappingToDossier', (m) => ({
         ...m,
         assignedSpecialist: m.assignedSpecialist != undefined ? Mapper.map('MappingToUsser', m.assignedSpecialist) : undefined   ,
-        status: (DossierStatus as any)[m.status]
+        status: (DossierStatus as any)[m.status],
+        documents: m.documents?.map(doc => Mapper.map("DocumentToMapping", doc)) as Document[]
     }));
 
     Mapper.register<Document, DocumentMapping>('DocumentToMapping', (d) => ({
@@ -54,4 +57,21 @@ export const initializeMappings = () => {
         fraudRiskLevel: (FraudRiskLevel as any)[m.fraudRiskLevel],
         uploader: m.uploader ? Mapper.map('MappingToUser', m.uploader) : undefined
     }));
+
+    Mapper.register<DocumentMapping, TreeNode>('DocumentMappingToTreeNode', (m) => ({
+        key: m.id,
+        label: m.originalFilename || `Document (${m.type})`,
+        data: m, 
+        icon: 'pi pi-file',
+        leaf: true
+    }));
+
+    Mapper.register<DossierMapping, TreeNode>('DossierMappingToTreeNode', (m) => ({
+        key: m.id,
+        label: `${m.documents[0].originalFilename} - ${m.status} - ID: ${m.id}`,
+        data: m,
+        icon: 'pi pi-folder',
+        children: m.documents?.map(doc => Mapper.map('DocumentMappingToTreeNode', doc)) || [],
+        expanded: false
+    }))
 };

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { DossierMapping } from '../../model/dossier/dossier-mapping.model';
 import { DossierActionEnum } from './dossier-action-enum';
 import { DossiersResponse } from '../../model/response/dossiers-response.model';
+import { DossierStatus } from '../../model/dossier/dossier-status';
+import { UrlParamsService } from '../url-params/url-params-service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +13,17 @@ import { DossiersResponse } from '../../model/response/dossiers-response.model';
 export class DossierService {
   private http = inject(HttpClient);
 
-  public getAllDossiers(): Observable<DossiersResponse> {
-    const url = DossierActionEnum.toUrl(DossierActionEnum.GET);
+  public getAllDossiers(param?: Record<string, any>): Observable<DossiersResponse> {
+    let url = DossierActionEnum.toUrl(DossierActionEnum.GET);
+    if (param) {
+      url += UrlParamsService.buildQueryString(param);
+    }
     return this.http.get<DossiersResponse>(url);
+  }
+
+  public getAllDocumentPreviews(id: string): Observable<Record<string, string>> {
+    const url = DossierActionEnum.toUrl(DossierActionEnum.GET_PREVIEWS, id);
+    return this.http.get<Record<string, string>>(url);
   }
 
   public getDossier(id: string): Observable<DossierMapping> {

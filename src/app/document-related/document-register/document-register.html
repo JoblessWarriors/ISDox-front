@@ -1,0 +1,25 @@
+<p-card class="mx-16 my-4">
+      <div class="my-16 flex flex-col items-center">
+          <h1 class="text-4xl m-2">
+            <strong>{{titleLabel}}</strong>
+          </h1>
+          <p class="text-center mx-10 mt-3">{{subtitleLabel}}</p>
+      </div>
+    
+
+  <p-tree 
+    [value]="dossiers" 
+    selectionMode="single" 
+    [(selection)]="selectedNode" 
+    (onNodeSelect)="onNodeSelect($event)"
+    class="w-full">
+  </p-tree>
+</p-card>
+@if (currentDraft) {
+  <app-choose-dossier-department
+    [dossier]="currentDraft.data"
+    [isVisible]="openChooseDossierDepartment"
+    (closeModal)="openChooseDossierDepartment=$event"
+    (createdRegistryEntryEvent)="createdRegistryEntry($event)"
+  ></app-choose-dossier-department>
+}

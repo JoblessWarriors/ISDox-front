@@ -1,0 +1,116 @@
+@if (dossier) {
+    <p-dialog 
+        [(visible)]="isVisible" 
+        [modal]="true" 
+        [style]="{ width: '95vw', height: '95vh' }" 
+        [maximizable]="true"
+        (onHide)="onCloseModal()">
+
+        <ng-template pTemplate="header">
+            <div class="flex flex-col gap-1">
+                <h1 class="text-xl font-bold m-0">{{titleLabel}} - {{dossier.id}}</h1>
+                <p class="text-sm text-surface-500 m-0">{{descriptionLabel}}</p>
+            </div>
+        </ng-template>
+
+        <div class="flex flex-col md:flex-row h-full gap-6">
+            
+            <div class="flex-1 md:w-7/12 bg-surface-100 dark:bg-surface-950 border-round border border-surface-200 overflow-hidden">
+                <p-galleria 
+                    [value]="dossier.documents" 
+                    [(activeIndex)]="activeIndex"
+                    (activeIndexChange)="onImageChange($event)"
+                    [responsiveOptions]="responsiveOptions" 
+                    [containerStyle]="{ 'width': '100%', 'height': '100%' }" 
+                    [numVisible]="5"
+                    [circular]="true" 
+                    [showItemNavigators]="true"
+                    [showThumbnails]="true">
+                    
+                    <ng-template pTemplate="item" let-item>
+                        <div class="flex items-center justify-center w-full h-[60vh]">
+                            <img [src]="item.firstPageUrl" class="max-w-full max-h-full object-contain" />
+                            <!-- @if (item.type === 'image/jpeg' || item.type === 'image/png') {
+                                <img [src]="getDocUrl(item)" class="max-w-full max-h-full object-contain" />
+                            } @else {
+                                <div class="text-center">
+                                    <i class="pi pi-file-pdf text-8xl text-red-500"></i>
+                                    <p class="mt-4">PDF Preview not available in Galleria item template</p>
+                                </div>
+                            } -->
+                        </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="thumbnail" let-item>
+                        <div class="grid grid-nogutter justify-center">
+                            <img [src]="item.firstPageUrl" class="w-16 h-12 object-cover border-round" />
+                        </div>
+                    </ng-template>
+                </p-galleria>
+            </div>
+
+            <div class="w-full md:w-5/12 flex flex-col gap-6 p-4 bg-surface-50 dark:bg-surface-900 border-round overflow-y-auto">
+                
+                <div class="flex flex-col gap-2">
+                    <label class="font-bold text-sm uppercase text-surface-500">{{suggestedDepartmentLabel}}*</label>
+                    <p-select 
+                        [options]="departments" 
+                        [(ngModel)]="selectedDepartment"
+                        optionLabel="name"
+                        [placeholder]="suggestedDepartmentPlaceholderLabel"
+                        class="w-full" />
+                    <small class="text-xs text-surface-500 italic">
+                        * {{mandatoryDepartmentDisclaimerLabel}}
+                    </small>
+                </div>
+
+                <p-divider />
+
+                @if (activeDocument) {
+                    <section class="flex flex-col gap-4">
+                        <h3 class="text-lg font-bold border-b border-primary pb-2">{{documentDetailsLabel}}</h3>
+                        
+                        <div class="grid grid-cols-2 gap-y-4 text-sm">
+                            <span class="text-surface-500">{{documentFilenameLabel}}</span>
+                            <span class="font-medium">{{activeDocument.originalFilename}}</span>
+                            
+                            <span class="text-surface-500">{{documentFraudRiskLabel}}</span>
+                            <p-tag [severity]="
+                                activeDocument.fraudRiskLevel === FraudRiskLevel.HIGH ? 'danger' : 
+                                activeDocument.fraudRiskLevel === FraudRiskLevel.MEDIUM ? 'danger' :
+                                'success'" 
+                                [value]="this.translate.instant(`fraud-risk-levels.${FraudRiskLevel[activeDocument.fraudRiskLevel]}`)"></p-tag>
+                            
+                            <span class="text-surface-500">{{documentPageCountLabel}}</span>
+                            <span>{{activeDocument.pageCount}}</span>
+                        </div>
+
+                        <div class="flex flex-col gap-1 mt-2">
+                            <span class="text-surface-500 text-xs uppercase font-bold">{{documentExtractedTextLabel}}</span>
+                            <div class="p-3 bg-surface-100 dark:bg-surface-800 border-round text-xs h-32 overflow-y-auto whitespace-pre-wrap italic">
+                                {{activeDocument.extractedText || 'No text extracted.'}}
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2 mt-4">
+                            <span class="text-surface-500 text-xs uppercase font-bold">{{documentMetadataLabel}}</span>
+                            <div class="flex flex-col gap-2">
+                                @for (meta of activeDocument.metadata; track meta.key) {
+                                    <div class="flex justify-between items-center p-2 bg-surface-0 dark:bg-surface-800 border-round border border-surface-200">
+                                        <span class="text-xs font-semibold">{{meta.key}}</span>
+                                        <span class="text-xs">{{meta.value}}</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                }
+
+                <div class="mt-auto pt-6 flex flex-row justify-end gap-6">
+                    <p-button [label]="discardButtonLabel" icon="pi pi-times" severity="secondary" (onClick)="onCloseModal()"></p-button>
+                    <p-button [label]="submitButtonLabel" [disabled]="!selectedDepartment" icon="pi pi-check" severity="success" (onClick)="submitDossier()"></p-button>
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+}

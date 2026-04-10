@@ -3,8 +3,8 @@ import { Archive } from "./archive/archive";
 import { Home } from "./home/home";
 import { Login } from "./login/login";
 import { environment } from "../environments/environment";
-import { Documents } from "./document-related/documents/documents";
 import { Profile } from "./profile-related/profile/profile";
+import { DocumentLayout } from "./document-related/document-layout/document-layout";
 
 export class Constants {
     static defaultPage = 'home';
@@ -19,7 +19,7 @@ export class Constants {
     ];
     static readonly endpointComponentMapping = new Map<string, Type<any>>([
         ['home', Home],
-        ['documents', Documents],
+        ['documents', DocumentLayout],
         ['archive', Archive],
         ['profile', Profile],
         ['login', Login]

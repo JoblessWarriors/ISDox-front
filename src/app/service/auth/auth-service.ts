@@ -1,12 +1,10 @@
 
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ActionEnum } from '../../enums/action-enum';
 import { AuthActionEnum } from './auth-action-enum';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { TokenRequest } from '../../model/request/token-request.model';
 import { TokenResponse } from '../../model/response/token-response.model';
-import { Constants } from '../../constants';
 import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { InstitutionService } from '../institution/institution-service';
@@ -18,7 +16,7 @@ import { Location } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthService {
-  public adminBehaviorSubject = new BehaviorSubject<boolean>(false);
+  public rolesBehaviorSubject = new BehaviorSubject<UserRole[]>([]);
   public loggedInBehaviorSubject = new BehaviorSubject<boolean>(false);
 
   private http = inject(HttpClient);
@@ -47,21 +45,14 @@ export class AuthService {
     return true;
   }
 
-  public isAdmin() {
+  public currentUserRoles() {
     const userData = this.getUserData();
     if (userData === null) {
-      this.adminBehaviorSubject.next(false);
+      this.rolesBehaviorSubject.next([]);
       return;
     }
-    const isUserAdmin = userData.roles.includes(UserRole[UserRole.INSTITUTION_ADMIN]);
-    if (isUserAdmin) {
-      this.adminBehaviorSubject.next(true);
-      this.location.replaceState('');
-    } 
-    else {
-      this.adminBehaviorSubject.next(false);
-    }
-    return;
+    const userRoles = userData.roles.map((roleStr: string | number) => (UserRole as any)[roleStr])
+    this.rolesBehaviorSubject.next(userRoles);
   }
 
   public getUserData() {

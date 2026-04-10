@@ -17,4 +17,5 @@ export interface Document {
     fraudRiskLevel: FraudRiskLevel;
     fraudReport: string;
     uploader?: User;
+    firstPageUrl?: string;
 }

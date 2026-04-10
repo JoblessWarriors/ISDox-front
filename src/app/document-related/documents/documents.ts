@@ -1,11 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {CookieService} from 'ngx-cookie-service';
 import { CardModule } from 'primeng/card';
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { SpinnerService } from '../../service/spinner/spinner-service';
-import { PageEnum } from '../../enums/page-enum';
 import { Dossier } from '../../model/dossier/dossier.model';
 import { DossierService } from '../../service/dossier/dossier-service';
 import { Mapper } from '../../model/mapper/mapper';
@@ -33,7 +31,6 @@ import { forkJoin } from 'rxjs';
   styleUrl: './documents.css',
 })
 export class Documents implements OnInit{
-  private cookieService = inject(CookieService);
   private translate = inject(TranslateService);
   private spinnerService = inject(SpinnerService);
   private dossierService = inject(DossierService);
@@ -74,9 +71,6 @@ export class Documents implements OnInit{
   protected faultyUpdateDetailsLabel: string = '';
 
   ngOnInit(): void {
-    this.cookieService.set('ISDox_lastVisitedPage', PageEnum.DOCUMENTS, 
-      { path: '/', sameSite: 'Strict' });
-
     this.spinnerService.show();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.spinnerService.show();
