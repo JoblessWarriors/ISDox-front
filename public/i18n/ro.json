@@ -202,6 +202,35 @@
             "back-button": "Înapoi la Documente",
             "faulty-update-title": "Actualizare Eșuată",
             "faulty-update-details": "Nu am putut finaliza actualizarea documentului sau a dosarului. Vă rugăm să încercați din nou sau să contactați un administrator."
+        },
+        "document-register": {
+            "title": "Registru Intrare - Ieșire",
+            "subtitle": "Lista de mai jos conține toate dosarele ce sunt în statutul NEÎNREGISTRAT, ordonate în ordine cronologică, de la cel mai recent la cel mai vechi. Pentru a vedea conținutul fiecărui dosar, apăsați pe săgeata din partea stângă. Pentru a trimite un dosar spre rezolvare la un departament, apăsați pe el.",
+            "truthy-create-registry-entry-title": "Dosar trimis cu succes.",
+            "truthy-create-registry-entry-details": "Dosarul a fost trimis cu succes către departamentul selectat.",
+            "faulty-get-dossier-title": "Eroare la preluarea dosarelor existente",
+            "faulty-get-dossier-details": "A apărut o eroare neașteptată în timpul preluării dosarelor. Vă rugăm să contactați un administrator."
+        },
+        "choose-dossier-department": {
+            "title": "Revizuire Dosar",
+            "description": "Această fereastră vă permite să vizualizați toate documentele dosarului selectat și conținutul acestora, ca mai apoi să selectați departamentul pentru trimiterea dosarului.",
+            "suggested-department": "Departament sugerat",
+            "suggested-department-placeholder": "Selectează un departament",
+            "document-details": "Detaliile documentului curent",
+            "document-filename": "Numele documentului:",
+            "document-fraud-risk": "Riscul de fraudă:",
+            "document-page-count": "Numărul de pagini:",
+            "document-extracted-text": "Textul extras",
+            "document-metadata": "Metadate",
+            "discard-button": "Renunță",
+            "submit-button": "Trimite Dosar",
+            "faulty-get-departments-title": "Eroare Încărcare Departamente",
+            "faulty-get-departments-details": "Nu s-a putut prelua lista de departamente. Vă rugăm să contactați un administrator.",
+            "faulty-get-document-previews-title": "Eroare Încărcare Prevualizări",
+            "faulty-get-document-previews-details": "Nu s-au putut încărca imaginile documentelor. Vă rugăm să contactați un administrator.",
+            "faulty-create-registry-entry-title": "Eroare Înregistrare",
+            "faulty-create-registry-entry-details": "Salvarea înregistrării în registru a eșuat. Vă rugăm să încercați din nou sau să contactați un administrator.",
+            "mandatory-department-disclaimer": "Alegera unui departament este obligatorie pentru a continua."
         }
     },
     "profile": {

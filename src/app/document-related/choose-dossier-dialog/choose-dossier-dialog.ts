@@ -41,7 +41,6 @@ export class ChooseDossierDialog implements OnInit{
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() selectedDossierEmitter: EventEmitter<Dossier> = new EventEmitter<Dossier>();
 
-
   private dossierService = inject(DossierService);
   private messageService = inject(MessageService);
   private translate = inject(TranslateService);

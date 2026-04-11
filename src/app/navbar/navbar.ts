@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import {
@@ -48,6 +48,7 @@ export class Navbar implements OnInit{
   private cookieService = inject(CookieService);
   private router = inject(Router);
   private userService = inject(UserService);
+  private cd = inject(ChangeDetectorRef);
   protected authService = inject(AuthService);
 
   private lightLabel: string = "";
@@ -64,9 +65,8 @@ export class Navbar implements OnInit{
 
   ngOnInit(): void {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.spinnerService.show();
       this.updateMenu();
-      this.spinnerService.hide();
+      this.cd.detectChanges()
     });
 
     this.authService.loggedInBehaviorSubject.subscribe((isLoggedIn) => {
@@ -76,11 +76,9 @@ export class Navbar implements OnInit{
           if (userMapping) {
             this.user = Mapper.map("MappingToUser", userMapping);
           }
-          this.spinnerService.hide();
         },
         error: (err) => {
           console.error('Failed to load current user:', err);
-          this.spinnerService.hide();
         }
       });
     });
@@ -173,7 +171,6 @@ export class Navbar implements OnInit{
   private updateLanguage(lang: LanguageEnum) {
     localStorage.setItem('ISDox_lang', lang);
     this.translate.use(lang);
-    this.spinnerService.show();
     this.updateMenu();
   }
 }

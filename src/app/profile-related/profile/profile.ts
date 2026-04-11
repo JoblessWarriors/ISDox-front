@@ -96,6 +96,7 @@ export class Profile implements OnInit {
           this.userProfilePic = this.user?.profileImageUrl;
           this.cd.detectChanges();
         }
+        this.updateLabels();
         this.spinnerService.hide();
       },
       error: (err) => {
@@ -110,8 +111,6 @@ export class Profile implements OnInit {
       this.updateLabels();
       this.spinnerService.hide();
     });
-
-    this.updateLabels();
   }
 
   protected onChangeProfilePicture() {

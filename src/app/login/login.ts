@@ -96,7 +96,7 @@ export class Login implements OnInit{
               path: '/',
               sameSite: 'Strict'});
           this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
-          this.authService.isAdmin();
+          this.authService.currentUserRoles();
           this.authService.loggedInBehaviorSubject.next(true);
         }
         this.spinnerService.hide();

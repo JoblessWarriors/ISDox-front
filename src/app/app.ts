@@ -14,6 +14,7 @@ import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { AdminHomepage } from "./admin/admin-homepage/admin-homepage";
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { UserRole } from './model/user/user-role';
 
 @Component({
   selector: 'app-root',
@@ -43,11 +44,11 @@ export class App implements OnInit {
     this.setPreferedLanguage();
 
     this.themePreference.initializeTheme();
-    this.authService.adminBehaviorSubject.subscribe((isAdmin) => {
-      this.isAdmin = isAdmin;
+    this.authService.rolesBehaviorSubject.subscribe((userRoles) => {
+      this.isAdmin = userRoles.includes(UserRole.INSTITUTION_ADMIN);
     });
 
-    this.authService.isAdmin();
+    this.authService.currentUserRoles();
   }
 
   private initializeLanguages() {
