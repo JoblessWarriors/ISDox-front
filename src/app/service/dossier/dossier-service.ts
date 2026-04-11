@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { DossierMapping } from '../../model/dossier/dossier-mapping.model';
 import { DossierActionEnum } from './dossier-action-enum';
 import { DossiersResponse } from '../../model/response/dossiers-response.model';
-import { DossierStatus } from '../../model/dossier/dossier-status';
 import { UrlParamsService } from '../url-params/url-params-service';
 
 @Injectable({

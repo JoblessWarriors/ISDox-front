@@ -55,7 +55,7 @@ export class DocumentRegister {
 
   ngOnInit() {
     const params : Record<string, any> = {
-      'status': DossierStatus[1],
+      'status': DossierStatus[DossierStatus.UNREGISTERED],
       'sort': 'createdAt,desc'
     }
 
@@ -63,14 +63,15 @@ export class DocumentRegister {
       this.updateLabels();
     });
     this.spinnerService.show();
+    this.updateLabels();
     this.dossierService.getAllDossiers(params).subscribe({
       next: (response) => {
         if (response.content) {
           let newDossiers = response.content.map(dossierMapping => Mapper.map("DossierMappingToTreeNode", dossierMapping) as TreeNode);
           this.dossiers = newDossiers;
           this.cd.detectChanges();
-          this.spinnerService.hide();
         }
+        this.spinnerService.hide();
       },
       error: (err) => {
         console.error('Failed to retrieve dossiers:', err);

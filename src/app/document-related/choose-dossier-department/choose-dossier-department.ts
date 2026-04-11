@@ -92,7 +92,7 @@ export class ChooseDossierDepartment implements OnInit, OnChanges{
         }
       },
       error: (err) => {
-        console.error('Get departmentsfailed:', err);
+        console.error('Get departments failed:', err);
         
         this.messageService.add({ 
           severity: 'error', 
@@ -167,7 +167,10 @@ export class ChooseDossierDepartment implements OnInit, OnChanges{
       });
     }
     else if(!this.selectedDepartment) {
-
+      this.messageService.add({ 
+        severity: 'error', 
+        summary: this.mandatoryDepartmentDisclaimerLabel
+      });
     }
   }
 

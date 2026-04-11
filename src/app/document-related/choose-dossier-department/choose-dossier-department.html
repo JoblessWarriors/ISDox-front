@@ -79,7 +79,7 @@
                                 activeDocument.fraudRiskLevel === FraudRiskLevel.HIGH ? 'danger' : 
                                 activeDocument.fraudRiskLevel === FraudRiskLevel.MEDIUM ? 'danger' :
                                 'success'" 
-                                [value]="this.translate.instant(`fraud-risk-levels.${FraudRiskLevel[activeDocument.fraudRiskLevel]}`)"></p-tag>
+                                [value]="translate.instant(`fraud-risk-levels.${FraudRiskLevel[activeDocument.fraudRiskLevel]}`)"></p-tag>
                             
                             <span class="text-surface-500">{{documentPageCountLabel}}</span>
                             <span>{{activeDocument.pageCount}}</span>

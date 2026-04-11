@@ -34,14 +34,14 @@ export const initializeMappings = () => {
         ...d,
         assignedSpecialist: d.assignedSpecialist != undefined ? Mapper.map('UserToMapping', d.assignedSpecialist) : undefined,
         status: DossierStatus[d.status],
-        documents: d.documents?.map(doc => Mapper.map("MappingToDocument", doc)) as DocumentMapping[]
+        documents: d.documents?.map(doc => Mapper.map("DocumentToMapping", doc)) as DocumentMapping[]
     }));
 
     Mapper.register<DossierMapping, Dossier>('MappingToDossier', (m) => ({
         ...m,
-        assignedSpecialist: m.assignedSpecialist != undefined ? Mapper.map('MappingToUsser', m.assignedSpecialist) : undefined   ,
+        assignedSpecialist: m.assignedSpecialist != undefined ? Mapper.map('MappingToUser', m.assignedSpecialist) : undefined   ,
         status: (DossierStatus as any)[m.status],
-        documents: m.documents?.map(doc => Mapper.map("DocumentToMapping", doc)) as Document[]
+        documents: m.documents?.map(doc => Mapper.map("MappingToDocument", doc)) as Document[]
     }));
 
     Mapper.register<Document, DocumentMapping>('DocumentToMapping', (d) => ({
