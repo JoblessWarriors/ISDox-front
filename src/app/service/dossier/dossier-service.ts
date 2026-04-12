@@ -25,6 +25,11 @@ export class DossierService {
     return this.http.get<Record<string, string>>(url);
   }
 
+  public getAllDocumentUrls(id: string): Observable<Record<string, string>> {
+    const url = DossierActionEnum.toUrl(DossierActionEnum.GET_URLS, id);
+    return this.http.get<Record<string, string>>(url);
+  }
+
   public getDossier(id: string): Observable<DossierMapping> {
     const url = DossierActionEnum.toUrl(DossierActionEnum.GET, id);
     return this.http.get<DossierMapping>(url);

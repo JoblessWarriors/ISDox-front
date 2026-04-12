@@ -10,10 +10,13 @@ import { DocumentMapping } from '../../model/document/document-mapping.model';
 export class DocumentService {
   private http = inject(HttpClient);
 
-  public uploadDocument(dossierId: string, file: File): Observable<DocumentMapping> {
+  public uploadDocument(dossierId: string, file: File, documentTypeId?: string): Observable<DocumentMapping> {
     const url = DocumentActionEnum.toUrl(DocumentActionEnum.UPLOAD, dossierId, true);
     const formData = new FormData();
     formData.append('file', file, file.name);
+    if (documentTypeId) {
+      formData.append('documentTypeId', documentTypeId);
+    }   
     return this.http.post<DocumentMapping>(url, formData);
   }
 
