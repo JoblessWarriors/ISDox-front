@@ -12,15 +12,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
-import { ChooseDossierDepartment } from '../choose-dossier-department/choose-dossier-department';
 import { TabsModule } from 'primeng/tabs';
 import { DossierStatus } from '../../model/dossier/dossier-status';
 import { Mapper } from '../../model/mapper/mapper';
-import { AuthService } from '../../service/auth/auth-service';
 import { UserService } from '../../service/user/user-service';
 import { User } from '../../model/user/user.model';
 import { Department } from '../../model/department/department.model';
-import { Dossier } from '../../model/dossier/dossier.model';
 import { SolveDossierDialog } from '../solve-dossier-dialog/solve-dossier-dialog';
 
 @Component({
@@ -87,7 +84,6 @@ export class DocumentSolve implements OnInit {
       }
     })
     
-
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.updateLabels();
     });
@@ -96,7 +92,7 @@ export class DocumentSolve implements OnInit {
   }
 
   protected onDepartmentChange(event: any) {
-    console.log(event)
+    this.spinnerService.show();
     const registeredDossiersParams : Record<string, any> = {
       'status': DossierStatus[DossierStatus.REGISTERED],
       'departmentId': this.selectedDepartment!.id,

@@ -7,13 +7,10 @@ import { DividerModule } from 'primeng/divider';
 import { GalleriaModule } from 'primeng/galleria';
 import { SelectModule } from 'primeng/select';
 import { TagModule } from 'primeng/tag';
-import { DepartmentService } from '../../service/department/department-service';
-import { RegistryEntryService } from '../../service/registry-entry/registry-entry-service';
 import { DossierService } from '../../service/dossier/dossier-service';
 import { SpinnerService } from '../../service/spinner/spinner-service';
 import { MessageService } from 'primeng/api';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Department } from '../../model/department/department.model';
 import { FraudRiskLevel } from '../../model/document/fraud-risk-level';
 import { Document } from '../../model/document/document.model';
 import { Dossier } from '../../model/dossier/dossier.model';
@@ -171,7 +168,6 @@ export class SolveDossierDialog {
           next: (res) => {
             this.isUploading = false;
             this.isResponseUploaded = true;
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File uploaded' });
           },
           error: () => {
             this.isUploading = false;
