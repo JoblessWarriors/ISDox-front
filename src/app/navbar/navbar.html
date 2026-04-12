@@ -1,33 +1,11 @@
 <p-menubar [model]="navBarOptions">
     <ng-template #start>
-        <svg
-            width="300"
-            height="40"
-            viewBox="0 0 300 80"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            >
-            <path
-                d="M20 15H40L50 25V65H20V15Z"
-                stroke="#FFFFFF"
-                strokeWidth="2"
-                strokeLinejoin="round"
-                fill="none"
+        <img
+            class="mx-15 mr-30"
+            width="120"
+            height="15"
+            src="logo.png"
             />
-            <path
-                d="M40 15V25H50"
-                stroke="#FFFFFF"
-                strokeWidth="2"
-                strokeLinejoin="round"
-                fill="none"
-            />
-            <line x1="26" y1="35" x2="44" y2="35" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
-            <line x1="26" y1="42" x2="44" y2="42" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
-            <line x1="26" y1="49" x2="38" y2="49" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
-            <text class="text-3xl" x="70" y="52" fill="#FFFFFF" fontSize="40" fontWeight="300" fontFamily="system-ui, -apple-system, sans-serif">
-                ISDox
-            </text>
-            </svg>
     </ng-template>
     <ng-template #end>
         <div class="flex items-center gap-2 mr-2">
