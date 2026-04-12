@@ -32,7 +32,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
   templateUrl: './document-register.html',
   styleUrl: './document-register.css',
 })
-export class DocumentRegister {
+export class DocumentRegister implements OnInit {
   private dossierService = inject(DossierService);
   private spinnerService = inject(SpinnerService);
   private translate = inject(TranslateService);

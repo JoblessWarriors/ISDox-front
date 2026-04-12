@@ -5,12 +5,14 @@ import { Documents } from '../documents/documents';
 import { DocumentRegister } from '../document-register/document-register';
 import { AuthService } from '../../service/auth/auth-service';
 import { UserRole } from '../../model/user/user-role';
+import { DocumentSolve } from '../document-solve/document-solve';
 
 @Component({
   selector: 'app-document-layout',
   imports: [
     Documents,
-    DocumentRegister
+    DocumentRegister,
+    DocumentSolve
   ],
   templateUrl: './document-layout.html',
   styleUrl: './document-layout.css',
@@ -19,20 +21,15 @@ export class DocumentLayout implements OnInit {
   private cookieService = inject(CookieService);
   private authService = inject(AuthService);
 
-  protected isOperator?: boolean;
+  protected userRoles: UserRole[] = [];
+  protected readonly UserRole = UserRole;
 
   ngOnInit(): void {
     this.cookieService.set('ISDox_lastVisitedPage', PageEnum.DOCUMENTS, 
       { path: '/', sameSite: 'Strict' });
 
     this.authService.rolesBehaviorSubject.subscribe((userRoles) => {
-      if (userRoles.includes(UserRole.OPERATOR)) {
-        this.isOperator = true;
-      }
-      else if (userRoles.includes(UserRole.REGISTRAR)) {
-        this.isOperator = false;
-      }
+      this.userRoles = [...userRoles];
     });
   }
-
 }
