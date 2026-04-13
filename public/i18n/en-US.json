@@ -328,5 +328,30 @@
             "faulty-change-profile-picture-title": "Upload Failed",
             "faulty-change-profile-picture-details": "We couldn't update your profile picture. Please ensure the file is not corrupted and try again."
         }
+    },
+    "archive": {
+        "title": "Archive",
+        "subtitle": "This window is dedicated for previewing the archived files.",
+        "solved-tab": "Solved",
+        "archived-tab": "Archived",
+        "archive-selected": "Archive Selected",
+        "archive-all": "Archive All (Filtered)",
+        "department-filter": "Department",
+        "doc-type-filter": "Document Type",
+        "select-doc-type-placeholder": "All Types",
+        "dossier-filter": "Dossier ID",
+        "document-type-filter": "Document Types",
+        "date-filter": "Time Period",
+        "faulty-get-dossiers-title": "Data Retrieval Error",
+        "faulty-get-dossiers-details": "We encountered a problem while loading the dossiers. Please refresh the page or contact support if the issue persists.",
+        "faulty-patch-dossiers-title": "Archiving Error",
+        "faulty-patch-dossiers-details": "The system could not update the selected dossiers to 'Archived' status. Please try again or contact an administrator.",
+        "save-archive-labels-dialog": {
+            "title": "Archived Document Labels",
+            "subtitle": "The document(s) have been successfully archived. In this window, you can preview the labels generated for physical archiving, with the option to either print them directly from the application or save them in PDF format.",
+            "loading": "Loading document...",
+            "print-button": "Print",
+            "save-button": "Download"
+        }
     }
 }

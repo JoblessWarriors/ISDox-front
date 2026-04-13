@@ -6,6 +6,7 @@ export enum DossierActionEnum {
   PUT = 'dossiers',
   DELETE = 'dossiers',
   PATCH = 'dossiers/{id}/status',
+  PATCH_BULK = 'dossiers/bulk/status',
   GET_PREVIEWS = 'dossiers/{id}/document-previews',
   GET_URLS = 'dossiers/{id}/document-urls'
 }

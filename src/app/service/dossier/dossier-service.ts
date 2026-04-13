@@ -47,4 +47,13 @@ export class DossierService {
     };
     return this.http.patch<DossierMapping>(url, body);
   }
+
+  public patchDossiers(ids: string[], status: string): Observable<Blob> {
+    const url = DossierActionEnum.toUrl(DossierActionEnum.PATCH_BULK);
+    const body = {
+      dossierIds: ids,
+      status: status
+    };
+    return this.http.patch(url, body, { responseType: 'blob' });
+  }
 }

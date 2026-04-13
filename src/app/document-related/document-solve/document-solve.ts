@@ -88,7 +88,6 @@ export class DocumentSolve implements OnInit {
       this.updateLabels();
     });
     this.updateLabels();
-    
   }
 
   protected onDepartmentChange(event: any) {

@@ -23,6 +23,7 @@ import { MenuModule } from 'primeng/menu';
 import { UserService } from '../service/user/user-service';
 import { User } from '../model/user/user.model';
 import { Mapper } from '../model/mapper/mapper';
+import { UserRole } from '../model/user/user-role';
 
 @Component({
   selector: 'app-navbar',
@@ -59,6 +60,7 @@ export class Navbar implements OnInit{
   protected userMenuItems: MenuItem[] = [];
   protected isDarkMode = localStorage.getItem('ISDox_user_theme') == 'light' ? false : true;
   protected modeLabel: string = "";
+  protected userRoles: UserRole[] = [];
 
   constructor() {
   }
@@ -82,6 +84,13 @@ export class Navbar implements OnInit{
         }
       });
     });
+
+    this.authService.rolesBehaviorSubject.subscribe((userRoles) => {
+      this.userRoles = [...userRoles];
+      this.updateMenu(false);
+    });
+
+    this.authService.currentUserRoles();
   }
 
   protected toggleThemePreference() {
@@ -102,7 +111,10 @@ export class Navbar implements OnInit{
       },
       {
         label: this.translate.instant('navbar.documents'),
-        visible: this.authService.isLoggedIn(),
+        visible: this.authService.isLoggedIn() && (
+          this.userRoles.includes(UserRole.OPERATOR) ||
+          this.userRoles.includes(UserRole.REGISTRAR) ||
+          this.userRoles.includes(UserRole.SPECIALIST)),
         url: urls.get('documents')
       },
       {
