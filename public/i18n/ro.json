@@ -328,5 +328,28 @@
             "faulty-change-profile-picture-title": "Încărcare Eșuată",
             "faulty-change-profile-picture-details": "Nu am putut actualiza poza de profil. Te rugăm să te asiguri că fișierul nu este corupt și să încerci din nou."
         }
+    },
+    "archive": {
+        "title": "Arhivă",
+        "subtitle": "Această fereastră este dedicată arhivei. Aici puteți vizualiza toate dosarele arhivate din instituție.",
+        "solved-tab": "Soluționate",
+        "archived-tab": "Arhivate",
+        "archive-selected": "Arhivează Selecția",
+        "archive-all": "Arhivează Tot (Filtrat)",
+        "dossier-filter": "ID-ul dosarului",
+        "document-type-filter": "Tipul Documentelor",
+        "date-filter": "Perioada de timp",
+        "select-doc-type-placeholder": "Toate Tipurile",
+        "faulty-get-dossiers-title": "Eroare Preluare Date",
+        "faulty-get-dossiers-details": "A apărut o problemă la încărcarea dosarelor. Vă rugăm să reîmprospătați pagina sau să contactați suportul dacă problema persistă.",
+        "faulty-patch-dossiers-title": "Eroare Arhivare",
+        "faulty-patch-dossiers-details": "Sistemul nu a putut actualiza dosarele selectate la statusul 'Arhivat'. Vă rugăm să încercați din nou sau să contactați un administrator.",
+        "save-archive-labels-dialog": {
+            "title": "Etichetele document/e arhivat/e",
+            "subtitle": "Documentul(documentele) a(au) fost arhivat(e) cu succes. În această fereastră puteți previzualiza etichetele generate pentru arhivarea fizică, având posibilitatea fie să le printați direct din aplicație, fie să le salvați în format PDF.",
+            "loading": "Documentul se încarcă ...",
+            "print-button": "Printează",
+            "save-button": "Descarcă"
+        }
     }
 }

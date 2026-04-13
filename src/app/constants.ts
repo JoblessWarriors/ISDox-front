@@ -1,10 +1,10 @@
 import { Type } from "@angular/core";
-import { Archive } from "./archive/archive";
 import { Home } from "./home/home";
 import { Login } from "./login/login";
 import { environment } from "../environments/environment";
 import { Profile } from "./profile-related/profile/profile";
 import { DocumentLayout } from "./document-related/document-layout/document-layout";
+import { Archive } from "./archive-related/archive/archive";
 
 export class Constants {
     static defaultPage = 'home';

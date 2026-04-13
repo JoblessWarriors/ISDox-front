@@ -1,0 +1,69 @@
+<p-card class="mx-16 my-4">
+  <div class="mb-8 flex flex-col items-center">
+    <h1 class="text-4xl m-2"><strong>{{titleLabel}}</strong></h1>
+    <p class="text-center mx-10 mt-3 text-surface-500">{{subtitleLabel}}</p>
+    
+    @if (userRoles.includes(UserRoleEnum.ARCHIVIST)) {
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 w-full max-w-5xl bg-surface-50 p-6 border-round border border-surface-200">
+            <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold uppercase text-surface-500">{{dossierFilterLabel}}</label>
+                <input pInputText [(ngModel)]="filterId" (keyup.enter)="applyFilters()" [placeholder]="filterPlaceholderId" class="w-full" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold uppercase text-surface-500">{{documentTypeFilterLabel}}</label>
+                <p-select [options]="documentTypes" [(ngModel)]="filterDocType" (onChange)="applyFilters()" optionLabel="name" [showClear]="true" [placeholder]="filterPlaceholderType" class="w-full" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label class="text-xs font-bold uppercase text-surface-500">{{dateFilterLabel}}</label>
+                <p-datepicker [(ngModel)]="filterDateRange" selectionMode="range" [showIcon]="true" (onSelect)="applyFilters()" class="w-full" />
+            </div>
+        </div>
+    }
+  </div>
+
+  <p-tabs [value]="userRoles.includes(UserRoleEnum.ARCHIVIST) ? 0 : 1">
+    <p-tablist>
+      @if (userRoles.includes(UserRoleEnum.ARCHIVIST)) {
+        <p-tab [value]="0"><i class="pi pi-check-square mr-2"></i>{{solvedTabLabel}}</p-tab>
+      }
+      <p-tab [value]="1"><i class="pi pi-briefcase mr-2"></i>{{archivedTabLabel}}</p-tab>
+    </p-tablist>
+
+    <p-tabpanels>
+      @if (userRoles.includes(UserRoleEnum.ARCHIVIST)) {
+        <p-tabpanel [value]="0">
+          <div class="flex justify-end gap-3 mb-6">
+              <p-button [label]="archiveAllLabel" severity="secondary" icon="pi pi-clone" (onClick)="archiveAll()" [disabled]="solvedDossiers.length === 0" />
+              <p-button [label]="archiveSelectedLabel" severity="primary" icon="pi pi-archive" (onClick)="archiveSelected()" [disabled]="selectedDossiers.length === 0" />
+          </div>
+
+          <p-tree 
+            [value]="solvedDossiers" 
+            selectionMode="checkbox" 
+            [(selection)]="selectedDossiers" 
+            class="w-full border-none" />
+          
+          @if (solvedDossiers.length === 0) {
+            <div class="text-center py-10 text-surface-400 italic">No solved dossiers match your filters.</div>
+          }
+        </p-tabpanel>
+      }
+
+      <p-tabpanel [value]="1">
+        <p-tree [value]="archivedDossiers" selectionMode="single" class="w-full border-none" />
+        @if (archivedDossiers.length === 0) {
+            <div class="text-center py-10 text-surface-400 italic">No archived records found.</div>
+        }
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+</p-card>
+@if (pdfUrl) {
+    <app-save-archive-labels-dialog
+        [isVisible]="openSaveArchiveLabelDialog"
+        [pdfUrl]="pdfUrl"
+        (closeModal)="openSaveArchiveLabelDialog=$event"
+    ></app-save-archive-labels-dialog>
+}
