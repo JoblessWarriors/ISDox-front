@@ -353,27 +353,5 @@
             "print-button": "Print",
             "save-button": "Download"
         }
-    },
-    "home": {
-        "welcome-title": "Welcome to ISDox",
-        "welcome-subtitle": "The ultimate intelligent document management system for high-performance teams.",
-        "what-is-title": "What is ISDox?",
-        "what-is-text": "ISDox is a next-generation platform designed to handle complex dossier lifecycles. From registration and automated processing to secure physical archiving, we provide an end-to-end solution for modern bureaucracy.",
-        "why-use-title": "Why choose ISDox?",
-        "feature-1-title": "Blazing Fast",
-        "feature-1-desc": "Optimized workflows that reduce manual dossier processing time by up to 70%.",
-        "feature-2-title": "Enterprise Security",
-        "feature-2-desc": "Role-based access control and high-level encryption for your sensitive data.",
-        "feature-3-title": "Easy Archiving",
-        "feature-3-desc": "Seamlessly transition from digital solving to physical archive labeling.",
-        "mit-license": "Released under the MIT License. Copyright © 2026 Blueprint.",
-        "team": {
-            "title": "Meet the Team",
-            "subtitle": "The passionate experts behind isdox, dedicated to transforming document management.",
-            "role-ceo": "Back-End Engineer",
-            "role-cto": "Front-End Engineer",
-            "role-architect": "Artificial Intelligence Engineer",
-            "mit-license": "Released under the MIT License."
-        }
     }
 }

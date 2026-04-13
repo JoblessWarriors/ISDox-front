@@ -351,27 +351,5 @@
             "print-button": "Printează",
             "save-button": "Descarcă"
         }
-    },
-    "home": {
-        "welcome-title": "Bun venit la ISDox",
-        "welcome-subtitle": "Sistemul inteligent de management al documentelor pentru echipe de înaltă performanță.",
-        "what-is-title": "Ce este ISDox?",
-        "what-is-text": "ISDox este o platformă de ultimă generație concepută pentru a gestiona ciclurile de viață complexe ale dosarelor. De la înregistrare și procesare automată până la arhivare fizică securizată, oferim o soluție completă pentru birocrația modernă.",
-        "why-use-title": "De ce să alegi ISDox?",
-        "feature-1-title": "Rapiditate",
-        "feature-1-desc": "Fluxuri de lucru optimizate care reduc timpul de procesare manuală cu până la 70%.",
-        "feature-2-title": "Securitate Enterprise",
-        "feature-2-desc": "Control al accesului bazat pe roluri și criptare de nivel înalt pentru datele sensibile.",
-        "feature-3-title": "Arhivare Simplă",
-        "feature-3-desc": "Tranziție fluidă de la soluționarea digitală la generarea etichetelor de arhivă fizică.",
-        "mit-license": "Distribuit sub licența MIT. Copyright © 2026 Blueprint.",
-        "team": {
-            "title": "Meet the Team",
-            "subtitle": "The passionate experts behind isdox, dedicated to transforming document management.",
-            "role-ceo": "Inginer Back-End",
-            "role-cto": "Inginer Front-End",
-            "role-architect": "Inginer Inteligență Artificială",
-            "mit-license": "Released under the MIT License."
-        }
     }
 }
