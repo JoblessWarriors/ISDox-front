@@ -40,6 +40,7 @@ export class Home implements OnInit{
     this.spinnerService.show();
     this.updateLabels();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.spinnerService.show();
       this.updateLabels();
     });
   }

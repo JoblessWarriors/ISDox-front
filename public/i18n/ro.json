@@ -366,12 +366,11 @@
         "feature-3-desc": "Tranziție fluidă de la soluționarea digitală la generarea etichetelor de arhivă fizică.",
         "mit-license": "Distribuit sub licența MIT. Copyright © 2026 Blueprint.",
         "team": {
-            "title": "Meet the Team",
+            "title": "Cunoașteți Echipa",
             "subtitle": "The passionate experts behind isdox, dedicated to transforming document management.",
             "role-ceo": "Inginer Back-End",
             "role-cto": "Inginer Front-End",
-            "role-architect": "Inginer Inteligență Artificială",
-            "mit-license": "Released under the MIT License."
+            "role-architect": "Inginer Inteligență Artificială"
         }
     }
 }
