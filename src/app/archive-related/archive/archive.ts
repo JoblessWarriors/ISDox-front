@@ -102,10 +102,9 @@ export class Archive implements OnInit{
     this.documentTypeService.getAllDocumentTypes().subscribe({
       next: (res) => {
         this.documentTypes = [...res];
-        this.spinnerService.hide()
       },
-      error: () => {
-        this.spinnerService.hide()
+      error: (err) => {
+        console.error('Error retrieving document types: ' + err);
       }
     });
 
@@ -152,15 +151,6 @@ export class Archive implements OnInit{
   }
 
   protected applyFilters() {
-    this.spinnerService.show();
-    
-    // const baseParams: any = {
-    //   sort: 'createdAt,desc',
-    //   dossierId: this.filterId || undefined,
-    //   documentTypeId: this.filterDocType?.id || undefined,
-    //   startDate: this.filterDateRange?.[0]?.toISOString(),
-    //   endDate: this.filterDateRange?.[1]?.toISOString()
-    // };
   }
 
   protected archiveSelected() {
@@ -171,11 +161,7 @@ export class Archive implements OnInit{
       next: (blob) => {
         if (blob) {
           const localUrl = URL.createObjectURL(blob);
-            
-            // 2. Sanitize the URL for the iframe
             this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(localUrl);
-            
-            // 3. Show the display component (e.g., a Dialog)
             this.openSaveArchiveLabelDialog = true;
         }
         this.spinnerService.hide();
@@ -194,7 +180,6 @@ export class Archive implements OnInit{
 
   protected archiveAll() {
     const ids = this.solvedDossiers.map(node => node.data.id);
-    //this.executeArchive(ids);
   }
 
   private updateLabels() {
@@ -211,7 +196,7 @@ export class Archive implements OnInit{
     this.dateFilterLabel = this.translate.instant('archive.date-filter');
     this.faultyGetDossiersTitleLabel = this.translate.instant('archive.faulty-get-dossiers-title');
     this.faultyGetDossiersDetailsLabel = this.translate.instant('archive.faulty-get-dossiers-details');
-    this.faultyPatchDossiersTitleLabel = this.translate.instant('archive.faulty-get-dossiers-details');
-    this.faultyPatchDossiersDetailsLabel = this.translate.instant('archive.faulty-get-dossiers-details');
+    this.faultyPatchDossiersTitleLabel = this.translate.instant('archive.faulty-patch-dossiers-title');
+    this.faultyPatchDossiersDetailsLabel = this.translate.instant('archive.faulty-patch-dossiers-details');
   }
 }
