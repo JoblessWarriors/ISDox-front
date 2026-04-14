@@ -180,7 +180,7 @@ export class Archive implements OnInit{
         (data.department?.name.toLowerCase().includes(searchValue) ?? false) ||
         (data.department?.code.toLowerCase().includes(searchValue) ?? false) || 
         (data.department?.description?.toLowerCase().includes(searchValue) ?? false) || 
-        (data.documents.originalFilename?.toLowerCase().includes(searchValue) ?? false);
+        (data.documents?.some((doc: DocumentMapping) => doc.originalFilename?.toLowerCase().includes(searchValue) ?? false) ?? false);
 
       const matchesType = !this.filterDocType || 
         data.documents?.some((doc: DocumentMapping) => doc.type.id === this.filterDocType!.id);
