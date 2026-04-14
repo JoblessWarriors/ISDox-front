@@ -23,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DossierStatus } from '../../model/dossier/dossier-status';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SaveArchiveLabelsDialog } from '../save-archive-labels-dialog/save-archive-labels-dialog';
+import { DocumentMapping } from '../../model/document/document-mapping.model';
 
 @Component({
   selector: 'app-archive',
@@ -60,12 +61,15 @@ export class Archive implements OnInit{
   protected solvedDossiers: TreeNode[] = [];
   protected archivedDossiers: TreeNode[] = [];
   protected selectedDossiers: TreeNode[] = [];
+  protected activeTab: number = 1;
 
   protected filterId: string = '';
   protected filterDocType?: DocumentType;
   protected filterDateRange: Date[] = [];
   protected pdfUrl?: SafeResourceUrl;
   protected openSaveArchiveLabelDialog: boolean = false;
+
+  private tabDossiersMap: Map<number, TreeNode[]> = new Map();
 
   protected titleLabel: string = '';
   protected subtitleLabel: string = '';
@@ -95,6 +99,7 @@ export class Archive implements OnInit{
 
     this.authService.rolesBehaviorSubject.subscribe((userRoles) => {
       this.userRoles = [...userRoles];
+      this.activeTab = this.userRoles.includes(UserRole.ARCHIVIST) ? 0 : 1;
     });
 
     this.authService.currentUserRoles();
@@ -127,12 +132,15 @@ export class Archive implements OnInit{
           this.solvedDossiers = result.solved.content.map(dossierMapping => 
             Mapper.map("DossierMappingToTreeNode", dossierMapping) as TreeNode
           );
+          this.tabDossiersMap.set(0, this.solvedDossiers);
         }
         if (result.archived?.content) {
           this.archivedDossiers = result.archived.content.map(dossierMapping => 
             Mapper.map("DossierMappingToTreeNode", dossierMapping) as TreeNode
           );
+          this.tabDossiersMap.set(1, this.archivedDossiers);
         }
+        this.onTabChange(this.activeTab);
 
         this.cd.detectChanges();
         this.spinnerService.hide();
@@ -151,6 +159,48 @@ export class Archive implements OnInit{
   }
 
   protected applyFilters() {
+    const sourceDossiers = this.tabDossiersMap.get(this.activeTab) || [];
+
+    const hasNoFilters = !this.filterId && 
+                        !this.filterDocType && 
+                        (!this.filterDateRange || this.filterDateRange.length === 0 || !this.filterDateRange[0]);
+
+    if (hasNoFilters) {
+      this.filteredDossiers = [...sourceDossiers];
+      return;
+    }
+
+    this.filteredDossiers = sourceDossiers.filter((node) => {
+      const data = node.data;
+      if (!data) return false;
+
+      const searchValue = this.filterId.toLowerCase();
+      const matchesId = !this.filterId || 
+        data.id.toLowerCase().includes(searchValue) || 
+        (data.department?.name.toLowerCase().includes(searchValue) ?? false) ||
+        (data.department?.code.toLowerCase().includes(searchValue) ?? false) || 
+        (data.department?.description?.toLowerCase().includes(searchValue) ?? false) || 
+        (data.documents.originalFilename?.toLowerCase().includes(searchValue) ?? false);
+
+      const matchesType = !this.filterDocType || 
+        data.documents?.some((doc: DocumentMapping) => doc.type.id === this.filterDocType!.id);
+
+      let matchesDate = true;
+      if (this.filterDateRange && this.filterDateRange[0] && data.createdAt) {
+        const createdAt = new Date(data.createdAt).getTime();
+        const start = this.filterDateRange[0].getTime();
+        
+        if (this.filterDateRange[1]) {
+          const end = this.filterDateRange[1].getTime();
+          const endOfDay = new Date(end).setHours(23, 59, 59, 999);
+          matchesDate = createdAt >= start && createdAt <= endOfDay;
+        } else {
+          matchesDate = createdAt >= start;
+        }
+      }
+
+      return matchesId && matchesType && matchesDate;
+    });
   }
 
   protected archiveSelected() {
@@ -182,6 +232,11 @@ export class Archive implements OnInit{
     const ids = this.solvedDossiers.map(node => node.data.id);
   }
 
+  protected onTabChange(tabValue: any) {
+    this.activeTab = tabValue;
+    this.applyFilters();
+  }
+
   private updateLabels() {
     this.titleLabel = this.translate.instant('archive.title');
     this.subtitleLabel = this.translate.instant('archive.subtitle');
@@ -189,8 +244,8 @@ export class Archive implements OnInit{
     this.archivedTabLabel = this.translate.instant('archive.archived-tab');
     this.archiveSelectedLabel = this.translate.instant('archive.archive-selected');
     this.archiveAllLabel = this.translate.instant('archive.archive-all');
-    this.filterPlaceholderId = this.translate.instant('archive.title');
-    this.filterPlaceholderType = this.translate.instant('archive.title');
+    this.filterPlaceholderId = this.translate.instant('archive.dossier-filter');
+    this.filterPlaceholderType = this.translate.instant('archive.doc-type-filter');
     this.dossierFilterLabel = this.translate.instant('archive.dossier-filter');
     this.documentTypeFilterLabel = this.translate.instant('archive.document-type-filter');
     this.dateFilterLabel = this.translate.instant('archive.date-filter');
