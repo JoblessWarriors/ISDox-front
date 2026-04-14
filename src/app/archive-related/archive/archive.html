@@ -53,8 +53,8 @@
 
       <p-tabpanel [value]="1">
         <p-tree [value]="filteredDossiers" selectionMode="single" class="w-full border-none" />
-        @if (archivedDossiers.length === 0) {
-            <div class="text-center py-10 text-surface-400 italic">No archived records found.</div>
+        @if (filteredDossiers.length === 0) {
+            <div class="text-center py-10 text-surface-400 italic">No archived dossiers match your filters.</div>
         }
       </p-tabpanel>
     </p-tabpanels>
