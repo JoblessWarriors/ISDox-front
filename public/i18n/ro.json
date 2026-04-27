@@ -7,7 +7,8 @@
         "login": "Conectare",
         "logout": "Deconectare",
         "dark-mode": "Mod întunecat",
-        "light-mode": "Mod luminos"
+        "light-mode": "Mod luminos",
+        "doxi": "Căutare"
     },
     "login": {
         "username": "Nume de utilizator",
@@ -27,7 +28,8 @@
         "documents": "documente",
         "archive": "arhiva",
         "profile": "profil",
-        "login": "login"
+        "login": "login",
+        "doxi": "cautare"
     },
     "languages": {
         "ro": "Română",
@@ -372,5 +374,10 @@
             "role-cto": "Inginer Front-End",
             "role-architect": "Inginer Inteligență Artificială"
         }
+    },
+    "doxi": {
+        "search-title": "Căutare Asistată",
+        "metadata-section": "Filtrare Metadate",
+        "doxi-button": "Caută cu Doxi"
     }
 }

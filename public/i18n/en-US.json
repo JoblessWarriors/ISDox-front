@@ -7,7 +7,8 @@
         "login": "Log In",
         "logout": "Log Out",
         "dark-mode": "Dark mode",
-        "light-mode": "Light mode"
+        "light-mode": "Light mode",
+        "doxi": "Search"
     },
     "login": {
         "username": "Username",
@@ -27,7 +28,8 @@
         "documents": "documents",
         "archive": "archive",
         "profile": "profile",
-        "login": "login"
+        "login": "login",
+        "doxi": "search"
     },
     "languages": {
         "ro": "Romanian",
@@ -374,5 +376,10 @@
             "role-cto": "Front-End Engineer",
             "role-architect": "Artificial Intelligence Engineer"
         }
+    },
+    "doxi": {
+        "search-title": "Assisted Search",
+        "metadata-section": "Metadata Filtering",
+        "doxi-button": "Search with Doxi"
     }
 }

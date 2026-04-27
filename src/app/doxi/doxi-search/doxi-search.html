@@ -1,0 +1,80 @@
+<p-card class="mx-8 my-4">
+  <div class="flex flex-col gap-6">
+    <h1 class="text-3xl font-bold border-b pb-4">{{searchTitleLabel}}</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 bg-surface-50 border-round">
+      
+      <p-float-label variant="on">
+        <input pInputText id="sId" [(ngModel)]="filters.dossierId" class="w-full" />
+        <label for="sId">Dossier ID</label>
+      </p-float-label>
+
+      <p-datepicker [(ngModel)]="filters.dateRange" selectionMode="range" [showIcon]="true" placeholder="Date Range" class="w-full" />
+
+      <p-select [options]="departments" [(ngModel)]="filters.department" optionLabel="name" placeholder="Department" [showClear]="true" class="w-full" />
+
+      <p-float-label variant="on">
+        <input pInputText id="regNum" [(ngModel)]="metadataFilters.registrationNumber" class="w-full" />
+        <label for="regNum">Număr Înregistrare</label>
+      </p-float-label>
+
+      <p-float-label variant="on">
+        <input pInputText id="cnp" [(ngModel)]="metadataFilters.cnp" class="w-full" />
+        <label for="cnp">CNP</label>
+      </p-float-label>
+
+      <p-float-label variant="on">
+        <input pInputText id="name" [(ngModel)]="metadataFilters.fullName" class="w-full" />
+        <label for="name">Nume Complet</label>
+      </p-float-label>
+
+      <div class="md:col-span-2 flex gap-2">
+        <p-button label="Search" icon="pi pi-search" (onClick)="onSearch()" class="flex-1" />
+        <p-button icon="pi pi-refresh" severity="secondary" [outlined]="true" (onClick)="null" />
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <p-tree [value]="foundDossiers" selectionMode="single" class="w-full border-none" />
+    
+    @if (searchPerformed && foundDossiers.length === 0) {
+      <div class="text-center p-10 bg-surface-50 border-round">
+        <i class="pi pi-search-plus text-4xl text-surface-300 mb-4"></i>
+        <p class="text-surface-500 italic">No dossiers found matching these criteria.</p>
+      </div>
+    }
+  </div>
+
+  <div class="mt-12 flex flex-col items-center gap-4">
+    <p-divider class="w-full" />
+    <div class="flex flex-col items-center">
+      <div class="relative">
+         <p-button 
+            [label]="doxiButtonLabel" 
+            icon="pi pi-sparkles" 
+            rounded="true" 
+            severity="help" 
+            size="large"
+            (onClick)="openDoxi()"
+            class="shadow-lg" />
+         <span class="absolute -top-1 -right-1 flex h-3 w-3">
+           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+           <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+         </span>
+      </div>
+      <p class="mt-2 text-xs text-surface-400 uppercase font-bold tracking-widest italic">Powered by Doxi Assistant</p>
+    </div>
+  </div>
+</p-card>
+
+<p-dialog [(visible)]="isDoxiVisible" [modal]="true" [header]="'Doxi Contextual Search'" [style]="{width: '500px'}">
+    <div class="flex flex-col gap-4">
+        <div class="flex items-start gap-3 p-3 bg-help/10 border-round">
+            <i class="pi pi-sparkles text-help text-xl mt-1"></i>
+            <p class="text-sm">"Bună! Sunt <strong>Doxi</strong>. Spune-mi ce cauți folosind limbaj natural (ex: 'dosarele lui Popescu trimise luna trecută la IT') și eu mă ocup de restul."</p>
+        </div>
+        <textarea pTextarea rows="4" placeholder="Întreabă-mă orice..." class="w-full"></textarea>
+        <p-button label="Ask Doxi" severity="help" class="w-full" />
+    </div>
+</p-dialog>
