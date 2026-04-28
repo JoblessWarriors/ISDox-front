@@ -378,6 +378,18 @@
     "doxi": {
         "search-title": "Căutare Asistată",
         "metadata-section": "Filtrare Metadate",
-        "doxi-button": "Caută cu Doxi"
+        "doxi-button": "Caută cu Doxi",
+        "dossier-filter-placeholder": "Caută după ID Dosar...",
+        "department-select-placeholder": "Selectează Departamentul",
+        "data-range-filter-placeholder": "Perioada de timp",
+        "registration-number-filter-placeholder": "Număr Înregistrare...",
+        "identity-number-filter-placeholder": "CNP / Serie și Număr...",
+        "name-filter-placeholder": "Nume Complet...",
+        "search-button": "Caută",
+        "no-dossiers": "Nu au fost găsite dosare conform acestor criterii.",
+        "powered-by-doxi": "Operat de Asistentul Doxi",
+        "doxi-name": "Asistentul AI Doxi",
+        "ask-input-placeholder": "Întreabă ceva ...",
+        "first-message": "Bună! Sunt Doxi, asistentul dumneavoastră AI. Cu ce vă pot ajuta?"
     }
 }

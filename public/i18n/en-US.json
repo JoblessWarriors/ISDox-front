@@ -380,6 +380,18 @@
     "doxi": {
         "search-title": "Assisted Search",
         "metadata-section": "Metadata Filtering",
-        "doxi-button": "Search with Doxi"
+        "doxi-button": "Search with Doxi",
+        "dossier-filter-placeholder": "Search by Dossier ID...",
+        "department-select-placeholder": "Select Department",
+        "data-range-filter-placeholder": "Data Range",
+        "registration-number-filter-placeholder": "Registration Number...",
+        "identity-number-filter-placeholder": "CNP / Identity Number...",
+        "name-filter-placeholder": "Full Name...",
+        "search-button": "Search",
+        "no-dossiers": "No dossiers found matching these criteria.",
+        "powered-by-doxi": "Powered by Doxi Assistant",
+        "doxi-name": "Doxi AI Assistant",
+        "ask-input-placeholder": "Ask something ...",
+        "first-message": "Hello! I am Doxi, your AI Assistant. How may I assist you today?"
     }
 }
