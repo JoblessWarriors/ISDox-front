@@ -390,6 +390,16 @@
         "powered-by-doxi": "Operat de Asistentul Doxi",
         "doxi-name": "Asistentul AI Doxi",
         "ask-input-placeholder": "Întreabă ceva ...",
-        "first-message": "Bună! Sunt Doxi, asistentul dumneavoastră AI. Cu ce vă pot ajuta?"
+        "first-message": "Bună! Sunt Doxi, asistentul dumneavoastră AI. Cu ce vă pot ajuta?",
+        "faulty-get-departments-title": "Eroare Încărcare Departamente",
+        "faulty-get-departments-details": "Nu s-a putut prelua lista de departamente. Vă rugăm să reîmprospătați pagina.",
+        "faulty-get-dossiers-title": "Eroare Încărcare Dosare",
+        "faulty-get-dossiers-details": "Nu s-a putut prelua lista inițială de dosare.",
+        "faulty-search-dossiers-title": "Căutare Eșuată",
+        "faulty-search-dossiers-details": "Căutarea nu a putut fi finalizată. Se afișează toate dosarele disponibile.",
+        "faulty-init-chat-title": "Eroare Conexiune",
+        "faulty-init-chat-details": "Doxi întâmpină probleme la pornirea sesiunii. Vă rugăm să încercați mai târziu.",
+        "faulty-chat-response-title": "Eroare Comunicare AI",
+        "faulty-chat-response-details": "Doxi nu a putut procesa solicitarea. Verificați conexiunea la internet."
     }
 }

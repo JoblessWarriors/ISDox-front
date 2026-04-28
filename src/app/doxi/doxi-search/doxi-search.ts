@@ -95,6 +95,16 @@ export class DoxiSearch implements OnInit {
   protected askInputPlaceholderLabel: string = '';
 
   private firstMessageLabel: string = '';
+  private faultyGetDepartmentsTitleLabel: string = '';
+  private faultyGetDepartmentsDetailsLabel: string = '';
+  private faultyGetDossiersTitleLabel: string = '';
+  private faultyGetDossiersDetailsLabel: string = '';
+  private faultySearchDossiersTitleLabel: string = '';
+  private faultySearchDossiersDetailsLabel: string = '';
+  private faultyInitChatTitleLabel: string = '';
+  private faultyInitChatDetailsLabel: string = '';
+  private faultyChatResponseTitleLabel: string = '';
+  private faultyChatResponseDetailsLabel: string = '';
 
   ngOnInit(): void {
     this.cookieService.set('ISDox_lastVisitedPage', PageEnum.DOXI, 
@@ -112,8 +122,8 @@ export class DoxiSearch implements OnInit {
         console.error('Failed to retrieve departments: ', err);
         this.messageService.add({ 
           severity: 'error', 
-          //summary: this.faultyGetRegisteredDossiersTitleLabel, 
-          //detail: this.faultyGetRegisteredDossiersDetailsLabel
+          summary: this.faultyGetDepartmentsTitleLabel, 
+          detail: this.faultyGetDepartmentsDetailsLabel
         });
       }
     })
@@ -132,8 +142,8 @@ export class DoxiSearch implements OnInit {
         console.error('Failed to retrieve dossiers:', err);
         this.messageService.add({ 
           severity: 'error', 
-          //summary: this.faultyGetRegisteredDossiersTitleLabel, 
-          //detail: this.faultyGetRegisteredDossiersDetailsLabel
+          summary: this.faultyGetDossiersTitleLabel, 
+          detail: this.faultyGetDossiersDetailsLabel
         });
         this.spinnerService.hide();
       }
@@ -177,8 +187,8 @@ export class DoxiSearch implements OnInit {
         console.error('Failed to filter dossiers:', err);
         this.messageService.add({ 
           severity: 'error', 
-          //summary: this.faultyGetRegisteredDossiersTitleLabel, 
-          //detail: this.faultyGetRegisteredDossiersDetailsLabel
+          summary: this.faultySearchDossiersTitleLabel, 
+          detail: this.faultySearchDossiersDetailsLabel
         });
         this.spinnerService.hide();
       }
@@ -206,8 +216,8 @@ export class DoxiSearch implements OnInit {
           console.error('Failed to initialize a chat session:', err);
           this.messageService.add({ 
             severity: 'error', 
-            //summary: this.faultyGetRegisteredDossiersTitleLabel, 
-            //detail: this.faultyGetRegisteredDossiersDetailsLabel
+            summary: this.faultyInitChatTitleLabel, 
+            detail: this.faultyInitChatDetailsLabel
           });
           this.spinnerService.hide();
         }
@@ -244,8 +254,8 @@ export class DoxiSearch implements OnInit {
         console.error('Failed to retrieve response: ', err);
         this.messageService.add({ 
           severity: 'error', 
-          //summary: this.faultyGetRegisteredDossiersTitleLabel, 
-          //detail: this.faultyGetRegisteredDossiersDetailsLabel
+          summary: this.faultyChatResponseTitleLabel, 
+          detail: this.faultyChatResponseDetailsLabel
         });
         this.spinnerService.hide();
       }
@@ -268,5 +278,15 @@ export class DoxiSearch implements OnInit {
     this.doxiNameLabel = this.translate.instant('doxi.doxi-name');
     this.askInputPlaceholderLabel = this.translate.instant('doxi.ask-input-placeholder');
     this.firstMessageLabel = this.translate.instant('doxi.first-message');
+    this.faultyGetDepartmentsTitleLabel = this.translate.instant('doxi.faulty-get-departments-title');
+    this.faultyGetDepartmentsDetailsLabel = this.translate.instant('doxi.faulty-get-departments-details');
+    this.faultyGetDossiersTitleLabel = this.translate.instant('doxi.faulty-get-dossiers-title');
+    this.faultyGetDossiersDetailsLabel = this.translate.instant('doxi.faulty-get-dossiers-details');
+    this.faultySearchDossiersTitleLabel = this.translate.instant('doxi.faulty-search-dossiers-title');
+    this.faultySearchDossiersDetailsLabel = this.translate.instant('doxi.faulty-search-dossiers-details');
+    this.faultyInitChatTitleLabel = this.translate.instant('doxi.faulty-init-chat-title');
+    this.faultyInitChatDetailsLabel = this.translate.instant('doxi.faulty-init-chat-details');
+    this.faultyChatResponseTitleLabel = this.translate.instant('doxi.faulty-chat-response-title');
+    this.faultyChatResponseDetailsLabel = this.translate.instant('doxi.faulty-chat-response-details');
   }
 }

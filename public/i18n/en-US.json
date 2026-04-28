@@ -392,6 +392,16 @@
         "powered-by-doxi": "Powered by Doxi Assistant",
         "doxi-name": "Doxi AI Assistant",
         "ask-input-placeholder": "Ask something ...",
-        "first-message": "Hello! I am Doxi, your AI Assistant. How may I assist you today?"
+        "first-message": "Hello! I am Doxi, your AI Assistant. How may I assist you today?",
+        "faulty-get-departments-title": "Department Load Error",
+        "faulty-get-departments-details": "Could not retrieve the list of departments. Please try refreshing.",
+        "faulty-get-dossiers-title": "Dossier Load Error",
+        "faulty-get-dossiers-details": "Could not retrieve the dossiers list.",
+        "faulty-search-dossiers-title": "Filtering Failed",
+        "faulty-search-dossiers-details": "The search could not be completed. Showing all available dossiers.",
+        "faulty-init-chat-title": "Connection Error",
+        "faulty-init-chat-details": "Doxi is having trouble starting a session. Please try again later.",
+        "faulty-chat-response-title": "AI Communication Error",
+        "faulty-chat-response-details": "Doxi couldn't process your request. Check your internet connection."
     }
 }
