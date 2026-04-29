@@ -1,17 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Navbar } from './navbar/navbar';
-import { SpinnerComponent } from "./service/spinner/spinner-component";
 import { TranslateService } from '@ngx-translate/core';
 import { ThemePreferenceService } from './service/theme-preference/theme-preference-service';
 import { Constants } from './constants';
-import { ToastModule, Toast } from 'primeng/toast';
 import { AuthService } from './service/auth/auth-service';
-import { UserService } from './service/user/user-service';
-import { User } from './model/user/user.model';
 import { NormalLayout } from './layouts/normal-layout/normal-layout';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
-import { AdminHomepage } from "./admin/admin-homepage/admin-homepage";
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { UserRole } from './model/user/user-role';
@@ -65,15 +58,5 @@ export class App implements OnInit {
       return;
     }
     this.translate.use(preferedLanguage);
-  }
-
-  private isAdminMethod() {
-    var hei = this.cookieService.check('ISDox_access_token');
-    var hei2 = this.getCookie('ISDox_access_token')
-  }
-
-  private getCookie(name: string): string | null {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? decodeURIComponent(match[2]) : null;
   }
 }

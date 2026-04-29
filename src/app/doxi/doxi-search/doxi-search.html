@@ -2,43 +2,50 @@
   <div class="flex flex-col gap-6">
     <h1 class="text-3xl font-bold border-b pb-4">{{searchTitleLabel}}</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 bg-surface-50 border-round">
-      
-      <p-float-label variant="on">
-        <input pInputText id="sId" [(ngModel)]="filters.id" class="w-full" />
-        <label for="sId">{{dossierFilterPlaceholderLabel}}</label>
-      </p-float-label>
+    <div class="flex flex-wrap gap-4 p-6 bg-surface-50 border-round align-items-end">
+        
+        <div class="flex-grow-1 flex-basis-0">
+            <p-datepicker [(ngModel)]="filters.dateRange" selectionMode="range" [showIcon]="true" 
+                        [placeholder]="dataRangeFilterPlaceholderLabel" styleClass="w-full" />
+        </div>
 
-      <p-datepicker [(ngModel)]="filters.dateRange" selectionMode="range" [showIcon]="true" [placeholder]="dataRangeFilterPlaceholderLabel" class="w-full" />
+        <div class="flex-grow-1 flex-basis-0">
+            <p-select [options]="departments" [(ngModel)]="selectedDepartment" optionLabel="name" 
+                    [placeholder]="departmentSelectPlaceholderLabel" [showClear]="true" styleClass="w-full" />
+        </div>
 
-      <p-select [options]="departments" [(ngModel)]="selectedDepartment" optionLabel="name" [placeholder]="departmentSelectPlaceholderLabel" [showClear]="true" class="w-full" />
+        <div class="flex-grow-1 flex-basis-0">
+            <p-float-label variant="on">
+            <input pInputText id="regNum" [(ngModel)]="metadataFilters.registrationNumber" class="w-full" />
+            <label for="regNum">{{registrationNumberFilterPlaceholderLabel}}</label>
+            </p-float-label>
+        </div>
 
-      <p-float-label variant="on">
-        <input pInputText id="regNum" [(ngModel)]="metadataFilters.registrationNumber" class="w-full" />
-        <label for="regNum">{{registrationNumberFilterPlaceholderLabel}}</label>
-      </p-float-label>
+        <div class="flex-grow-1 flex-basis-0">
+            <p-float-label variant="on">
+            <input pInputText id="cnp" [(ngModel)]="metadataFilters.cnp" class="w-full" />
+            <label for="cnp">{{identityNumberFilterPlaceholderLabel}}</label>
+            </p-float-label>
+        </div>
 
-      <p-float-label variant="on">
-        <input pInputText id="cnp" [(ngModel)]="metadataFilters.cnp" class="w-full" />
-        <label for="cnp">{{identityNumberFilterPlaceholderLabel}}</label>
-      </p-float-label>
+        <div class="flex-grow-1 flex-basis-0">
+            <p-float-label variant="on">
+            <input pInputText id="name" [(ngModel)]="metadataFilters.name" class="w-full" />
+            <label for="name">{{nameFilterPlaceholderLabel}}</label>
+            </p-float-label>
+        </div>
 
-      <p-float-label variant="on">
-        <input pInputText id="name" [(ngModel)]="metadataFilters.name" class="w-full" />
-        <label for="name">{{nameFilterPlaceholderLabel}}</label>
-      </p-float-label>
-
-      <div class="md:col-span-2 flex gap-2">
-        <p-button [label]="searchButtonLabel" icon="pi pi-search" (onClick)="onSearch()" class="flex-1" />
-        <p-button icon="pi pi-refresh" severity="secondary" [outlined]="true" (onClick)="null" />
-      </div>
-    </div>
+        <div class="flex gap-2 flex-none ml-auto">
+            <p-button [label]="searchButtonLabel" icon="pi pi-search" (onClick)="onSearch()" />
+            <p-button icon="pi pi-refresh" severity="secondary" [outlined]="true" (onClick)="onClean()" />
+        </div>
+        </div>
   </div>
 
   <div class="mt-8">
     <p-tree [value]="filteredDossiers" selectionMode="single" class="w-full border-none" />
     
-    @if (searchPerformed || filteredDossiers.length === 0) {
+    @if (searchPerformed && filteredDossiers.length === 0) {
       <div class="text-center p-10 bg-surface-50 border-round">
         <i class="pi pi-search-plus text-4xl text-surface-300 mb-4"></i>
         <p class="text-surface-500 italic">{{noDossiersLabel}}</p>

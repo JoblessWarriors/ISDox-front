@@ -9,7 +9,7 @@ import { DoxiSearch } from "./doxi/doxi-search/doxi-search";
 
 export class Constants {
     static defaultPage = 'home';
-    static availableLanguages: string[] = ['en-US', 'ro'];
+    static availableLanguages: string[] = ['en-US', 'ro', 'hu'];
     static fallbackLanguage: string = 'en-US';
     static availableEndpoints: string[] = [
         'home',

@@ -28,8 +28,7 @@
                 </p-divider>
             </div>
             <div class="flex flex-row justify-evenly w-sm">
-                <p-button label="Google" />
-                <p-button label="Microsoft" />
+                <p-button [label]="emailUsLabel" (onClick)="contactSupport()"/>
             </div>
         </div>
     </ng-template>

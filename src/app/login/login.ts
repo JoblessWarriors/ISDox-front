@@ -54,18 +54,21 @@ export class Login implements OnInit{
   protected username: string = "";
   protected password: string = "";
 
-  protected usernameLabel: string = "";
-  protected passwordLabel: string = "";
-  protected connectLabel: string = "";
-  protected otherPartyConnectLabel: string = "";
-  protected buttonLabel: string = "";
-  protected subtitleLabel: string = "";
-  protected rightPanelQuestion: string = "";
-  protected rightPanelAnswer: string = "";
+  protected usernameLabel: string = '';
+  protected passwordLabel: string = '';
+  protected connectLabel: string = '';
+  protected otherPartyConnectLabel: string = '';
+  protected buttonLabel: string = '""';
+  protected subtitleLabel: string = '""';
+  protected rightPanelQuestion: string = '';
+  protected rightPanelAnswer: string = '';
+  protected emailUsLabel: string = '';
 
-  private truthyLogInTitleLabel: string = "";
+  private truthyLogInTitleLabel: string = '';
   private faultyLogInTitleLabel: string = '';
   private faultyLogInMessageLabel: string = '';
+  private supportEmailSubject: string = '';
+  private supportEmailBody: string = '';
 
   ngOnInit(): void {
     this.cookieService.set('ISDox_lastVisitedPage', PageEnum.LOGIN, 
@@ -115,6 +118,16 @@ export class Login implements OnInit{
     });
   }
 
+  protected contactSupport() {
+    const supportEmail = 'support@isdox.com';
+    const subject = encodeURIComponent(this.supportEmailSubject);
+    const body = encodeURIComponent(this.supportEmailBody);
+
+    const mailtoUrl = `mailto:${supportEmail}?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoUrl;
+  }
+
   private updateLabels() {
     this.usernameLabel = this.translate.instant('login.username');
     this.passwordLabel = this.translate.instant('login.password');
@@ -127,6 +140,9 @@ export class Login implements OnInit{
     this.truthyLogInTitleLabel = this.translate.instant('login.truthy-login-title');
     this.faultyLogInMessageLabel = this.translate.instant('login.faulty-login-message');
     this.faultyLogInTitleLabel = this.translate.instant('login.faulty-login-title');
+    this.emailUsLabel = this.translate.instant('login.email-us');
+    this.supportEmailSubject = this.translate.instant('login.support-email-subject');
+    this.supportEmailBody = this.translate.instant('login.support-email-body');
     this.spinnerService.hide();
   }
 }

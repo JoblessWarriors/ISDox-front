@@ -106,9 +106,10 @@ export class AdminHomepage implements OnInit {
     this.userService.getAllUsers().subscribe({
       next: (response) => {
         if (response) {
-          this.users = response.content.map(userMap => 
+          const users =response.content.map(userMap => 
             Mapper.map("MappingToUser", userMap)
-          );
+          ) as User[];
+          this.users = users.filter(user => user.isActive);
           this.selectedUser = this.users[0];
           this.cd.detectChanges();
         }
@@ -132,9 +133,6 @@ export class AdminHomepage implements OnInit {
         console.error('Failed to load departments:', err);
       }
     });
-
-    this.location.replaceState('');
-    this.translate.use('en-US');
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.spinnerService.show();

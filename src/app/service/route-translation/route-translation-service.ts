@@ -64,6 +64,10 @@ export class RouteTranslationService {
         });
       });
     });
+
+    const defaultPath = currentLanguageData[Constants.defaultPage] ? `${lang}/${currentLanguageData[Constants.defaultPage]}` : `${lang}/home`;
+    routes.push({ path: '', redirectTo: defaultPath, pathMatch: 'full' });
+    routes.push({ path: '**', redirectTo: defaultPath });
     return routes;
   }
 

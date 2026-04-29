@@ -159,19 +159,26 @@ export class DoxiSearch implements OnInit {
   protected onSearch() {
     this.spinnerService.show();
     this.searchPerformed = true;
-    const rawParams = {
-    ...this.filters,
-    ...this.metadataFilters,
-    departmentId: this.selectedDepartment?.id ?? null,
-    startDate: this.filters.dateRange?.[0],
-    endDate: this.filters.dateRange?.[1]
-  };
 
-  const cleanParams = Object.fromEntries(
-    Object.entries(rawParams).filter(([_, value]) => 
-      value !== null && value !== undefined && value !== ''
-    )
-  );
+    const formatToISO = (date: any) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return !isNaN(d.getTime()) ? d.toISOString() : null;
+    };
+
+    const rawParams = {
+      ...this.filters,
+      ...this.metadataFilters,
+      departmentId: this.selectedDepartment?.id ?? null,
+      startDate: formatToISO(this.filters.dateRange?.[0]),
+      endDate: formatToISO(this.filters.dateRange?.[1])
+    };
+
+    const cleanParams = Object.fromEntries(
+      Object.entries(rawParams).filter(([_, value]) => 
+        value !== null && value !== undefined && value !== ''
+      )
+    );
 
     this.dossierService.getAllDossiers(cleanParams).subscribe({
       next: (response) => {
@@ -193,6 +200,22 @@ export class DoxiSearch implements OnInit {
         this.spinnerService.hide();
       }
     });
+  }
+
+  protected onClean() {
+    this.filters = {
+      id: '',
+      dateRange: [],
+      docType: null
+    };
+
+    this.selectedDepartment = undefined;
+
+    this.metadataFilters = {
+      cnp: '',
+      name: '',
+      registrationNumber: ''
+    };
   }
 
   protected openDoxi() {

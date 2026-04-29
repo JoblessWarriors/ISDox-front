@@ -14,14 +14,17 @@
         "username": "Username",
         "password": "Password",
         "login-message": "Log In",
-        "login-other-options": "Or continue with",
+        "login-other-options": "No account?",
         "login-button": "Sign In",
         "login-subtitle": "Welcome back! Please enter your credentials or proceed with a third party authentication.",
         "right-panel-question": "Why ISDox?",
         "right-panel-answer": "Our mission is to make document-scanning, editing and archiving easy and approachable for people of all ages and backgrounds. Using innovative AI technology, we deliver quality and performance, all within one fully-integrated platform.",
         "truthy-login-title": "Successful log-in",
         "faulty-login-title": "Error",
-        "faulty-login-message": "An error has occurred during the log-in process. Please contact an administrator."
+        "faulty-login-message": "An error has occurred during the log-in process. Please contact an administrator.",
+        "email-us": "Contact us",
+        "support-email-subject": "Issue with Email Account Setup / Missing Email Address",
+        "support-email-body": "Hello ISDox Support Team,\nI am contacting you regarding an issue with my account. It appears that I do not have a functional email address assigned to my profile, or the setup has not been completed.\nCould you please assist me in getting this resolved so I can access the system fully?\nBest regards,\n"
     },
     "routes": {
         "home": "home",
@@ -33,7 +36,8 @@
     },
     "languages": {
         "ro": "Romanian",
-        "en-us": "English (USA)"
+        "en-us": "English (USA)",
+        "hu": "Hungarian"
     },
     "roles": {
         "0": "Operator",

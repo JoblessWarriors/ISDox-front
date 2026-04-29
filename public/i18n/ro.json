@@ -14,14 +14,17 @@
         "username": "Nume de utilizator",
         "password": "Parolă",
         "login-message": "Conectare",
-        "login-other-options": "Sau continuă să folosești",
+        "login-other-options": "Nu ai cont?",
         "login-button": "Intră în cont",
         "login-subtitle": "Bine ai revenit! Te rugăm să introduci datele de autentificare sau să continui cu autentificarea prin terți.",
         "right-panel-question": "De ce ISDox?",
         "right-panel-answer": "Misiunea noastră este să facem procesul de scanare, editare și arhivare al documentelor simplu și accesibil pentru persoane de toate vârstele și din toate mediile. Cu ajutorul tehnologiei AI inovatoare oferim calitate și performanță, totul într-o singură platformă complet integrată.",
         "truthy-login-title": "Autentificare reușită",
         "faulty-login-title": "Eroare",
-        "faulty-login-message": "Autentificarea nu s-a putut realiza. Vă rugăm să contactați un administrator."
+        "faulty-login-message": "Autentificarea nu s-a putut realiza. Vă rugăm să contactați un administrator.",
+        "email-us": "Contactează-ne",
+        "support-email-subject": "Problemă configurare cont – Lipsă adresă de e-mail",
+        "support-email-body": "Bună ziua,\nVă contactez pentru a raporta o problemă legată de contul meu. Se pare că nu am o adresă de e-mail activă asociată profilului meu sau configurarea acesteia nu a fost finalizată.\nMă puteți ajuta, vă rog, cu activarea sau crearea adresei de e-mail pentru a putea utiliza sistemul?\nCu stimă,\n"
     },
     "routes": {
         "home": "acasa",
@@ -33,7 +36,8 @@
     },
     "languages": {
         "ro": "Română",
-        "en-us": "Engleză (SUA)"
+        "en-us": "Engleză (SUA)",
+        "hu": "Maghiară"
     },
     "roles": {
         "0": "Operator",

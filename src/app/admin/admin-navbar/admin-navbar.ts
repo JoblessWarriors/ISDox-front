@@ -6,27 +6,27 @@ import {
     LangChangeEvent,
 } from "@ngx-translate/core";
 import { AvatarModule } from 'primeng/avatar';
-import { SpinnerService } from '../service/spinner/spinner-service';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouteTranslationService } from '../service/route-translation/route-translation-service';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { ThemePreferenceService } from '../service/theme-preference/theme-preference-service';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LanguageEnum } from '../enums/language-enum';
-import { Constants } from '../constants';
-import { FlagIconService } from '../service/flag-icon/flag-icon';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from '../service/auth/auth-service';
 import { MenuModule } from 'primeng/menu';
-import { UserService } from '../service/user/user-service';
-import { User } from '../model/user/user.model';
-import { Mapper } from '../model/mapper/mapper';
-import { UserRole } from '../model/user/user-role';
+import { SpinnerService } from '../../service/spinner/spinner-service';
+import { RouteTranslationService } from '../../service/route-translation/route-translation-service';
+import { ThemePreferenceService } from '../../service/theme-preference/theme-preference-service';
+import { FlagIconService } from '../../service/flag-icon/flag-icon';
+import { UserService } from '../../service/user/user-service';
+import { AuthService } from '../../service/auth/auth-service';
+import { Mapper } from '../../model/mapper/mapper';
+import { UserRole } from '../../model/user/user-role';
+import { User } from '../../model/user/user.model';
+import { Constants } from '../../constants';
+import { LanguageEnum } from '../../enums/language-enum';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-admin-navbar',
   imports: [
     CommonModule,
     MenubarModule,
@@ -36,10 +36,10 @@ import { UserRole } from '../model/user/user-role';
     FormsModule,
     MenuModule
   ],
-  templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
+  templateUrl: './admin-navbar.html',
+  styleUrl: './admin-navbar.css',
 })
-export class Navbar implements OnInit{
+export class AdminNavbar {
   private translate = inject(TranslateService);
   private spinnerService = inject(SpinnerService);
   private routeTranslationService = inject(RouteTranslationService);
@@ -105,34 +105,6 @@ export class Navbar implements OnInit{
     var currentFlag = this.flagIconService.getFlagByLanguage(currentLanguage as LanguageEnum) ?? 'fi fi-us';
     this.navBarOptions = [
       {
-        label: this.translate.instant('navbar.home'),
-        visible: true,
-        url: urls.get('home')
-      },
-      {
-        label: this.translate.instant('navbar.documents'),
-        visible: this.authService.isLoggedIn() && (
-          this.userRoles.includes(UserRole.OPERATOR) ||
-          this.userRoles.includes(UserRole.REGISTRAR) ||
-          this.userRoles.includes(UserRole.SPECIALIST)),
-        url: urls.get('documents')
-      },
-      {
-        label: this.translate.instant('navbar.archive'),
-        visible: this.authService.isLoggedIn(),
-        url: urls.get('archive')
-      },
-      {
-        label: this.translate.instant('navbar.login'),
-        visible: !this.authService.isLoggedIn(),
-        url: urls.get('login')
-      },
-      {
-        label: this.translate.instant('navbar.doxi'),
-        visible: this.authService.isLoggedIn(),
-        url: urls.get('doxi')
-      },
-      {
         icon: currentFlag,
         items: [
             {
@@ -162,33 +134,23 @@ export class Navbar implements OnInit{
 
     this.userMenuItems = [
       {
-        label: this.translate.instant('navbar.profile'),
-        icon: 'pi pi-user',
-        visible: this.authService.isLoggedIn(),
-        command: () => {
-          this.router.navigate([urls.get('profile')]);
-        }
-      },
-      {
         label: this.translate.instant('navbar.logout'),
         icon: 'pi pi-sign-out',
         visible: this.authService.isLoggedIn(),
         command: () => {
           this.authService.logout();
-          this.router.navigate([urls.get('home')]);
+          this.authService.currentUserRoles();
+          this.routeTranslationService.getRoutesForLanguage(currentLanguage);
+          var newUrls = this.routeTranslationService.getUrlsForLanguage();
+          this.location.replaceState(newUrls.get('home'));
         }
       }
     ];
     this.darkLabel = this.translate.instant('navbar.dark-mode');
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
-   
-    var canGetLastVisitedPageCookie = this.cookieService.check('ISDox_lastVisitedPage');
-    var lastVisitedPage = canGetLastVisitedPageCookie ? 
-      this.cookieService.get('ISDox_lastVisitedPage')
-      : Constants.defaultPage;
     if (shouldTriggerReplaceState) {
-      this.location.replaceState(urls.get(lastVisitedPage));
+      this.location.replaceState('');
     }
   }
 
