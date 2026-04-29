@@ -1,0 +1,7 @@
+export enum DocumentRole {
+    REQUEST,
+    EXTERNAL_ATTACHMENT,
+    INTERNAL_ATTACHMENT,
+    RESPONSE,
+    GDPR_PUBLIC_VERSION
+}

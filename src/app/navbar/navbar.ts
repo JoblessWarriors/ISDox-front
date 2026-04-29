@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import {
@@ -18,6 +18,12 @@ import { Constants } from '../constants';
 import { FlagIconService } from '../service/flag-icon/flag-icon';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../service/auth/auth-service';
+import { MenuModule } from 'primeng/menu';
+import { UserService } from '../service/user/user-service';
+import { User } from '../model/user/user.model';
+import { Mapper } from '../model/mapper/mapper';
+import { UserRole } from '../model/user/user-role';
 
 @Component({
   selector: 'app-navbar',
@@ -27,7 +33,8 @@ import { CookieService } from 'ngx-cookie-service';
     AvatarModule,
     InputTextModule,
     ToggleSwitchModule,
-    FormsModule
+    FormsModule,
+    MenuModule
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
@@ -40,22 +47,50 @@ export class Navbar implements OnInit{
   private flagIconService = inject(FlagIconService);
   private location = inject(Location);
   private cookieService = inject(CookieService);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private cd = inject(ChangeDetectorRef);
+  protected authService = inject(AuthService);
 
   private lightLabel: string = "";
   private darkLabel: string = "";
 
+  protected user: User | undefined;
   protected navBarOptions: MenuItem[] = [];
-  protected isDarkMode = localStorage.getItem('user-theme') == 'light' ? false : true;
+  protected userMenuItems: MenuItem[] = [];
+  protected isDarkMode = localStorage.getItem('ISDox_user_theme') == 'light' ? false : true;
   protected modeLabel: string = "";
+  protected userRoles: UserRole[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.spinnerService.show();
       this.updateMenu();
+      this.cd.detectChanges()
     });
+
+    this.authService.loggedInBehaviorSubject.subscribe((isLoggedIn) => {
+      this.updateMenu(false);
+      this.userService.getCurrentUser().subscribe({
+        next: (userMapping) => {
+          if (userMapping) {
+            this.user = Mapper.map("MappingToUser", userMapping);
+          }
+        },
+        error: (err) => {
+          console.error('Failed to load current user:', err);
+        }
+      });
+    });
+
+    this.authService.rolesBehaviorSubject.subscribe((userRoles) => {
+      this.userRoles = [...userRoles];
+      this.updateMenu(false);
+    });
+
+    this.authService.currentUserRoles();
   }
 
   protected toggleThemePreference() {
@@ -63,8 +98,8 @@ export class Navbar implements OnInit{
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
   }
 
-  private updateMenu() {
-    var currentLanguage = localStorage.getItem('lang') ?? Constants.fallbackLanguage;
+  private updateMenu(shouldTriggerReplaceState = true) {
+    var currentLanguage = localStorage.getItem('ISDox_lang') ?? Constants.fallbackLanguage;
     this.routeTranslationService.getRoutesForLanguage(currentLanguage);
     var urls = this.routeTranslationService.getUrlsForLanguage();
     var currentFlag = this.flagIconService.getFlagByLanguage(currentLanguage as LanguageEnum) ?? 'fi fi-us';
@@ -76,15 +111,26 @@ export class Navbar implements OnInit{
       },
       {
         label: this.translate.instant('navbar.documents'),
+        visible: this.authService.isLoggedIn() && (
+          this.userRoles.includes(UserRole.OPERATOR) ||
+          this.userRoles.includes(UserRole.REGISTRAR) ||
+          this.userRoles.includes(UserRole.SPECIALIST)),
         url: urls.get('documents')
       },
       {
         label: this.translate.instant('navbar.archive'),
+        visible: this.authService.isLoggedIn(),
         url: urls.get('archive')
       },
       {
         label: this.translate.instant('navbar.login'),
+        visible: !this.authService.isLoggedIn(),
         url: urls.get('login')
+      },
+      {
+        label: this.translate.instant('navbar.doxi'),
+        visible: this.authService.isLoggedIn(),
+        url: urls.get('doxi')
       },
       {
         icon: currentFlag,
@@ -102,26 +148,53 @@ export class Navbar implements OnInit{
                 command: () => {
                   this.updateLanguage(LanguageEnum.EN_US);
                 }
+            },
+            {
+              label: this.translate.instant('languages.hu'),
+                icon: 'fi fi-hu',
+                command: () => {
+                  this.updateLanguage(LanguageEnum.HU);
+                }
             }
         ]
+      }
+    ];
+
+    this.userMenuItems = [
+      {
+        label: this.translate.instant('navbar.profile'),
+        icon: 'pi pi-user',
+        visible: this.authService.isLoggedIn(),
+        command: () => {
+          this.router.navigate([urls.get('profile')]);
+        }
+      },
+      {
+        label: this.translate.instant('navbar.logout'),
+        icon: 'pi pi-sign-out',
+        visible: this.authService.isLoggedIn(),
+        command: () => {
+          this.authService.logout();
+          this.router.navigate([urls.get('home')]);
+        }
       }
     ];
     this.darkLabel = this.translate.instant('navbar.dark-mode');
     this.lightLabel = this.translate.instant('navbar.light-mode');
     this.modeLabel = this.isDarkMode ? this.darkLabel : this.lightLabel;
    
-    var canGetLastVisitedPageCookie = this.cookieService.check('lastVisitedPage');
+    var canGetLastVisitedPageCookie = this.cookieService.check('ISDox_lastVisitedPage');
     var lastVisitedPage = canGetLastVisitedPageCookie ? 
-      this.cookieService.get('lastVisitedPage')
+      this.cookieService.get('ISDox_lastVisitedPage')
       : Constants.defaultPage;
-    this.location.replaceState(urls.get(lastVisitedPage));
-    this.spinnerService.hide();
+    if (shouldTriggerReplaceState) {
+      this.location.replaceState(urls.get(lastVisitedPage));
+    }
   }
 
   private updateLanguage(lang: LanguageEnum) {
-    localStorage.setItem('lang', lang);
+    localStorage.setItem('ISDox_lang', lang);
     this.translate.use(lang);
-    this.spinnerService.show();
     this.updateMenu();
   }
 }

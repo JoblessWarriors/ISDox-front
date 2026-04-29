@@ -1,0 +1,104 @@
+<div class="flex m-12">
+  @if (isSuccess) {
+    <p-card class="w-full mx-16">
+      <div class="my-24 flex flex-col items-center text-center">
+        <div class="mb-8">
+          <i class="pi pi-check-circle text-8xl text-green-500"></i>
+        </div>
+        
+        <h1 class="text-4xl m-2">
+          <strong>{{successTitleLabel}}</strong>
+        </h1>
+        <p class="text-xl text-600 mx-10 mt-3 max-w-2xl">
+          {{successSubtitleLabel}}
+        </p>
+
+        <p-button 
+          [label]="backToDocumentsLabel" 
+          icon="pi pi-arrow-left" 
+          (onClick)="resetView()" 
+          styleClass="mt-12 p-button-lg p-button-outlined" />
+      </div>
+    </p-card>
+  }
+  @else if (selectedDossier != undefined) {
+    <p-card class="w-full mx-16">
+      <div class="my-16 flex flex-col items-center">
+          <h1 class="text-4xl m-2">
+            <strong>{{titleLabel}}</strong>
+          </h1>
+          <p class="text-center mx-10 mt-3">{{subtitleLabel}}</p>
+      </div>
+      <div class="w-full flex justify-center mt-0 pt-0">
+        <p-fileUpload 
+          mode="advanced"
+          [chooseLabel]="chooseButtonLabel"
+          [uploadLabel]="uploadButtonLabel"
+          [cancelLabel]="cancelButtonLabel"
+          [customUpload]="true"
+          name="demo[]"
+          accept="application/pdf,image/*" 
+          maxFileSize="1000000"
+          (uploadHandler)="onUpload($event)"
+          styleClass="p-button-lg p-button-raised">
+        </p-fileUpload>
+      </div>
+
+      <div class="my-4 mx-40 p-3 border-round border-1">
+        <p class="text-sm text-700 m-0">
+          <i class="pi pi-exclamation-triangle mr-2"></i>
+          <strong>{{attentionLabel}}</strong>
+          {{disclaimerLabel}}
+        </p>
+      </div>
+    </p-card>
+  }
+  @else {
+    <p-card class="w-full mx-16">
+      <div class="my-16 flex flex-col items-center">
+        <h1 class="text-4xl m-2"><strong>{{titleDossierLabel}}</strong></h1>
+        <p class="text-center mx-10 mt-3">{{subtitleDossierLabel}}</p>
+      </div>
+
+      <div class="flex flex-row justify-center gap-8 px-10 mb-10">
+        <div (click)="createNewDossier()" 
+          class="flex-1 cursor-pointer p-6 border-1 border-round
+            transition-all transition-duration-300 
+            hover:border-primary hover:scale-105 hover:shadow-6">
+          <div class="flex flex-col items-center text-center">
+          <i class="pi pi-plus-circle text-5xl text-primary mb-4"></i>
+            <h2 class="text-2xl font-bold mb-2">{{createDossierButtonLabel}}</h2>
+            <p class="text-600">{{createDossierSubtitleLabel}}</p>
+          </div>
+        </div>
+
+        <div (click)="chooseExistingDossier()" 
+          class="flex-1 cursor-pointer p-6 border-1 border-round
+            transition-all transition-duration-300 
+            hover:border-primary hover:scale-105 hover:shadow-6">
+          <div class="flex flex-col items-center text-center">
+            <i class="pi pi-folder-open text-5xl text-primary mb-4"></i>
+            <h2 class="text-2xl font-bold mb-2">{{chooseDossierButtonLabel}}</h2>
+            <p class="text-600">{{chooseDossierSubtitleLabel}}</p>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  }
+</div>
+<app-choose-dossier-dialog
+  [isVisible]="openChooseDossierSelection"
+  (closeModal)="openChooseDossierSelection=$event"
+  (selectedDossierEmitter)="selectedDossierEvent($event)"
+></app-choose-dossier-dialog>
+@if (document !== undefined) {
+  <app-confirm-document
+    [isVisible]="openConfirmDocument"
+    [file]="file"
+    [document]="document"
+    [selectedDossierStatus]="selectedDossierStatus"
+    (closeModal)="openConfirmDocument=$event"
+    (uploadedDocument)="uploadedDocument($event)"
+    (changeDossierStatus)="changedDossierStatusEvent($event)"
+  ></app-confirm-document>
+}

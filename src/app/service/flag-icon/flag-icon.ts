@@ -11,6 +11,8 @@ export class FlagIconService {
         return 'fi fi-ro';
       case LanguageEnum.EN_US:
         return 'fi fi-us';
+      case LanguageEnum.HU:
+        return 'fi fi-hu';
       default:
         return null;
     }

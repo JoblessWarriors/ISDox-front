@@ -1,0 +1,9 @@
+@if (userRoles.includes(UserRole.OPERATOR)) {
+    <app-documents></app-documents>
+}
+@else if (userRoles.includes(UserRole.REGISTRAR)) {
+    <app-document-register></app-document-register>
+}
+@else if (userRoles.includes(UserRole.SPECIALIST)) {
+    <app-document-solve></app-document-solve>
+}

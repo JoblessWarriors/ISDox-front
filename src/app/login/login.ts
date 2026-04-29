@@ -19,6 +19,9 @@ import { AuthService } from '../service/auth/auth-service';
 import { TokenRequest } from '../model/request/token-request.model';
 import { MessageService } from 'primeng/api';
 import { LogInError } from '../errors/login/log-in-error';
+import { Router } from '@angular/router';
+import { RouteTranslationService } from '../service/route-translation/route-translation-service';
+import { Constants } from '../constants';
 
 @Component({
   selector: 'app-login',
@@ -45,26 +48,31 @@ export class Login implements OnInit{
   private cookieService = inject(CookieService);
   private authService = inject(AuthService);
   private messageService = inject(MessageService);
+  private routeTranslationService = inject(RouteTranslationService);
+  private router = inject(Router)
 
   protected username: string = "";
   protected password: string = "";
 
-  protected usernameLabel: string = "";
-  protected passwordLabel: string = "";
-  protected connectLabel: string = "";
-  protected otherPartyConnectLabel: string = "";
-  protected buttonLabel: string = "";
-  protected subtitleLabel: string = "";
-  protected rightPanelQuestion: string = "";
-  protected rightPanelAnswer: string = "";
+  protected usernameLabel: string = '';
+  protected passwordLabel: string = '';
+  protected connectLabel: string = '';
+  protected otherPartyConnectLabel: string = '';
+  protected buttonLabel: string = '""';
+  protected subtitleLabel: string = '""';
+  protected rightPanelQuestion: string = '';
+  protected rightPanelAnswer: string = '';
+  protected emailUsLabel: string = '';
 
-  private truthyLogInTitleLabel: string = "";
+  private truthyLogInTitleLabel: string = '';
   private faultyLogInTitleLabel: string = '';
   private faultyLogInMessageLabel: string = '';
+  private supportEmailSubject: string = '';
+  private supportEmailBody: string = '';
 
   ngOnInit(): void {
-    this.cookieService.set('lastVisitedPage', PageEnum.LOGIN, 
-      { sameSite: 'Strict' });
+    this.cookieService.set('ISDox_lastVisitedPage', PageEnum.LOGIN, 
+      { path: '/', sameSite: 'Strict' });
       
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.spinnerService.show();
@@ -76,6 +84,7 @@ export class Login implements OnInit{
   }
 
   protected logIn() {
+    this.spinnerService.show();
     const logInRequest = {
       email: this.username,
       password: this.password
@@ -87,16 +96,36 @@ export class Login implements OnInit{
 
           this.cookieService.set('ISDox_access_token', response.token, 
             { expires: expirationDate, 
+              path: '/',
               sameSite: 'Strict'});
           this.messageService.add({ severity: 'success', summary: this.truthyLogInTitleLabel });
+          this.authService.currentUserRoles();
+          this.authService.loggedInBehaviorSubject.next(true);
         }
+        this.spinnerService.hide();
       },
       error: (err) => {
+        this.authService.loggedInBehaviorSubject.next(false);
         this.messageService.add({ severity: 'error', summary: this.faultyLogInTitleLabel , detail: this.faultyLogInMessageLabel });
+        this.spinnerService.hide();
         // TBA: Log instead of throwing
         throw new LogInError(err.error.error);
+      },
+      complete: () => {
+        var urls = this.routeTranslationService.getUrlsForLanguage();
+        this.router.navigate([urls.get(Constants.defaultPage)]);
       }
     });
+  }
+
+  protected contactSupport() {
+    const supportEmail = 'support@isdox.com';
+    const subject = encodeURIComponent(this.supportEmailSubject);
+    const body = encodeURIComponent(this.supportEmailBody);
+
+    const mailtoUrl = `mailto:${supportEmail}?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoUrl;
   }
 
   private updateLabels() {
@@ -111,6 +140,9 @@ export class Login implements OnInit{
     this.truthyLogInTitleLabel = this.translate.instant('login.truthy-login-title');
     this.faultyLogInMessageLabel = this.translate.instant('login.faulty-login-message');
     this.faultyLogInTitleLabel = this.translate.instant('login.faulty-login-title');
+    this.emailUsLabel = this.translate.instant('login.email-us');
+    this.supportEmailSubject = this.translate.instant('login.support-email-subject');
+    this.supportEmailBody = this.translate.instant('login.support-email-body');
     this.spinnerService.hide();
   }
 }

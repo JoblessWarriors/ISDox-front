@@ -1,0 +1,59 @@
+<p-dialog 
+    [(visible)]="isVisible" 
+    [modal]="true" 
+    [style]="{ width: '30rem' }" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    (onHide)="onDiscard()"
+    [header]="titleLabel">
+    
+    <ng-template #header>
+        <div class="flex flex-col">
+            <span class="font-bold whitespace-nowrap">{{ titleLabel }}</span>
+        </div>
+    </ng-template>
+
+    <span class="text-surface-500 dark:text-surface-400 block mb-6">
+        {{ descriptionLabel }}
+    </span>
+
+    <div class="flex flex-col items-center gap-6">
+        @if (selectedFile) {
+            <div class="relative">
+                <p-avatar 
+                    [image]="imagePreview!" 
+                    shape="circle" 
+                    size="xlarge"
+                    />
+            </div>
+        }
+        
+        <p-fileupload 
+            mode="basic" 
+            name="demo[]" 
+            chooseIcon="pi pi-upload" 
+            [auto]="true" 
+            accept=".jpg,.jpeg,.png,.webp"
+            [maxFileSize]="1000000" 
+            [chooseLabel]="uploadButtonLabel"
+            styleClass="p-button-outlined p-button-secondary"
+            (onSelect)="onFileSelect($event)" />
+            
+        <small class="text-surface-500 italic">{{ maxFileSizeLabel }}</small>
+    </div>
+
+    <ng-template #footer>
+        <p-button 
+            [label]="discardButtonLabel" 
+            [outlined]="true" 
+            [text]="true" 
+            severity="secondary" 
+            (onClick)="onDiscard()" />
+        
+        <p-button 
+            [label]="saveButtonLabel" 
+            [outlined]="true" 
+            severity="primary" 
+            [disabled]="!selectedFile"
+            (onClick)="onUpload()" />
+    </ng-template>
+</p-dialog>

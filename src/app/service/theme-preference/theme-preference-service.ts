@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ThemePreferenceService {
   initializeTheme() {
-    const savedTheme = localStorage.getItem('user-theme');
+    const savedTheme = localStorage.getItem('ISDox_user_theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
@@ -19,6 +19,6 @@ export class ThemePreferenceService {
     const element = document.documentElement;
     const isDark = element.classList.toggle('dark');
 
-    localStorage.setItem('user-theme', isDark ? 'dark' : 'light');
+    localStorage.setItem('ISDox_user_theme', isDark ? 'dark' : 'light');
   }
 }

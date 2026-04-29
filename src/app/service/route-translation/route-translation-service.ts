@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Constants } from '../../constants';
 import { Routes } from '@angular/router';
+import { loggedInGuardGuard } from '../../guards/logged-in/logged-in-guard-guard';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class RouteTranslationService {
   private availableLangs = Constants.availableLanguages;
   private availableEndpoints = Constants.availableEndpoints;
   private endpointComponentMapping = Constants.endpointComponentMapping;
+  private endpointLoggedInGuardMapping = Constants.endpointLoggedInGuardMapping;
 
   private currentLanguageUrls = new Map();
 
@@ -43,9 +45,14 @@ export class RouteTranslationService {
     this.availableEndpoints.forEach((endpoint) => {
       var currentEndpoint = `${lang}/${currentLanguageData[endpoint]}`
       this.currentLanguageUrls.set(endpoint, currentEndpoint);
+      var canActivateFuncs = [];
+      if (this.endpointLoggedInGuardMapping.get(endpoint)) {
+        canActivateFuncs.push(loggedInGuardGuard);
+      }
       routes.push({
         path: currentEndpoint,
-        component: this.endpointComponentMapping.get(endpoint)
+        component: this.endpointComponentMapping.get(endpoint),
+        canActivate: canActivateFuncs.length > 0 ? canActivateFuncs : undefined
       });
       redirectTo.set(endpoint, currentEndpoint);
 
@@ -57,6 +64,10 @@ export class RouteTranslationService {
         });
       });
     });
+
+    const defaultPath = currentLanguageData[Constants.defaultPage] ? `${lang}/${currentLanguageData[Constants.defaultPage]}` : `${lang}/home`;
+    routes.push({ path: '', redirectTo: defaultPath, pathMatch: 'full' });
+    routes.push({ path: '**', redirectTo: defaultPath });
     return routes;
   }
 

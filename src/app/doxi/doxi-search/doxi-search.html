@@ -1,0 +1,144 @@
+<p-card class="mx-8 my-4">
+  <div class="flex flex-col gap-6">
+    <h1 class="text-3xl font-bold border-b pb-4">{{searchTitleLabel}}</h1>
+
+    <div class="flex flex-wrap gap-4 p-6 bg-surface-50 border-round align-items-end">
+        
+        <div class="flex-grow-1 flex-basis-0">
+            <p-datepicker [(ngModel)]="filters.dateRange" selectionMode="range" [showIcon]="true" 
+                        [placeholder]="dataRangeFilterPlaceholderLabel" styleClass="w-full" />
+        </div>
+
+        <div class="flex-grow-1 flex-basis-0">
+            <p-select [options]="departments" [(ngModel)]="selectedDepartment" optionLabel="name" 
+                    [placeholder]="departmentSelectPlaceholderLabel" [showClear]="true" styleClass="w-full" />
+        </div>
+
+        <div class="flex-grow-1 flex-basis-0">
+            <p-float-label variant="on">
+            <input pInputText id="regNum" [(ngModel)]="metadataFilters.registrationNumber" class="w-full" />
+            <label for="regNum">{{registrationNumberFilterPlaceholderLabel}}</label>
+            </p-float-label>
+        </div>
+
+        <div class="flex-grow-1 flex-basis-0">
+            <p-float-label variant="on">
+            <input pInputText id="cnp" [(ngModel)]="metadataFilters.cnp" class="w-full" />
+            <label for="cnp">{{identityNumberFilterPlaceholderLabel}}</label>
+            </p-float-label>
+        </div>
+
+        <div class="flex-grow-1 flex-basis-0">
+            <p-float-label variant="on">
+            <input pInputText id="name" [(ngModel)]="metadataFilters.name" class="w-full" />
+            <label for="name">{{nameFilterPlaceholderLabel}}</label>
+            </p-float-label>
+        </div>
+
+        <div class="flex gap-2 flex-none ml-auto">
+            <p-button [label]="searchButtonLabel" icon="pi pi-search" (onClick)="onSearch()" />
+            <p-button icon="pi pi-refresh" severity="secondary" [outlined]="true" (onClick)="onClean()" />
+        </div>
+        </div>
+  </div>
+
+  <div class="mt-8">
+    <p-tree [value]="filteredDossiers" selectionMode="single" class="w-full border-none" />
+    
+    @if (searchPerformed && filteredDossiers.length === 0) {
+      <div class="text-center p-10 bg-surface-50 border-round">
+        <i class="pi pi-search-plus text-4xl text-surface-300 mb-4"></i>
+        <p class="text-surface-500 italic">{{noDossiersLabel}}</p>
+      </div>
+    }
+  </div>
+
+  <div class="mt-12 flex flex-col items-center gap-4">
+    <p-divider class="w-full" />
+    <div class="flex flex-col items-center">
+      <div class="relative">
+         <p-button 
+            [label]="doxiButtonLabel" 
+            icon="pi pi-sparkles" 
+            rounded="true" 
+            severity="help" 
+            size="large"
+            (onClick)="openDoxi()"
+            class="shadow-lg" />
+         <span class="absolute -top-1 -right-1 flex h-3 w-3">
+           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+           <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+         </span>
+      </div>
+      <p class="mt-2 text-xs text-surface-400 uppercase font-bold tracking-widest italic">{{poweredByDoxiLabel}}</p>
+    </div>
+  </div>
+</p-card>
+
+<div class="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 pointer-events-none">
+    
+    @if (isDoxiVisible) {
+        <div class="pointer-events-auto w-96 animate-fade-in-up" style="height: 480px;">
+            
+            <p-card styleClass="h-full flex flex-col overflow-hidden border border-surface-200 shadow-2xl">
+                
+                <ng-template pTemplate="header">
+                    <div class="p-4 flex justify-between items-center border-b border-surface-100">
+                        <div class="flex items-center gap-2">
+                            <div class="relative">
+                                <i class="pi pi-sparkles text-primary"></i>
+                                <span class="absolute -top-1 -right-1 flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                </span>
+                            </div>
+                            <span class="font-bold text-sm">{{doxiNameLabel}}</span>
+                        </div>
+                        <p-button icon="pi pi-times" [text]="true" (onClick)="isDoxiVisible = false" styleClass="p-0 h-6 w-6"></p-button>
+                    </div>
+                </ng-template>
+
+                <div id="chat-container" class="h-[300px] overflow-y-auto flex flex-col gap-4 p-1">
+                    @for (msg of chatMessages; track $index) {
+                        <div [class]="msg.sender == undefined ? 'flex justify-start' : 'flex justify-end'">
+                            <div [class]="msg.sender == undefined
+                                ? 'bg-surface-100 border border-surface-200 rounded-2xl rounded-tl-none' 
+                                : 'bg-primary text-primary-contrast rounded-2xl rounded-tr-none'"
+                                class="max-w-[85%] p-3 text-sm shadow-sm">
+                                {{msg.text}}
+                            </div>
+                        </div>
+                    }
+
+                    @if (isDoxiTyping) {
+                        <div class="flex justify-start pt-2">
+                            <div class="bg-surface-100 border border-surface-200 px-4 py-3 rounded-2xl rounded-tl-none flex items-center gap-2 min-h-[40px]">
+                                <span class="dot-animation" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: #00ffd4;"></span>
+                                <span class="dot-animation" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: #00ffd4; animation-delay: 0.2s"></span>
+                                <span class="dot-animation" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: #00ffd4; animation-delay: 0.4s"></span>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <ng-template pTemplate="footer">
+                    <div class="flex gap-2 pt-2 border-t border-surface-100">
+                        <input 
+                            pInputText 
+                            [(ngModel)]="userMessage" 
+                            (keyup.enter)="sendMessage()"
+                            [placeholder]="askInputPlaceholderLabel" 
+                            class="flex-1 text-sm p-2 border-round-xl" />
+                        <p-button 
+                            icon="pi pi-send" 
+                            (onClick)="sendMessage()"
+                            [disabled]="!userMessage.trim() || isDoxiTyping"
+                            styleClass="rounded-xl">
+                        </p-button>
+                    </div>
+                </ng-template>
+
+            </p-card>
+        </div>
+    }
+</div>

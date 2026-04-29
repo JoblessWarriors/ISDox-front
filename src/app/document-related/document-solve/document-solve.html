@@ -1,0 +1,76 @@
+<p-card class="mx-16 my-4">
+    <div class="mb-8 flex flex-col items-center">
+        <h1 class="text-4xl m-2">
+        <strong>{{titleLabel}}</strong>
+        </h1>
+        <p class="text-center mx-10 mt-3 text-surface-500">{{subtitleLabel}}</p>
+        <div class="mt-6 w-full max-w-md flex flex-col gap-2">
+        <label class="font-bold text-sm uppercase text-surface-500 text-center">
+            {{workingForDepartmentLabel}}
+        </label>
+        <p-select 
+            [options]="departments" 
+            [(ngModel)]="selectedDepartment"
+            (onChange)="onDepartmentChange($event)"
+            optionLabel="name"
+            [placeholder]="selectDepartmentPlaceholderLabel"
+            class="w-full" />
+        </div>
+    </div>
+    @if (selectedDepartment) {
+        <p-tabs [value]="0">
+        <p-tablist>
+        <p-tab [value]="0">
+            <i class="pi pi-check-circle mr-2"></i>
+            {{registeredTabLabel}}
+        </p-tab>
+        <p-tab [value]="1">
+            <i class="pi pi-spinner mr-2"></i>
+            {{inWorkTabLabel}}
+        </p-tab>
+        </p-tablist>
+
+        <p-tabpanels>
+        <p-tabpanel [value]="0">
+            <p-tree 
+            [value]="registeredDossiers" 
+            selectionMode="single" 
+            [(selection)]="selectedNode" 
+            (onNodeSelect)="onNodeSelect($event)"
+            class="w-full">
+            </p-tree>
+            @if (registeredDossiers.length === 0) {
+            <div class="text-center p-5 text-surface-400">No registered dossiers found.</div>
+            }
+        </p-tabpanel>
+
+        <p-tabpanel [value]="1">
+            <p-tree 
+            [value]="inWorkDossiers" 
+            selectionMode="single" 
+            [(selection)]="selectedNode" 
+            (onNodeSelect)="onNodeSelect($event)"
+            class="w-full">
+            </p-tree>
+            @if (inWorkDossiers.length === 0) {
+            <div class="text-center p-5 text-surface-400">No dossiers currently in work.</div>
+            }
+        </p-tabpanel>
+        </p-tabpanels>
+    </p-tabs>
+    }
+    @else {
+        <div class="flex flex-col items-center justify-center p-16 border-2 border-dashed border-surface-200 rounded-lg">
+            <i class="pi pi-building text-4xl text-surface-300 mb-4"></i>
+            <p class="text-surface-400">{{selectDepartmentToViewDossiersLabel}}</p>
+        </div>
+    }
+</p-card>
+@if (currentDraft) {
+    <app-solve-dossier-dialog
+        [dossier]="currentDraft.data"
+        [isVisible]="openSolveDossier"
+        (closeModal)="openSolveDossier=$event"
+        (solvedDossierEmitter)="solvedDossierEvent($event)"
+    ></app-solve-dossier-dialog>
+}

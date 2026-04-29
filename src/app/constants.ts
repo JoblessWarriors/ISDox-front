@@ -1,27 +1,39 @@
 import { Type } from "@angular/core";
-import { Archive } from "./archive/archive";
-import { Documents } from "./documents/documents";
 import { Home } from "./home/home";
 import { Login } from "./login/login";
-import { Profile } from "./profile/profile";
+import { environment } from "../environments/environment";
+import { Profile } from "./profile-related/profile/profile";
+import { DocumentLayout } from "./document-related/document-layout/document-layout";
+import { Archive } from "./archive-related/archive/archive";
+import { DoxiSearch } from "./doxi/doxi-search/doxi-search";
 
 export class Constants {
     static defaultPage = 'home';
-    static availableLanguages: string[] = ['en-US', 'ro'];
+    static availableLanguages: string[] = ['en-US', 'ro', 'hu'];
     static fallbackLanguage: string = 'en-US';
     static availableEndpoints: string[] = [
         'home',
         'documents',
         'archive',
         'profile',
-        'login'
+        'login',
+        'doxi'
     ];
     static readonly endpointComponentMapping = new Map<string, Type<any>>([
         ['home', Home],
-        ['documents', Documents],
+        ['documents', DocumentLayout],
         ['archive', Archive],
         ['profile', Profile],
-        ['login', Login]
+        ['login', Login],
+        ['doxi', DoxiSearch]
     ]);
-    static baseUrl: string = '/backendApi';
+    static readonly endpointLoggedInGuardMapping = new Map<string, boolean>([
+        ['home', false],
+        ['documents', true],
+        ['archive', true],
+        ['profile', true],
+        ['login', false],
+        ['doxi', true]
+    ]);
+    static baseUrl: string = environment.apiUrl;
 }
