@@ -3,5 +3,6 @@ export enum PageEnum {
     DOCUMENTS = 'documents',
     LOGIN = 'login',
     ARCHIVE = 'archive',
-    PROFILE = 'profile'
+    PROFILE = 'profile',
+    DOXI = 'doxi'
 }

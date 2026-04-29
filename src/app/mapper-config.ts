@@ -12,6 +12,8 @@ import { UserRole } from "./model/user/user-role";
 import { User } from "./model/user/user.model";
 import { FraudRiskLevel } from "./model/document/fraud-risk-level";
 import { TreeNode } from "primeng/api";
+import { ChatMessage } from "./model/chat-message/chat-message.model";
+import { ChatMessageMapping } from "./model/chat-message/chat-message-mapping.model";
 
 export const initializeMappings = () => {
     Mapper.register<User, UserMapping>('UserToMapping', (u) => ({
@@ -68,10 +70,20 @@ export const initializeMappings = () => {
 
     Mapper.register<DossierMapping, TreeNode>('DossierMappingToTreeNode', (m) => ({
         key: m.id,
-        label: `${m.documents[0].originalFilename} - ${m.status} - ID: ${m.id}`,
+        label: m.documents?.[0]?.originalFilename ? `${m.documents[0].originalFilename} - ${m.status} - ID: ${m.id}` : `Dossier - ${m.status} - ID: ${m.id}`,
         data: m,
         icon: 'pi pi-folder',
         children: m.documents?.map(doc => Mapper.map('DocumentMappingToTreeNode', doc)) || [],
         expanded: false
-    }))
+    }));
+
+    Mapper.register<ChatMessage, ChatMessageMapping>('ChatMessageToMapping', (c) => ({
+        ...c,
+        referencedDossiers: c.dossiers?.map(dossier => Mapper.map("DossierToMapping", dossier)) as DossierMapping[]
+    }));
+
+    Mapper.register<ChatMessageMapping, ChatMessage>('MappingToChatMessage', (m) => ({
+        ...m,
+        dossiers: m.referencedDossiers?.map(ref => Mapper.map("MappingToDossier", ref)) as Dossier[]
+    }));
 };

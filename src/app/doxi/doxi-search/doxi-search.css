@@ -1,0 +1,15 @@
+/* Component CSS */
+.dot-animation {
+  animation: doxi-dot-jump 1.4s infinite ease-in-out both !important;
+}
+
+@keyframes doxi-dot-jump {
+  0%, 80%, 100% { 
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% { 
+    transform: scale(1.1) translateY(-4px);
+    opacity: 1;
+  }
+}

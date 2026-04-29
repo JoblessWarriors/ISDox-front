@@ -128,6 +128,11 @@ export class Navbar implements OnInit{
         url: urls.get('login')
       },
       {
+        label: this.translate.instant('navbar.doxi'),
+        visible: this.authService.isLoggedIn(),
+        url: urls.get('doxi')
+      },
+      {
         icon: currentFlag,
         items: [
             {
