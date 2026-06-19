@@ -22,6 +22,7 @@ import { UserService } from '../../service/user/user-service';
 import { UserMapping } from '../../model/user/user-mapping.model';
 import { Mapper } from '../../model/mapper/mapper';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../service/auth/auth-service';
 
 @Component({
   selector: 'app-admin-create-dialog',
@@ -52,6 +53,7 @@ export class AdminCreateDialog implements OnChanges {
   private departmentService = inject(DepartmentService);
   private userService = inject(UserService);
   private messageService = inject(MessageService);
+  private authService = inject(AuthService);
 
   protected titleLabel: string = '';
   protected nameLabel: string = '';
@@ -104,8 +106,7 @@ export class AdminCreateDialog implements OnChanges {
       identityType: IdentityType[Number(this.selectedIdentityType.code)],
       identityNumber: this.user.identityNumber,
       departmentIds: this.selectedDepartments.map(department => department.id),
-      roles: this.selectedUserRoles.map(role => UserRole[role.code]),
-      institutionId: "7bdee88f-4ad9-4b18-92c8-06f504414d79"
+      roles: this.selectedUserRoles.map(role => UserRole[role.code])
     } as UserMapping;
     this.userService.createUser(createdUser).subscribe({
       next: (response) => {
